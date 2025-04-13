@@ -9,18 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('vehicules', function (Blueprint $table) {
             $table->id();
+            $table->integer('model_id')->nullable();
+            $table->date('annee_fabrication')->nullable();
+            $table->year('year')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('vehicules');
     }

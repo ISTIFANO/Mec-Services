@@ -2,7 +2,7 @@
 namespace App\Repository\Interfaces;
 
 
-interface BookingInterface{
+interface OffreInterface{
 
 
 
