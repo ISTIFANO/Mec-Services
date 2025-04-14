@@ -9,4 +9,15 @@ class Tag extends Model
 {
     /** @use HasFactory<\Database\Factories\TagFactory> */
     use HasFactory;
+
+
+
+
+
+
+    public function offres(){
+
+        return $this->belongsToMany(Offre::class);
+
+    }
 }

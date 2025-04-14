@@ -11,7 +11,11 @@ class RoleRepository implements RoleInterface{
 
 
 
+    public function findbyOne(){
 
+
+        
+    }
 
 
 

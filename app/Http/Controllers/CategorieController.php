@@ -9,18 +9,18 @@ use App\Repository\CategorieRepository;
 
 class CategorieController extends Controller
 {
-    protected CategorieRepository $categorie_repository;
+    // protected CategorieRepository $categorie_repository;
 
-    public function __construct(CategorieRepository $categorie_repository)
-    {
-        $this->categorie_repository->$categorie_repository;
-    }
+    // public function __construct(CategorieRepository $categorie_repository)
+    // {
+    //     $this->categorie_repository->$categorie_repository;
+    // }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view("Admin.Categorie");
     }
 
     /**

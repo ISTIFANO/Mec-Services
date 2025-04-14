@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Role;
+use App\Models\Commentaire;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -33,6 +35,24 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    
+    public function position(){
+
+        return $this->belongsTo(Position::class,'position_id');
+
+    }
+
+    public function role(){
+
+        return $this->belongsTo(Role::class,'role_id');
+
+    }
+
+    public function commanentaire(){
+
+        return $this->hasMany(Commentaire::class);
+
+    }
     /**
      * Get the attributes that should be cast.
      *

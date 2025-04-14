@@ -9,4 +9,24 @@ class Categorie extends Model
 {
     /** @use HasFactory<\Database\Factories\CategorieFactory> */
     use HasFactory;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function offres(){
+
+        return $this->hasMany(Offre::class);
+
+    }
 }

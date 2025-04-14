@@ -10,7 +10,34 @@ class TagRepository implements TagInterface{
 
 
 
+    public function create(){
 
+
+        
+    }
+    public function delete(){
+
+
+        
+    }
+    
+    
+    public function update(){
+
+
+        
+    }
+    public function     afficher(){
+
+
+        
+    }
+    
+    public function findbyOne(){
+
+
+        
+    }
 
 
 
