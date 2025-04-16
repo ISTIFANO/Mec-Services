@@ -6,14 +6,15 @@ use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Repository\ServiceRepository;
+use App\Services\IService;
 
 class ServiceController extends Controller
 {
-    protected ServiceRepository $service_repository;
+    protected IService $service;
 
-    public function __construct(ServiceRepository $service_repository)
+    public function __construct(IService $service)
     {
-        $this->service_repository->$service_repository;
+        $this->$service->$service;
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +22,7 @@ class ServiceController extends Controller
     public function index()
     {
         //
-    }
+    }       
 
     /**
      * Show the form for creating a new resource.

@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Categorie;
 use App\Http\Requests\StoreCategorieRequest;
 use App\Http\Requests\UpdateCategorieRequest;
-use App\Repository\CategorieRepository;
+use App\Repository\Interfaces\CategorieInterface;
+use Illuminate\Support\Facades\Log;
 
 class CategorieController extends Controller
 {
-    // protected CategorieRepository $categorie_repository;
+    protected CategorieInterface $categorie_repository;
 
-    // public function __construct(CategorieRepository $categorie_repository)
-    // {
-    //     $this->categorie_repository->$categorie_repository;
-    // }
+    public function __construct(CategorieInterface $categorie_repository)
+    {
+        $this->categorie_repository->$categorie_repository;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -23,28 +25,50 @@ class CategorieController extends Controller
         return view("Admin.Categorie");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreCategorieRequest $request)
     {
-        //
+        try {
+            $this->categorie_repository->create($request->validated());
+
+            session()->flash('succMessage', 'Categorie created successfully!');
+
+            return redirect()->route('categories.index');
+        
+            return back();
+
+
+        } catch (Exception $e) {
+
+            Log::error($e->getMessage());
+
+            session()->flash('ErrMessage', ' category has a problemes.');
+
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Categorie $categorie)
+    public function show()
     {
-        //
+        try {
+        $categorie =    $this->categorie_repository->show();
+
+        return redirect()->route('Admin.Categorie', compact('categorie'));
+
+            return back();
+
+        } catch (Exception $e) {
+
+            Log::error($e->getMessage());
+
+            return redirect()->back();
+        }
     }
 
     /**
@@ -52,22 +76,55 @@ class CategorieController extends Controller
      */
     public function edit(Categorie $categorie)
     {
-        //
+     
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategorieRequest $request, Categorie $categorie)
+    public function update(UpdateCategorieRequest $request)
     {
-        //
-    }
+        try {
+            $this->categorie_repository->update($request->validated());
+
+            session()->flash('succMessage', 'Categorie updated successfully!');
+
+            return redirect()->route('categories.index');
+        
+            return back();
+
+
+        } catch (Exception $e) {
+
+            Log::error($e->getMessage());
+
+            session()->flash('ErrMessage', ' category has a problemes.');
+
+            return redirect()->back()->withInput();
+        }   
+     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Categorie $categorie)
+    public function destroy($id)
     {
-        //
+        try {
+            
+            $this->categorie_repository->delete($id);
+
+            session()->flash('succMessage', 'Categorie deleted  successfully!');
+        
+            return back();
+
+
+        } catch (Exception $e) {
+
+            Log::error($e->getMessage());
+
+            session()->flash('ErrMessage', ' category has a problemes.');
+
+            return redirect()->back()->withInput();
+        }
     }
 }

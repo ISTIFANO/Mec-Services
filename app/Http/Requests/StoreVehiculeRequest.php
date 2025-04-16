@@ -11,7 +11,7 @@ class StoreVehiculeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreVehiculeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-        ];
+            "year"=>"required|max:255",
+            "annee_fabrication"=>"required|max:255"
+            ,"model"=>"required|max:255"        ];
     }
 }

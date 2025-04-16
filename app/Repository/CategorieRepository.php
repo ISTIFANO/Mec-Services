@@ -24,6 +24,12 @@ class CategorieRepository implements CategorieInterface{
 
         return $Categorie;
     }
+    public function create($data){
+    
+        $Categorie = $this->Categorie->create(["name"=>$data , "description"=>$data->description , "image" => $data->image]);
+    
+    return $Categorie;
+    }
 
     public function delete($id)
     {

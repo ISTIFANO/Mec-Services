@@ -11,7 +11,7 @@ class UpdateCategorieRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateCategorieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-        ];
+            "nom"=>"required|max:255",
+            "description"=>"required|max:255"
+            ,"image"=>"required|max:255"        ];
     }
 }

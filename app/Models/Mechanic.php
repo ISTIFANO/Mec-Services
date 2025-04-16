@@ -9,4 +9,5 @@ class Mechanic extends Model
 {
     /** @use HasFactory<\Database\Factories\MechanicFactory> */
     use HasFactory;
+
 }

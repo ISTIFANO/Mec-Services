@@ -20,4 +20,8 @@ class Tag extends Model
         return $this->belongsToMany(Offre::class);
 
     }
+
+    
+
+
 }
