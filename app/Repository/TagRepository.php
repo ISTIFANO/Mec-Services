@@ -27,7 +27,7 @@ class TagRepository implements TagInterface{
 
         
     }
-    public function     afficher(){
+    public function show(){
 
 
         

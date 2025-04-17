@@ -39,9 +39,14 @@ class VehiculeRepository implements VehiculeInterface{
         return $vehicule;
         
     }
+<<<<<<< Updated upstream
     public function show()
     {
         $vehicule = Vehicule::all();
+=======
+    public function  show(){
+
+>>>>>>> Stashed changes
 
         return $vehicule;
         

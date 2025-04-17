@@ -11,7 +11,7 @@ class UserRepository implements UserInterface{
 
 
 
-    public function create(){
+    public function create($data){
 
 
         
@@ -28,13 +28,13 @@ class UserRepository implements UserInterface{
 
         
     }
-    public function     afficher(){
+    public function  show(){
 
 
         
     }
     
-    public function findbyOne(){
+    public function findbyOne($name){
 
 
         

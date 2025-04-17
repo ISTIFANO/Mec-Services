@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Repository\Interfaces\UserInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+
+    public function  __construct(protected UserInterface $user_repositery)
+    {
+        $this->user_repositery = $user_repositery;
+    }
     public function login(Request $request)
     {
 
@@ -17,7 +24,6 @@ class AuthController extends Controller
 
         $user = User::where("email", $request["email"])->first();
 
-        // if (!$user || !Hash::check($request['password'], $user->password)) {
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
             return response()->json(["message" => "Not woking"]);
@@ -28,21 +34,20 @@ class AuthController extends Controller
         return $user;
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
+        Auth::logout();
 
-        // auth()->user()->delete();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-
-        return redirect("/");
+        return redirect('/');
     }
 
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
 
-        $validation =   $request->validate(["firstname" => "required", "lastname" => "required", "email" => "required", "password" => "required"]);
-
-        if (!$validation) {
+        if (!$request->validated()) {
             return response()->json(["message" => "Not woking"]);
         }
 
@@ -50,14 +55,8 @@ class AuthController extends Controller
 
         $data['password'] = bcrypt($data['password']);
 
-        $user = User::create($data);
-
-
-
-
-
-
-    
-        return $user;
+        $this->user_repositery->create($data);
+        
+        return redirect("/login");
     }
 }

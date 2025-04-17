@@ -52,7 +52,7 @@
     </style>
 </head>
 <body class="text-gray-800">
-<nav class="bg-gray-900 text-white shadow-sm">
+<nav class="bg-gray-900 h-[141px] flex items-center text-white shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex items-center">
