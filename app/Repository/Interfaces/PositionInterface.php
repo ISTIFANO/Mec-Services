@@ -1,9 +1,12 @@
 <?php 
+
 namespace App\Repository\Interfaces;
 
+interface PositionInterface{
+    
 
 
-interface ReviewInterface{
+
 
 
     public function show();
@@ -12,13 +15,13 @@ interface ReviewInterface{
     
     public function delete($id);
     public function update($data, $id);
-    
+
+
+
+
+
+
 }
-
-
-
-
-
 
 
 

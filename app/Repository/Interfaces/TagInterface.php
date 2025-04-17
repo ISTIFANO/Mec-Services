@@ -7,11 +7,11 @@ interface TagInterface{
 
 
     public function show();
-    public function create();
+    public function create($data);
     
     
-    public function delete();
-    public function update();
+    public function delete($id);
+    public function update($data, $id);
     
 }
 
