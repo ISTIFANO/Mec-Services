@@ -85,7 +85,7 @@ class CategorieController extends Controller
     public function update(UpdateCategorieRequest $request)
     {
         try {
-            $this->categorie_repository->update($request->validated());
+            $this->categorie_repository->update($request->validated(),$request->id);
 
             session()->flash('succMessage', 'Categorie updated successfully!');
 

@@ -13,10 +13,6 @@ use App\Repository\Interfaces\OffreInterface;
 class OffreRepository implements OffreInterface{
 
 
-   
-
-
-
     public function create(Categorie $categorie , Tag $tag , User $user , Vehicule $vehicule , $data){
 
         $offres = new Offre();
