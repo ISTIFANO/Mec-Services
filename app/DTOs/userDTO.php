@@ -13,9 +13,9 @@ public static function  User(User $user){
     'id'=>$user->id,
     'firstname' =>$user->firstname,
     'lastname'=>$user->lastname,
-    'numero' =>$user->numero,
+    'phone' =>$user->phone,
     'image' => $user->image,
-    
+    'email' => $user->email
 ];
     
 }

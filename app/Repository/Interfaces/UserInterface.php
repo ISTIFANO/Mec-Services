@@ -7,29 +7,17 @@ interface UserInterface{
 
 
 
-    public function create($data);
+    public function create($data,$role);
 public function delete();
 
 
-public function update();
+public function update($data,$id);
 public function     show();
 
 public function findbyOne($name);
+public function findByFields($email);
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ?>

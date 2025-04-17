@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
-            $table->integer('phone')->unique();
             $table->string('email')->unique();
             $table->string('password');
+            $table->integer('phone')->unique();
             $table->float('rating')->nullable();
             $table->boolean('est_service')->default(false);
-            $table->string('photo')->nullable();
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

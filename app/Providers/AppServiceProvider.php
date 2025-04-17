@@ -18,6 +18,12 @@ use App\Repository\Interfaces\MessageInterface;
 use App\Repository\Interfaces\ServiceInterface;
 use App\Repository\Interfaces\VehiculeInterface;
 use App\Repository\Interfaces\CategorieInterface;
+use App\Repository\Interfaces\RoleInterface;
+use App\Repository\RoleRepository;
+use App\Services\Implimentation\RoleService;
+use App\Services\Implimentation\UserService;
+use App\Services\IRole;
+use App\Services\IUser;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +39,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ServiceRepository::class,ServiceInterface::class);
         $this->app->bind(VehiculeInterface::class,VehiculeRepository::class);
         $this->app->bind(IService::class,S_Service::class);
+        $this->app->bind(IRole::class,RoleService::class);
+        $this->app->bind(IUser::class,UserService::class);
+        $this->app->bind(RoleInterface::class,RoleRepository::class);
+
+    
 
         
 
