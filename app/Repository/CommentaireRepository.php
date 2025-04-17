@@ -47,7 +47,7 @@ return $commentaire;
     public function findbyOne($keyword){
 
 
-        $commentaire = Commentaire::where("contenu","like","%$keyword%") ;
+        $commentaire = Commentaire::where("contenu","like","%$keyword%");
 
         return $commentaire;
         
