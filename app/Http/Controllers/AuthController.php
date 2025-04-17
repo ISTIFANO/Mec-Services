@@ -2,36 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use App\Repository\Interfaces\UserInterface;
+use App\DTOs\userDTO;
+use App\Http\Requests\LoginRequest;
+use App\Services\IUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
-
-    public function  __construct(protected UserInterface $user_repositery)
+    public function  __construct(protected IUser $user_service)
     {
-        $this->user_repositery = $user_repositery;
+        $this->user_service = $user_service;
     }
-    public function login(Request $request)
+
+    public function login(LoginRequest $request)
     {
 
 
-        $request->validate(["email" => "required", "password" => "required"]);
+        if (!$request->validated()) {
 
-
-        $user = User::where("email", $request["email"])->first();
-
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-
-            return response()->json(["message" => "Not woking"]);
+            return back();
         }
 
 
 
-        return $user;
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+
+            return response()->json(["message" => "Not woking"]);
+        }
+
+        $user = $this->user_service->findByFields($request->email);
+
+
+        return userDTO::User($user);
     }
 
     public function logout(Request $request)
@@ -55,8 +60,8 @@ class AuthController extends Controller
 
         $data['password'] = bcrypt($data['password']);
 
-        $this->user_repositery->create($data);
-        
+        $this->user_service->create($data);
+
         return redirect("/login");
     }
 }

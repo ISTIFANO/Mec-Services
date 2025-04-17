@@ -10,19 +10,19 @@ class TagRepository implements TagInterface{
 
 
 
-    public function create(){
+    public function create($data){
 
 
         
     }
-    public function delete(){
+    public function delete($id){
 
 
         
     }
     
     
-    public function update(){
+    public function update($data,$id){
 
 
         

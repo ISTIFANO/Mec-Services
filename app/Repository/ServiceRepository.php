@@ -11,30 +11,30 @@ class ServiceRepository implements ServiceInterface{
 
 
 
-    public function create(){
+    public function create($data){
 
 
         
     }
-    public function delete(){
-
-
-        
-    }
-    
-    
-    public function update(){
-
-
-        
-    }
-    public function     afficher(){
+    public function delete($id){
 
 
         
     }
     
-    public function findbyOne(){
+    
+    public function update($data,$id){
+
+
+        
+    }
+    public function  show(){
+
+
+        
+    }
+    
+    public function findbyOne($name){
 
 
         

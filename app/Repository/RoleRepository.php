@@ -2,17 +2,36 @@
 
 namespace App\Repository;
 
+use App\Models\Role;
 use App\Repository\Interfaces\RoleInterface;
 
 
 class RoleRepository implements RoleInterface{
 
 
+    public function create($data){
 
 
+        $role = new Role();
+        $role->name = $data['name'];
+        $role->save();
+        return   $role;
+    }
 
-    public function findbyOne(){
 
+public function update($data,$id){
+
+    $role = Role::where("name","=",$id)->update($data);
+
+    return $role;
+
+
+}
+    public function FindByName($name){
+
+        $role = Role::where("name","=",$name)->first();
+
+        return $role;
 
         
     }
