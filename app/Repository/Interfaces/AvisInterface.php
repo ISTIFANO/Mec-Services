@@ -3,7 +3,7 @@ namespace App\Repository\Interfaces;
 
 
 
-interface ReviewInterface{
+interface AvisInterface{
 
 
     public function show();
