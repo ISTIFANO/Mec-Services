@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Services\Implimentation;
 use App\Repository\Interfaces\ServiceInterface;
 use Exception;
 use App\Services\IService;
@@ -30,12 +30,11 @@ class S_Service implements IService
     public function store($data)
     {
         try {
-            $service =       $this->service_repository->create($data);
+            $service = $this->service_repository->create($data);
 
 
             return $service;
 
-            return back();
         } catch (Exception $e) {
 
             Log::error($e->getMessage());

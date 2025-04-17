@@ -8,11 +8,11 @@ interface VehiculeInterface{
 
 
     public function show();
-public function create();
+public function create($date);
 
 
-public function delete();
-public function update();
+public function update($date,$id);
+public function delete($id);
 }
 
 

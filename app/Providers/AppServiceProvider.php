@@ -2,21 +2,22 @@
 
 namespace App\Providers;
 
-use App\Models\Message;
-use App\Repository\BookingRepository;
+
+use App\Models\Service;
+use App\Services\IService;
 use App\Repository\TagRepository;
 use App\Repository\MessageRepository;
+use App\Repository\ServiceRepository;
+use App\Repository\VehiculeRepository;
 use App\Repository\CategorieRepository;
-use App\Repository\Interfaces\BookingInterface;
 use Illuminate\Support\ServiceProvider;
+use App\Services\Implimentation\S_Service;
 use App\Repository\Interfaces\TagInterface;
 use App\Repository\Interfaces\ReviewInterface;
 use App\Repository\Interfaces\MessageInterface;
-use App\Repository\Interfaces\CategorieInterface;
 use App\Repository\Interfaces\ServiceInterface;
 use App\Repository\Interfaces\VehiculeInterface;
-use App\Repository\ServiceRepository;
-use App\Repository\VehiculeRepository;
+use App\Repository\Interfaces\CategorieInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ReviewInterface::class,ReviewInterface::class);
         $this->app->bind(ServiceRepository::class,ServiceInterface::class);
         $this->app->bind(VehiculeInterface::class,VehiculeRepository::class);
+        $this->app->bind(IService::class,S_Service::class);
+
         
 
 
