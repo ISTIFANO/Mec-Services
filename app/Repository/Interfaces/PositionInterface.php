@@ -16,21 +16,6 @@ interface PositionInterface{
     public function delete($id);
     public function update($data, $id);
 
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
 
 ?>
