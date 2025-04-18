@@ -52,7 +52,7 @@
               <p class="text-gray-600">Heureux de vous revoir sur FoodLovers</p>
             </div>
 
-            <form id="login-form" class="space-y-6" method='post' action="/logins">
+            <form id="login-form" class="space-y-6" method='post' action="/login">
                 @csrf
               <div>
                 <label for="email" class="block text-gray-700 font-medium mb-2">
