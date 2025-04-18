@@ -30,6 +30,8 @@ class ServiceRepository implements ServiceInterface
         $service->Avis->associate($Avis);
 
         $service->save();
+
+        return  $service;
     }
     public function delete($id)
     {
