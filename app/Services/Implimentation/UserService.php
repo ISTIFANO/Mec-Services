@@ -18,8 +18,9 @@ class UserService implements IUser,UserInterface
     }
 
     public function create($data,$role){
-        $role  = $this->role_service->FindByName($role);
-        if (!$role) {
+        
+     $role  = $this->role_service->FindByName($role);
+     if (!$role) {
 
             $this->role_service->create($role);
 

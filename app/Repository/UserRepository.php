@@ -6,17 +6,18 @@ use App\Models\User;
 use App\Enums\Image;
 use Illuminate\Support\Facades\Hash;
 use App\Repository\Interfaces\UserInterface;
-
+use Illuminate\Database\Eloquent\Model;
 
 class UserRepository implements UserInterface{
+protected  Model $model;
 
-
-
-
-
+public function __construct(Model $model)
+{
+    $this->model= $model;    
+}
     public function create($data,$role){
 
-        $user = new User;
+        $user = $this->model;
         $user->firstname = $data['firstname'];
         $user->lastname = $data['lastname'];
         $user->email = $data['email'];

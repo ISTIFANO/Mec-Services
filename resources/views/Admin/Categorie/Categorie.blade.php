@@ -1,139 +1,235 @@
 @extends('layout.SideBar')
 
+@section('css')
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #c5c5c5;
+        border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+</style>
+@endsection
+
 @section('content')
-
-<!-- Font Awesome (only include here if it's not in layout.SideBar) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
-
-
-
-<div id="categories-section" class="px-6 py-4 bg-gray-100">
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold text-gray-900">Categories</h2>
-        <button class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Add Category
+<div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+    <div>
+        <h1 class="text-2xl font-bold">Gestion des Catégories</h1>
+        <p class="text-gray-600">Gérez toutes les catégories de la plateforme</p>
+    </div>
+    <div class="mt-4 md:mt-0">
+        <button id="openModal" class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition-colors inline-flex items-center">
+            <i class="fas fa-plus mr-2"></i>
+            Ajouter une catégorie
         </button>
     </div>
+</div>
 
-    <!-- Categories Grid -->
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Card 1 -->
-        <div class="bg-white overflow-hidden shadow rounded-lg">
-            <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
-                        <i class="fas fa-car text-white text-xl"></i>
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                        <h3 class="text-lg font-medium text-gray-900">Car Mechanics</h3>
-                        <p class="mt-1 text-sm text-gray-500">12 mechanics</p>
-                    </div>
-                    <div class="ml-4 flex-shrink-0">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2"><i class="fas fa-edit"></i></a>
-                        <a href="#" class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></a>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <p class="text-sm text-gray-500">Specialists in car repair and maintenance services.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="bg-white overflow-hidden shadow rounded-lg">
-            <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
-                        <i class="fas fa-motorcycle text-white text-xl"></i>
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                        <h3 class="text-lg font-medium text-gray-900">Motorcycle Mechanics</h3>
-                        <p class="mt-1 text-sm text-gray-500">8 mechanics</p>
-                    </div>
-                    <div class="ml-4 flex-shrink-0">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2"><i class="fas fa-edit"></i></a>
-                        <a href="#" class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></a>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <p class="text-sm text-gray-500">Experts in motorcycle repair and customization.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="bg-white overflow-hidden shadow rounded-lg">
-            <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
-                        <i class="fas fa-truck text-white text-xl"></i>
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                        <h3 class="text-lg font-medium text-gray-900">Truck Mechanics</h3>
-                        <p class="mt-1 text-sm text-gray-500">4 mechanics</p>
-                    </div>
-                    <div class="ml-4 flex-shrink-0">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2"><i class="fas fa-edit"></i></a>
-                        <a href="#" class="text-red-600 hover:text-red-900"><i class="fas fa-trash"></i></a>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <p class="text-sm text-gray-500">Specialized in heavy-duty truck repairs and maintenance.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Category Form -->
-    <div class="mt-10 bg-white shadow overflow-hidden sm:rounded-lg">
-        <div class="px-4 py-5 sm:px-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">Add New Category</h3>
-            <p class="mt-1 max-w-2xl text-sm text-gray-500">Create a new category for mechanics.</p>
-        </div>
-        <div class="border-t border-gray-200">
-            <div class="px-4 py-5 sm:p-6">
-                <form method="POST"      class="space-y-6">
-                    @csrf
-
-                    <div>
-                        <label for="category_name" class="block text-sm font-medium text-gray-700">Category Name</label>
-                        <input type="text" name="category_name" id="category_name" placeholder="e.g. Boat Mechanics"
-                               class="mt-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-                    </div>
-
-                    <div>
-                        <label for="category_description" class="block text-sm font-medium text-gray-700">Description</label>
-                        <textarea id="category_description" name="category_description" rows="3"
-                                  placeholder="Describe this category"
-                                  class="mt-1 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
-                    </div>
-
-                    <div>
-                        <label for="category_icon" class="block text-sm font-medium text-gray-700">Icon</label>
-                        <div class="mt-1 flex items-center">
-                            <span class="inline-block h-12 w-12 rounded-md overflow-hidden bg-gray-100">
-                                <i class="fas fa-ship text-gray-400 text-2xl flex items-center justify-center h-full"></i>
-                            </span>
-                            <button type="button"
-                                    class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Choose Icon
-                            </button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button type="submit"
-                                class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Save Category
-                        </button>
-                    </div>
-                </form>
+<!-- Filters -->
+<div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+        <h2 class="text-lg font-bold mb-4 md:mb-0">Filtres</h2>
+        <div class="flex flex-col md:flex-row gap-4">
+            <select class="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <option value="">Tous les types</option>
+                <option value="recipe">Recettes</option>
+                <option value="product">Produits</option>
+                <option value="blog">Blog</option>
+                <option value="competition">Compétitions</option>
+            </select>
+            <select class="w-full md:w-auto px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <option value="">Tous les statuts</option>
+                <option value="active">Actif</option>
+                <option value="inactive">Inactif</option>
+            </select>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <i class="fas fa-search text-gray-400"></i>
+                </span>
+                <input type="text" placeholder="Rechercher..." class="w-full md:w-auto pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
             </div>
         </div>
     </div>
 </div>
 
-    @endsection
+<!-- Categories Table -->
+<div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Nom</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Description</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Date de création</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                @forelse($categorie as $category)
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 whitespace-nowrap flex items-center gap-3">
+                        <div class="h-9 w-9 flex items-center justify-center rounded-full bg-primary/10 text-primary">
+                            <i class="fas fa-{{ $category->image ?? 'utensils' }}" title="{{ $category->image ?? 'utensils' }}"></i>
+                        </div>
+                        <span class="font-medium text-gray-800">{{ $category->name }}</span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-700">{{ $category->description }}</td>
+                    <td class="px-6 py-4 text-gray-500">{{ $category->created_at->format('d/m/Y') }}</td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex space-x-2 justify-end">
+                            <button data-id="{{ $category->id }}" data-title="{{ $category->name }}" data-description="{{ $category->description }}" data-type="{{ $category->type }}" data-status="{{ $category->is_active }}" data-image="{{ $category->image }}" class="text-yellow-600 hover:text-yellow-800 edit-category">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form action="{{ route('admin.category.destroy', $category->id) }}" method="POST" class="inline">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-800">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="4" class="text-center text-gray-400 py-4">Aucune catégorie trouvée.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+@endsection
 
+@section('modal')
+<div id="categoryModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-40 flex items-center justify-center transition-all duration-300 opacity-0 scale-95">
+    <div class="bg-white rounded-lg w-full max-w-lg p-6 shadow-lg">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4" id="modal-title">Ajouter une nouvelle catégorie</h3>
+        <form id="categoryForm" method="POST" action="{{ route('admin.category.store') }}">
+            @csrf
+            <input type="hidden" name="category_id" id="category_id">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm text-gray-700 mb-1">Titre</label>
+                    <input type="text" name="title" id="title" required class="w-full border rounded px-3 py-2" placeholder="Titre">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-700 mb-1">Description</label>
+                    <textarea name="description" id="description" rows="3" class="w-full border rounded px-3 py-2" placeholder="Description"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-700 mb-1">Type</label>
+                    <select name="type" id="type" required class="w-full border rounded px-3 py-2">
+                        <option value="">Sélectionnez un type</option>
+                        <option value="recipe">Recettes</option>
+                        <option value="product">Produits</option>
+                        <option value="blog">Blog</option>
+                        <option value="competition">Compétitions</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-700 mb-1">Icône</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400" id="iconPreview">
+                            <i class="fas fa-utensils"></i>
+                        </span>
+                        <input type="text" name="icon" id="icon" class="pl-10 w-full border rounded px-3 py-2" placeholder="utensils, apple...">
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Nom FontAwesome sans "fa-"</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-700 mb-1">Statut</label>
+                    <div class="flex gap-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="is_active" value="1" id="active" checked class="text-primary">
+                            <span class="ml-2 text-sm">Actif</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="is_active" value="0" id="inactive" class="text-primary">
+                            <span class="ml-2 text-sm">Inactif</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end gap-2">
+                <button type="button" id="closeModal" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Annuler</button>
+                <button type="submit" id="submitBtn" class="px-4 py-2 bg-primary text-white rounded hover:bg-primary/90">Ajouter</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
 
+@section('js')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('categoryModal');
+        const openModal = document.getElementById('openModal');
+        const closeModal = document.getElementById('closeModal');
+        const categoryForm = document.getElementById('categoryForm');
+        const modalTitle = document.getElementById('modal-title');
+        const submitBtn = document.getElementById('submitBtn');
+        const categoryIdInput = document.getElementById('category_id');
+        const iconInput = document.getElementById('icon');
+        const iconPreview = document.getElementById('iconPreview');
+
+        openModal.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0', 'scale-95'), 10);
+            categoryForm.reset();
+            categoryForm.action = "{{ route('admin.category.store') }}";
+            modalTitle.textContent = "Ajouter une nouvelle catégorie";
+            submitBtn.textContent = "Ajouter";
+            categoryIdInput.value = "";
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        });
+
+        iconInput.addEventListener('input', () => {
+            const icon = iconInput.value.trim() || 'utensils';
+            iconPreview.innerHTML = `<i class="fas fa-${icon}"></i>`;
+        });
+
+        document.querySelectorAll('.edit-category').forEach(button => {
+            button.addEventListener('click', () => {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0', 'scale-95'), 10);
+                modalTitle.textContent = "Modifier la catégorie";
+                submitBtn.textContent = "Mettre à jour";
+
+                document.getElementById('title').value = button.dataset.title;
+                document.getElementById('description').value = button.dataset.description;
+                document.getElementById('type').value = button.dataset.type;
+                document.getElementById('icon').value = button.dataset.image ?? 'utensils';
+                document.getElementById(button.dataset.status === '1' ? 'active' : 'inactive').checked = true;
+                categoryIdInput.value = button.dataset.id;
+                categoryForm.action = "{{ route('admin.category.update') }}";
+            });
+        });
+
+        document.querySelectorAll('form').forEach(form => {
+            if (form.action.includes('destroy')) {
+                form.addEventListener('submit', e => {
+                    if (!confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
+    });
+</script>
+@endsection

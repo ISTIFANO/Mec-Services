@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-
+use App\Models\User;
 use App\Repository\AvisRepositery;
 use App\Services\IService;
 use App\Repository\TagRepository;
@@ -22,10 +22,13 @@ use App\Repository\Interfaces\RoleInterface;
 use App\Repository\Interfaces\UserInterface;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
+use App\Services\ICategorie;
+use App\Services\Implimentation\CategorieService;
 use App\Services\Implimentation\RoleService;
 use App\Services\Implimentation\UserService;
 use App\Services\IRole;
 use App\Services\IUser;
+use Illuminate\Database\Eloquent\Model;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,18 +41,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CategorieInterface::class,CategorieRepository::class);
         $this->app->bind(MessageInterface::class,MessageRepository::class);
         $this->app->bind(AvisInterface::class,AvisRepositery::class);
-        $this->app->bind(ServiceRepository::class,ServiceInterface::class);
+        $this->app->bind(ServiceInterface::class,ServiceRepository::class);
         $this->app->bind(VehiculeInterface::class,VehiculeRepository::class);
         $this->app->bind(IService::class,S_Service::class);
         $this->app->bind(IRole::class,RoleService::class);
         $this->app->bind(IUser::class,UserService::class);
         $this->app->bind(RoleInterface::class,RoleRepository::class);
         $this->app->bind(UserInterface::class,UserRepository::class);
-
-
-    
-
-        
+        $this->app->bind(ICategorie::class,CategorieService::class);
 
 
     }
