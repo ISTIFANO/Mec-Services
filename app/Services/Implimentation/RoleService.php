@@ -9,7 +9,10 @@ use App\Services\IRole;
 
 class RoleService implements IRole
 {
-    public function  __construct(protected RoleInterface $role_repositery)
+
+    protected RoleInterface $role_repositery;
+    
+    public function  __construct( RoleInterface $role_repositery)
     {
         $this->role_repositery = $role_repositery;
     }

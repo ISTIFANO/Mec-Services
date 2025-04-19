@@ -19,7 +19,9 @@ use App\Repository\Interfaces\ServiceInterface;
 use App\Repository\Interfaces\VehiculeInterface;
 use App\Repository\Interfaces\CategorieInterface;
 use App\Repository\Interfaces\RoleInterface;
+use App\Repository\Interfaces\UserInterface;
 use App\Repository\RoleRepository;
+use App\Repository\UserRepository;
 use App\Services\Implimentation\RoleService;
 use App\Services\Implimentation\UserService;
 use App\Services\IRole;
@@ -42,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IRole::class,RoleService::class);
         $this->app->bind(IUser::class,UserService::class);
         $this->app->bind(RoleInterface::class,RoleRepository::class);
+        $this->app->bind(UserInterface::class,UserRepository::class);
+
 
     
 

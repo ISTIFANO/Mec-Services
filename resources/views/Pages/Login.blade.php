@@ -52,7 +52,7 @@
               <p class="text-gray-600">Heureux de vous revoir sur FoodLovers</p>
             </div>
 
-            <form id="login-form" class="space-y-6" method='post' action="/login">
+            <form id="login-form" class="space-y-6" method='post' action="/connexion">
                 @csrf
               <div>
                 <label for="email" class="block text-gray-700 font-medium mb-2">
@@ -117,12 +117,11 @@
               </div>
 
               <div>
-                <button
+                <input
                   type="submit"
-                  class="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors font-medium"
+                  class="w-full bg-primary text-white py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors font-medium" value="Se connecter
+"
                 >
-                  Se connecter
-                </button>
               </div>
             </form>
 

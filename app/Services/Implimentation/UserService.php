@@ -7,23 +7,21 @@ use  App\Enums\Roles;
 use App\Repository\Interfaces\UserInterface;
 use App\Services\IUser;
 
-class UserService implements IUser
+class UserService implements IUser,UserInterface
 {
-    public function  __construct(protected IRole $role_service, protected UserInterface $user_repositery)
+    protected IRole $role_service;
+    protected UserInterface $user_repositery;
+    public function  __construct( IRole $role_service,  UserInterface $user_repositery)
     {
         $this->role_service = $role_service;
         $this->user_repositery = $user_repositery;
     }
 
-
-
-    public function create($data)
-    {
-        $getRole = Roles::CLIENT;
-        $role  = $this->role_service->FindByName($getRole);
+    public function create($data,$role){
+        $role  = $this->role_service->FindByName($role);
         if (!$role) {
 
-            $this->role_service->create($getRole);
+            $this->role_service->create($role);
 
         }
         $user = $this->user_repositery->create($data, $role);
@@ -31,11 +29,16 @@ class UserService implements IUser
     }
 
 
-    public function update($data){
+    public function update($data,$id){
 
 
 
 
+    }
+
+    public function findbyOne($name)
+    {
+        
     }
     public function delete($id) {
 

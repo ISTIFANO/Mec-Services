@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Models\Categorie;
 use App\Repository\Interfaces\CategorieInterface;
-
+use App\Enums\Vehicule;
 
 class CategorieRepository implements CategorieInterface{
 
@@ -26,7 +26,8 @@ class CategorieRepository implements CategorieInterface{
     }
     public function create($data){
     
-        $Categorie = $this->Categorie->create(["name"=>$data , "description"=>$data->description , "image" => $data->image]);
+        $Categorie = $this->Categorie->create(["name"=>$data , "description"=>$data->description , 'image' => $data->image ? Vehicule::Car : null
+    ]);
     
     return $Categorie;
     }
