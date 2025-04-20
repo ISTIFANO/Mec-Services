@@ -33,7 +33,9 @@ use App\Services\IRole;
 use App\Services\IUser;
 use App\Services\Implimentation\CompetenceService;
 use App\Services\Implimentation\TagService;
+use App\Services\Implimentation\VehiculeService;
 use App\Services\ITag;
+use App\Services\IVehiculeService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -50,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AvisInterface::class,AvisRepositery::class);
         $this->app->bind(ServiceInterface::class,ServiceRepository::class);
         $this->app->bind(VehiculeInterface::class,VehiculeRepository::class);
+        $this->app->bind(IVehiculeService::class,VehiculeService::class);
         $this->app->bind(IService::class,S_Service::class);
         $this->app->bind(IRole::class,RoleService::class);
         $this->app->bind(IUser::class,UserService::class);

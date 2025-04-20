@@ -11,8 +11,12 @@ interface VehiculeInterface{
 public function create($date);
 
 
-public function update($date,$id);
+public function update($date);
+
 public function delete($id);
+
+public function findbyName($name);
+
 }
 
 

@@ -16,15 +16,16 @@ class VehiculeController extends Controller
 
     public function __construct(VehiculeInterface $vehicule_repository)
     {
-        $this->vehicule_repository->$vehicule_repository;
+        $this->vehicule_repository = $vehicule_repository;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
+        $Vehicules = $this->vehicule_repository->show();
+
+        return view('Admin.Vehicule.Vehicule', compact('Vehicules'));     }
 
     /**
      * Show the form for creating a new resource.

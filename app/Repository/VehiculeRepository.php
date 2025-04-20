@@ -32,9 +32,10 @@ class VehiculeRepository implements VehiculeInterface{
     }
     
     
-    public function update($data,$id){
+    public function update($data){
 
-        $vehicule = Vehicule::where("id","=",$id)->updata($data);
+        $vehicule = Vehicule::where("id","=",$data["id"])->first();
+        $vehicule->updata($data);
 
         return $vehicule;
         
@@ -47,9 +48,9 @@ class VehiculeRepository implements VehiculeInterface{
         
     }
     
-    public function findbyOne($id){
+    public function findbyName($name){
 
-        $vehicule = Vehicule::where("id","=",$id)->first();
+        $vehicule = Vehicule::where("name","=",$name)->first();
 
         return $vehicule;
         
