@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategorieController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompetenceController;
 
 Route::get('/', function () {
     return view('pages.register');
@@ -11,8 +12,13 @@ Route::get('/', function () {
 Route::prefix("admin")->group(function ()  {
     Route::get('/categorie', [CategorieController::class, 'index'])->name('categorie');
     Route::post('/categorie', [CategorieController::class, 'create'])->name('admin.category.store');
-    Route::delete('/categorie', [CategorieController::class, 'destroy'])->name('admin.category.destroy');
+    Route::delete('/categorie', [CategorieController::class, 'delete'])->name('admin.category.destroy');
     Route::put('/categorie', [CategorieController::class, 'update'])->name('admin.category.update');
+    Route::get('/competences', [CompetenceController::class, 'index']);
+    Route::post('/competence', [CompetenceController::class, 'store'])->name('admin.competence.store');
+    Route::delete('/competence', [CompetenceController::class, 'delete'])->name('admin.competence.destroy');
+    Route::put('/competence', [CompetenceController::class, 'update'])->name('admin.competence.update');
+
 
 
 });

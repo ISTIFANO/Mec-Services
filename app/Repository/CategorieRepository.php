@@ -28,8 +28,11 @@ class CategorieRepository implements CategorieInterface{
     }
     public function update($data)
     {
-        $data =  Categorie::where('id', '=', $data['id'])->update($data);
+        $categorie =  Categorie::where('id', '=', $data['id'])->first();
 
+        
+       $categorie->update($data);
+       
         return $data;
     }
     public function  findbyid($id){

@@ -10,6 +10,7 @@ use App\Repository\MessageRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\VehiculeRepository;
 use App\Repository\CategorieRepository;
+use App\Repository\CompetenceRepository;
 use App\Repository\Interfaces\AvisInterface;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Implimentation\S_Service;
@@ -18,17 +19,19 @@ use App\Repository\Interfaces\MessageInterface;
 use App\Repository\Interfaces\ServiceInterface;
 use App\Repository\Interfaces\VehiculeInterface;
 use App\Repository\Interfaces\CategorieInterface;
+use App\Repository\Interfaces\CompetenceInterface;
 use App\Repository\Interfaces\RoleInterface;
 use App\Repository\Interfaces\UserInterface;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Services\ICategorie;
+use App\Services\ICompetence;
 use App\Services\Implimentation\CategorieService;
 use App\Services\Implimentation\RoleService;
 use App\Services\Implimentation\UserService;
 use App\Services\IRole;
 use App\Services\IUser;
-use Illuminate\Database\Eloquent\Model;
+use App\Services\Implimentation\CompetenceService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(ICompetence::class,CompetenceService::class);
+        $this->app->bind(CompetenceInterface::class,CompetenceRepository::class);
         $this->app->bind(TagInterface::class,TagRepository::class);
         $this->app->bind(CategorieInterface::class,CategorieRepository::class);
         $this->app->bind(MessageInterface::class,MessageRepository::class);

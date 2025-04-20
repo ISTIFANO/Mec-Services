@@ -9,4 +9,10 @@ class Competence extends Model
 {
     /** @use HasFactory<\Database\Factories\CompetenceFactory> */
     use HasFactory;
+
+
+    protected $fillable =["name","icon"];
+
+protected $table ="competences";
+
 }

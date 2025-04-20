@@ -38,12 +38,13 @@ class CategorieService implements ICategorie
 
     public function update($data)
     {
-        return $data; 
+
+        return $this->categorie_repositerie->update($data); 
     }
 
     public function delete($id)
     {
-        return true; 
+        return $this->categorie_repositerie->delete($id); 
     }
     public function show()
     {

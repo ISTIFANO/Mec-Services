@@ -8,6 +8,7 @@ use App\Services\ICategorie;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreCategorieRequest;
 use App\Http\Requests\UpdateCategorieRequest;
+use Illuminate\Http\Request;
 
 class CategorieController extends Controller 
 {
@@ -75,7 +76,8 @@ class CategorieController extends Controller
     public function update(UpdateCategorieRequest $request)
     {
         try {
-            $this->categorie_service->update($request->validated(), $request->id);
+
+            $this->categorie_service->update($request->all());
 
             session()->flash('succMessage', 'Categorie updated successfully!');
             return redirect()->route('categories.index');
@@ -90,10 +92,10 @@ class CategorieController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete($id)
+    public function delete(Request $request)
     {
         try {
-            $this->categorie_service->delete($id);
+            $this->categorie_service->delete($request->id);
 
             session()->flash('succMessage', 'Categorie deleted successfully!');
             return back();
