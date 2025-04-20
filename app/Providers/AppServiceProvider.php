@@ -32,6 +32,8 @@ use App\Services\Implimentation\UserService;
 use App\Services\IRole;
 use App\Services\IUser;
 use App\Services\Implimentation\CompetenceService;
+use App\Services\Implimentation\TagService;
+use App\Services\ITag;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -54,6 +56,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(RoleInterface::class,RoleRepository::class);
         $this->app->bind(UserInterface::class,UserRepository::class);
         $this->app->bind(ICategorie::class,CategorieService::class);
+        $this->app->bind(ITag::class,TagService::class);
+
+
 
 
     }

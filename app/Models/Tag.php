@@ -12,6 +12,9 @@ class Tag extends Model
 
 
 
+    protected $fillable =["name"];
+
+protected $table ="tags";
 
 
 
