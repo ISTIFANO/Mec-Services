@@ -4,34 +4,33 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Tag;
+use App\Services\ITag;
 use Illuminate\Support\Facades\Log;
-use App\Http\Requests\StoreTagRequest;  
+use App\Http\Requests\DeleteTagREQUEST;
 use App\Http\Requests\UpdateTagRequest;
+use App\Http\Requests\StoreTagRequest;  
 use App\Repository\Interfaces\TagInterface;
 
 class TagController extends Controller
 {
-    protected TagInterface $tag_repository;
+    private ITag $tag_service;
 
-    public function __construct(TagInterface $tag_repository)
+    public function __construct( ITag $tag_service)
     {
-        $this->tag_repository->$tag_repository;
+        $this->tag_service = $tag_service;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+          $Tags = $this->tag_service->show();
+
+        return view('Admin.Tag.Tags', compact('Tags')); 
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -39,20 +38,19 @@ class TagController extends Controller
     public function store(StoreTagRequest $request)
     {
         try {
-            $this->tag_repository->create($request->validated());
+            $this->tag_service->create($request->all());
 
             session()->flash('succMessage', 'tag created successfully!');
 
-            return redirect()->route('tags.index');
-        
             return back();
+        
 
 
         } catch (Exception $e) {
 
             Log::error($e->getMessage());
 
-            session()->flash('ErrMessage', ' category has a problemes.');
+            session()->flash('ErrMessage', ' tag has a problemes.');
 
             return redirect()->back()->withInput();
         }    }
@@ -63,7 +61,7 @@ class TagController extends Controller
     public function show()
     {
         try {
-            $tag =    $this->tag_repository->show();
+            $tag =    $this->tag_service->show();
     
             return redirect()->route('Admin.tag', compact('tag'));
     
@@ -74,7 +72,9 @@ class TagController extends Controller
                 Log::error($e->getMessage());
     
                 return redirect()->back();
-            }    }
+            }    
+        
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -91,11 +91,11 @@ class TagController extends Controller
     {
 
         try {
-            $this->tag_repository->update($request->validated());
+            $this->tag_service->update($request->all());
 
             session()->flash('succMessage', 'tag updated successfully!');
 
-            return redirect()->route('tags.index');
+            return back();
         
             return back();
 
@@ -104,7 +104,7 @@ class TagController extends Controller
 
             Log::error($e->getMessage());
 
-            session()->flash('ErrMessage', ' category has a problemes.');
+            session()->flash('ErrMessage', ' tag has a problemes.');
 
             return redirect()->back()->withInput();
         } 
@@ -113,11 +113,11 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function delete(DeleteTagREQUEST $request)
     {
         try {
             
-            $this->tag_repository->delete($id);
+            $this->tag_service->delete($request->id);
 
             session()->flash('succMessage', 'tag deleted  successfully!');
         

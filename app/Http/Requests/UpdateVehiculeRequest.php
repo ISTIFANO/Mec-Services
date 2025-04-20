@@ -23,7 +23,9 @@ class UpdateVehiculeRequest extends FormRequest
     {
         return [
             "year"=>"required|max:255",
-            "annee_fabrication"=>"required|max:255"
-            ,"model"=>"required|max:255"          ];
+            "annee_fabrication"=>"required|max:255",         
+               "name"=>"required|max:255"
+            ,"model"=>"required|max:255",
+             "image"=>"required|max:255"         ];
     }
 }

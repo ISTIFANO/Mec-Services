@@ -11,6 +11,9 @@ class Vehicule extends Model
     /** @use HasFactory<\Database\Factories\VehiculeFactory> */
     use HasFactory;
 
+    protected $fillable =["name","model","annee_fabrication","year","image"];
+
+    protected $table="vehicules";
 
     public function offres(){
 

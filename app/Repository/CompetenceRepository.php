@@ -11,12 +11,11 @@ class CompetenceRepository implements CompetenceInterface{
 
 
 
-    public function create($data){
+    public function create(Competence $data){
 
-        $Competence = new Competence();
-        $Competence->name = $data["name"];
-        $Competence->icon = $data["icon"];
-        $Competence->save();
+        $Competence = $data->save();
+
+        return $Competence;
         
     }
     public function delete($id){
@@ -30,14 +29,15 @@ class CompetenceRepository implements CompetenceInterface{
     }
     
     
-    public function update($data, $id){
+public function update($data){
 
+    $competence = Competence::where("id", "=", $data['id'])->first();
 
-        $Competence = Competence::where("id","=",$id)->updata($data);
+    $competence->update($data);
 
-        return $Competence;
-        
-    }
+    return $competence;
+    
+}
     public function show(){
 
         $Competence = Competence::all();
@@ -48,7 +48,7 @@ class CompetenceRepository implements CompetenceInterface{
     
     public function findbyOne($name){
 
-        $Competence = Competence::where("contenu","like","%$name%");
+        $Competence = Competence::where("name","like","%$name%");
 
         return $Competence;
         

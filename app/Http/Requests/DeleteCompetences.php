@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTagRequest extends FormRequest
+class DeleteCompetences extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,6 @@ class StoreTagRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name"=>"required|max:255"
-        ];
+            "id"=>"required|max:255"];
     }
 }

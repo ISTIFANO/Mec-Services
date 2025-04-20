@@ -1,6 +1,8 @@
 <?php 
 namespace App\Repository\Interfaces;
 
+use App\Models\Competence;
+
 
 
 interface CompetenceInterface{
@@ -8,10 +10,10 @@ interface CompetenceInterface{
 
 
     public function show();
-public function create($date);
+public function create(Competence $date);
 
 
-public function update($date,$id);
+public function update($date);
 public function delete($id);
 }
 
