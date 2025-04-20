@@ -8,35 +8,21 @@ use App\Enums\Vehicule;
 
 class CategorieRepository implements CategorieInterface{
 
-
-
-    // protected Categorie $Categorie;
-
-    public function __construct()
-    {
-        // $this->Categorie = new Categorie();
-
-        
-    }
-
     public function show()
     {
         $Categorie = Categorie::all();
 
         return $Categorie;
     }
-    public function create($data){
-    
+    public function create(Categorie $data){
         $Categorie = $data->save();
-    ;
     
     return $Categorie;
     }
 
     public function delete($id)
     {
-
-        Categorie::where('id', '=', $id)->delete();
+       Categorie::where('id', '=', $id)->delete();
 
         return true;
     }

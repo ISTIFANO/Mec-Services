@@ -9,22 +9,9 @@ use App\Repository\Interfaces\UserInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class UserRepository implements UserInterface{
-protected  Model $model;
 
-public function __construct(Model $model)
-{
-    $this->model= $model;    
-}
-    public function create($data,$role){
+    public function create(User $user){
 
-        $user = $this->model;
-        $user->firstname = $data['firstname'];
-        $user->lastname = $data['lastname'];
-        $user->email = $data['email'];
-        $user->password = Hash::make($data['password']);
-        $user->phone = $data['phone'];
-        $user->image = Image::CLIENTIMG;
-        $user->role()->associate($role);
         $user->save();
         return  $user;
     }

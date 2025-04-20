@@ -19,10 +19,20 @@ class CategorieService implements ICategorie
     public function create($data)
     {
         $categorieModel = new Categorie();
-        $categorieModel->name = $data["name"];
-        $categorieModel->description = $data["description"];
-        $categorieModel->image = $data["image"] ? Vehicule::Car : null;
+        $categorieModel->nom = $data['nom'];
 
+        $categorieModel->description = $data['description'];
+
+        if (isset($data['image']) && $data['image']->isValid()) {
+
+            $path = $data['image']->store('images/categories', 'public');
+
+            $categorieModel->image = $path;
+        } else {
+            $categorieModel->image = Vehicule::Car;
+        }
+      
+        
         return $this->categorie_repositerie->create($categorieModel);
     }
 

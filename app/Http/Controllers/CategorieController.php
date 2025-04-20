@@ -23,9 +23,9 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $categorie = $this->categorie_service->show();
+        $categories = $this->categorie_service->show();
 
-        return view('Admin.Categorie.Categorie', compact('categorie'));
+        return view('Admin.Categorie.Categorie', compact('categories'));
     }
 
     /**
@@ -34,7 +34,7 @@ class CategorieController extends Controller
     public function create(StoreCategorieRequest $request)
     {
         try {
-            $this->categorie_service->create($request->validated());
+            $this->categorie_service->create($request->all());
 
             session()->flash('succMessage', 'Categorie created successfully!');
             return redirect()->route('categories.index');
