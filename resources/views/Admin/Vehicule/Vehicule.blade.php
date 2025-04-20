@@ -54,7 +54,7 @@
         <div id="jobModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
             <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
                 <h2 class="text-xl font-bold mb-4">Add Vehicule</h2>
-                <form action="/admin/vehicule" method="POST" class="w-full">
+                <form action="/admin/vehicule" enctype="multipart/form-data" method="POST" class="w-full">
                     @csrf
 
                     <div class="form-element mb-4">
@@ -67,11 +67,15 @@
                     </div>
                     <div class="form-element mb-4">
                         <label for="annee_fabrication" class="block text-gray-700 mb-2">Year of Manufacture</label>
-                        <input type="number" name="annee_fabrication" required placeholder="Year of Manufacture" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <input type="date" name="annee_fabrication" required placeholder="Year of Manufacture" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div class="form-element mb-4">
                         <label for="year" class="block text-gray-700 mb-2">Year</label>
                         <input type="number" name="year" required placeholder="Year" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    </div>
+                    <div class="form-element mb-4">
+                        <label for="image" class="block text-gray-700 mb-2">image</label>
+                        <input type="file" name="image" required placeholder="image" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div class="flex justify-end space-x-2">
                         <button type="button" id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">Cancel</button>
@@ -82,7 +86,7 @@
         </div>
 
         <!-- Edit Vehicule Modal -->
-        <div id="editModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+        <div id="editModal" enctype="multipart/form-data" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
             <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
                 <h2 class="text-xl font-bold mb-4">Edit Vehicule</h2>
                 <form id="editForm" action="/admin/vehicule" method="POST" class="w-full">
@@ -99,11 +103,15 @@
                     </div>
                     <div class="form-element mb-4">
                         <label for="annee_fabrication" class="block text-gray-700 mb-2">Year of Manufacture</label>
-                        <input type="number" name="annee_fabrication" id="editAnneeFabrication" required placeholder="Year of Manufacture" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <input type="date" name="annee_fabrication" id="editAnneeFabrication" required placeholder="Year of Manufacture" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div class="form-element mb-4">
                         <label for="year" class="block text-gray-700 mb-2">Year</label>
                         <input type="number" name="year" id="editYear" required placeholder="Year" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    </div>
+                    <div class="form-element mb-4">
+                        <label for="image" class="block text-gray-700 mb-2">image</label>
+                        <input type="file" name="image" id="editYear" required placeholder="image" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                     <div class="flex justify-end space-x-2">
                         <button type="button" id="closeEditModal" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600">Cancel</button>

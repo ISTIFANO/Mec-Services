@@ -19,16 +19,21 @@ class VehiculeService implements IVehiculeService {
     public function create($data)
     {
         $vehiculeModel = new Vehicule();
-        $vehiculeModel->nom = $data['name'];
+        $vehiculeModel->name = $data['name'];
         $vehiculeModel->model = $data['model'];
         $vehiculeModel->annee_fabrication = $data['annee_fabrication'];
         $vehiculeModel->year = $data['year'];
+
+        $path = $data['image']->store('images/vehicules', 'public');
+
+        $vehiculeModel->image = $path;
+
+
         return $this->vehicule_repositery->create($vehiculeModel);
     }
 
     public function update($data)
     {
-
         return $this->vehicule_repositery->update($data); 
     }
 

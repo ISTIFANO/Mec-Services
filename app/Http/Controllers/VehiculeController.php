@@ -4,28 +4,32 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Vehicule;
+use App\Services\IVehiculeService;
 use Illuminate\Support\Facades\Log;
 use App\Repository\VehiculeRepository;
 use App\Http\Requests\StoreVehiculeRequest;
+use App\Http\Requests\DeleteVehiculeREQUEST;
 use App\Http\Requests\UpdateVehiculeRequest;
 use App\Repository\Interfaces\VehiculeInterface;
 
 class VehiculeController extends Controller
 {
-    protected VehiculeInterface $vehicule_repository;
+    protected IVehiculeService $vehicule_service;
 
-    public function __construct(VehiculeInterface $vehicule_repository)
+    public function __construct(IVehiculeService $vehicule_service)
     {
-        $this->vehicule_repository = $vehicule_repository;
+        $this->vehicule_service = $vehicule_service;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $Vehicules = $this->vehicule_repository->show();
+        $Vehicules = $this->vehicule_service->show();
 
-        return view('Admin.Vehicule.Vehicule', compact('Vehicules'));     }
+        return view('Admin.Vehicule.Vehicule', compact('Vehicules'));
+    
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -41,15 +45,12 @@ class VehiculeController extends Controller
     public function store(StoreVehiculeRequest $request)
     {
         try {
-            $this->vehicule_repository->create($request->validated());
+            $this->vehicule_service->create($request->all());
 
             session()->flash('succMessage', 'vehicule created successfully!');
 
-            return redirect()->route('vehicules.index');
-        
             return back();
-
-
+        
         } catch (Exception $e) {
 
             Log::error($e->getMessage());
@@ -66,9 +67,9 @@ class VehiculeController extends Controller
     public function show()
     {
         try {
-            $vehicule = $this->vehicule_repository->show();
+            $vehicules = $this->vehicule_service->show();
     
-            return redirect()->route('Admin.vehicule', compact('vehicule'));
+            return redirect()->route('Admin.Vehicule.Vehicule', compact('vehicules'));
     
                 return back();
     
@@ -79,21 +80,17 @@ class VehiculeController extends Controller
                 return redirect()->back();
             }    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Vehicule $vehicule)
-    {
-        //
-    }
+  
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVehiculeRequest $request, Vehicule $vehicule)
+    public function update(UpdateVehiculeRequest $request)
     {
         try {
-            $this->vehicule_repository->update($request->validated());
+
+            
+            $this->vehicule_service->update($request->all());
 
             session()->flash('succMessage', 'vehicule updated successfully!');
 
@@ -115,12 +112,12 @@ class VehiculeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function delete(DeleteVehiculeREQUEST $request)
     {
 
         try {
             
-            $this->vehicule_repository->delete($id);
+            $this->vehicule_service->delete($request->id);
 
             session()->flash('succMessage', 'vehicule deleted  successfully!');
         

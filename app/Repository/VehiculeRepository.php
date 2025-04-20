@@ -11,15 +11,9 @@ class VehiculeRepository implements VehiculeInterface{
 
 
 
-    public function create($date){
+    public function create(Vehicule $date){
 
-        $vehicule = new Vehicule();
-        $vehicule->name = $date["name"];
-        $vehicule->model = $date["model"];
-        $vehicule->brand = $date["brand"];
-        $vehicule->year = $date["year"];
-
-        $vehicule->save();
+      return $date->save();
 
     }
     public function delete($id){
@@ -33,10 +27,9 @@ class VehiculeRepository implements VehiculeInterface{
     
     
     public function update($data){
-
         $vehicule = Vehicule::where("id","=",$data["id"])->first();
-        $vehicule->updata($data);
 
+        $vehicule->update($data);
         return $vehicule;
         
     }
