@@ -52,7 +52,7 @@
               <p class="text-gray-600">Rejoignez la communauté FoodLovers</p>
             </div>
 
-            <form id="register-form" action="/register" method="POST" class="space-y-6">
+            <form id="register-form" action="{{ route('register') }}" method="POST" class="space-y-6">
                 @csrf
                               <div>
                   <label for="nom" class="block text-gray-700 font-medium mb-2">Nom</label>

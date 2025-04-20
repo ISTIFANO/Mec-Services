@@ -10,20 +10,9 @@ class Categorie extends Model
     /** @use HasFactory<\Database\Factories\CategorieFactory> */
     use HasFactory;
 
+protected $fillable =["nom","image","description"];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+protected $table ="categories";
     public function offres(){
 
         return $this->hasMany(Offre::class);

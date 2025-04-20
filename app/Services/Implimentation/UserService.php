@@ -2,40 +2,62 @@
 
 namespace App\Services\Implimentation;
 
-use App\Services\IRole;
+use App\Enums\Image;
+use App\Models\User;
 use  App\Enums\Roles;
-use App\Repository\Interfaces\UserInterface;
+use App\Services\IRole;
 use App\Services\IUser;
+use Illuminate\Support\Facades\Hash;
+use App\Repository\Interfaces\UserInterface;
 
-class UserService implements IUser
+class UserService implements IUser,UserInterface
 {
-    public function  __construct(protected IRole $role_service, protected UserInterface $user_repositery)
+    protected IRole $role_service;
+    protected UserInterface $user_repositery;
+
+    protected  User $model;
+
+
+    public function  __construct( IRole $role_service,  UserInterface $user_repositery,User $model)
     {
         $this->role_service = $role_service;
         $this->user_repositery = $user_repositery;
+        $this->model= $model;    
+
+    }
+
+    public function create($data,$role){
+        
+     $role  = $this->role_service->FindByName($role);
+     if (!$role) {
+
+            $this->role_service->create($role);
+
+        } 
+        $user = $this->model;
+        $user->firstname = $data['firstname'];
+        $user->lastname = $data['lastname'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['password']);
+        $user->phone = $data['phone'];
+        $user->image = Image::CLIENTIMG;
+        $user->role()->associate($role);
+
+    $utilisateur = $this->user_repositery->create($user);
+        return $utilisateur;
     }
 
 
+    public function update($data,$id){
 
-    public function create($data)
+
+
+
+    }
+
+    public function findbyOne($name)
     {
-        $getRole = Roles::CLIENT;
-        $role  = $this->role_service->FindByName($getRole);
-        if (!$role) {
-
-            $this->role_service->create($getRole);
-
-        }
-        $user = $this->user_repositery->create($data, $role);
-        return $user;
-    }
-
-
-    public function update($data){
-
-
-
-
+        
     }
     public function delete($id) {
 
