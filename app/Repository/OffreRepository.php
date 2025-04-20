@@ -50,6 +50,7 @@ class OffreRepository implements OffreInterface{
 
         return $offres;
         
+        
     }
     
     public function findbyOne($name){

@@ -1,14 +1,14 @@
 <?php 
 namespace App\Repository\Interfaces;
 
-
+use App\Models\User;
 
 interface UserInterface{
 
 
 
-    public function create($data,$role);
-public function delete();
+    public function create( User $data);
+public function delete($id);
 
 
 public function update($data,$id);

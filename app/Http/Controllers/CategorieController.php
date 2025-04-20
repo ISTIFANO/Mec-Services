@@ -4,49 +4,44 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Categorie;
+use App\Services\ICategorie;
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreCategorieRequest;
 use App\Http\Requests\UpdateCategorieRequest;
-use App\Repository\Interfaces\CategorieInterface;
-use Illuminate\Support\Facades\Log;
 
-class CategorieController extends Controller
+class CategorieController extends Controller 
 {
-    protected CategorieInterface $categorie_repository;
+    private ICategorie $categorie_service;
 
-    public function __construct(CategorieInterface $categorie_repository)
+    public function __construct(ICategorie $categorie_service)
     {
-        $this->categorie_repository->$categorie_repository;
+        $this->categorie_service = $categorie_service;
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("Admin.Categorie");
-    }
+        $categories = $this->categorie_service->show();
 
+        return view('Admin.Categorie.Categorie', compact('categories'));
+    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategorieRequest $request)
+    public function create(StoreCategorieRequest $request)
     {
         try {
-            $this->categorie_repository->create($request->validated());
+            $this->categorie_service->create($request->all());
 
             session()->flash('succMessage', 'Categorie created successfully!');
-
             return redirect()->route('categories.index');
-        
-            return back();
-
-
         } catch (Exception $e) {
-
             Log::error($e->getMessage());
 
-            session()->flash('ErrMessage', ' category has a problemes.');
-
+            session()->flash('ErrMessage', 'There was a problem creating the category.');
             return redirect()->back()->withInput();
         }
     }
@@ -57,16 +52,11 @@ class CategorieController extends Controller
     public function show()
     {
         try {
-        $categorie =    $this->categorie_repository->show();
+            $categorie = $this->categorie_service->show();
 
-        return redirect()->route('Admin.Categorie', compact('categorie'));
-
-            return back();
-
+            return view('Admin.Categorie', compact('categorie'));
         } catch (Exception $e) {
-
             Log::error($e->getMessage());
-
             return redirect()->back();
         }
     }
@@ -76,7 +66,7 @@ class CategorieController extends Controller
      */
     public function edit(Categorie $categorie)
     {
-     
+        return view('Admin.CategorieEdit', compact('categorie'));
     }
 
     /**
@@ -85,45 +75,32 @@ class CategorieController extends Controller
     public function update(UpdateCategorieRequest $request)
     {
         try {
-            $this->categorie_repository->update($request->validated(),$request->id);
+            $this->categorie_service->update($request->validated(), $request->id);
 
             session()->flash('succMessage', 'Categorie updated successfully!');
-
             return redirect()->route('categories.index');
-        
-            return back();
-
-
         } catch (Exception $e) {
-
             Log::error($e->getMessage());
 
-            session()->flash('ErrMessage', ' category has a problemes.');
-
+            session()->flash('ErrMessage', 'There was a problem updating the category.');
             return redirect()->back()->withInput();
-        }   
-     }
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function delete($id)
     {
         try {
-            
-            $this->categorie_repository->delete($id);
+            $this->categorie_service->delete($id);
 
-            session()->flash('succMessage', 'Categorie deleted  successfully!');
-        
+            session()->flash('succMessage', 'Categorie deleted successfully!');
             return back();
-
-
         } catch (Exception $e) {
-
             Log::error($e->getMessage());
 
-            session()->flash('ErrMessage', ' category has a problemes.');
-
+            session()->flash('ErrMessage', 'There was a problem deleting the category.');
             return redirect()->back()->withInput();
         }
     }

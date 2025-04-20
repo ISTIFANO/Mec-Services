@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->string("titre");
+            $table->string("status")->default("en cours");
+            $table->integer("duree")->nullable();
             $table->unsignedBigInteger('mechanicien_id');
             $table->unsignedBigInteger('client_id');
             $table->date('date')->nullable();
