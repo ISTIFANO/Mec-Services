@@ -27,12 +27,13 @@ class OffreRepository implements OffreInterface{
     
     
     public function update($data){
+        $offres = Offre::where("id", "=", $data['id'])->first();
+        if ($offres) {
+            $offres->update($data->toArray());
+            return $offres;
+        }
 
-        $offres = Offre::where("id","=",$data['id'])->update($data);
-
-        return $offres;
-
-        
+        return null;
     }
     public function  show(){
 

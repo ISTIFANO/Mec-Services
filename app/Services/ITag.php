@@ -12,6 +12,8 @@ interface ITag{
     public function show();
     public function findByNames($name);
     public function findByOne($data);
+    public function findById($data);
+
 
 
 

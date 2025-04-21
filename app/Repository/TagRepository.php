@@ -51,7 +51,12 @@ class TagRepository implements TagInterface{
 
         return $tag;
     }
+    public function  findById($id){
+        
+        $tag =  Tag::where('id', '=', $id)->first();
 
+        return $tag;
+    }
 
 
     

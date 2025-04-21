@@ -13,6 +13,11 @@ interface IUser{
     public function findByFields($name);
     public function findByEmail($email);
 
+    public function FindClient();
+    public function getUser($data);
+
+
+
 
 }
 

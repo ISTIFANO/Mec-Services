@@ -60,7 +60,19 @@ class UserRepository implements UserInterface{
 return $user;
         
     }
+    public function getUser($id){
 
+        $user =  User::where('id', '=', $id)->first();
+       
+return $user;
+        
+    }
+    public function FindClient(){
+        $users = User::whereHas('role', function ($query) {
+            $query->where('name', 'client');
+        })->get();
+        return $users;
+    }
 
     
 }

@@ -27,6 +27,7 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
+                        <th class="px-6 py-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">image</th>
                         <th class="px-6 py-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Titre</th>
                         <th class="px-6 py-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
                         <th class="px-6 py-4 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Budget</th>
@@ -40,6 +41,9 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($offres as $offre)
                     <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            <img src="{{ url('storage/' . $offre->image) }}" alt="Offre Image" class="h-16 w-16 object-cover rounded-md">
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{$offre->titre}}</td>
                         <td class="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{{$offre->description}}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$offre->budjet}} €</td>
@@ -182,7 +186,7 @@
                         </svg>
                     </button>
                 </div>
-                <form action="/admin/offre/update" method="POST" enctype="multipart/form-data" class="w-full">
+                <form action="/admin/offre" method="POST" enctype="multipart/form-data" class="w-full">
                     @csrf
                     @method('PUT')
 
@@ -218,6 +222,14 @@
                                     <option value="{{$categorie->id}}">{{$categorie->nom}}</option>
                                 @endforeach
                             </select>
+                            <div class="form-element mb-4">
+                                <label for="editStatus" class="block text-gray-700 text-sm font-medium mb-2">Statut</label>
+                                <select id="status" name="status" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="pending">Pending</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-element mb-4">
                             <label for="editVehicule" class="block text-gray-700 text-sm font-medium mb-2">Véhicule</label>
@@ -227,6 +239,14 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="form-element mb-4">
+                        <label for="editUser" class="block text-gray-700 text-sm font-medium mb-2">Utilisateur</label>
+                        <select id="editUser" name="user" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @foreach($users as $user)
+                                <option value="{{$user->id}}">{{$user->firstname}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-element mb-4">
                         <label for="editTags" class="block text-gray-700 text-sm font-medium mb-2">Tags</label>

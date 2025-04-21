@@ -14,6 +14,8 @@ interface TagInterface{
     public function update($data);
     public function findByNames($data);
     public function findByOne($data);
+    public function findById($data);
+
 
 
     

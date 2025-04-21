@@ -50,31 +50,32 @@ class OffreService implements IOffre
         $offres->categorie()->associate($categorie);
         $offres->vehicule()->associate($vehicule);
         $offres->user()->associate($user);
-        
-        $tags = $this->tag_services->findByNames($data['tags']);
-        $offres->tags()->sync($tags);
+        foreach ($data['tags'] as $tagName) {
+            $tags = $this->tag_services->findByOne($tagName);
+            $offres->tags()->sync($tags);
+
+        }
 
         return $this->offre_repositery->create($offres);
     }
 
     public function update($data)
-    {
-        $categorie = $this->categorie_services->findByOne($data['categorie']);
-        $vehicule = $this->ivehicule_service->findByOne($data['vehicule']);
-        $user = $this->user_services->findByEmail($data['user_email']);
-
-        $offres = new Offre();
+    {        
+    $user = $this->user_services->getUser($data['user']);
+    $categorie = $this->categorie_services->findByOne($data['categorie']);
+    $vehicule = $this->ivehicule_service->findByOne($data['vehicule']);
+    
+        $offres = $this->offre_repositery->findById($data["id"]);
         $offres->titre = $data["titre"];
         $offres->description = $data["description"];
         $offres->budjet = $data["budjet"];
-        $offres->status =Statut::PENDING;
+        $offres->status =$data["status"];
         $offres->duree_disponibilite = $data["duree_disponibilite"];
         $offres->image = isset($data["image"]) ? $data["image"]->store('images/offres', 'public') : null;
         $offres->categorie()->associate($categorie);
-        $offres->vehicule()->associate($vehicule);
-        $offres->user()->associate($user);
-        
-        $tags = $this->tag_services->findByNames($data['tags']);
+        $offres->vehicule()->associate($vehicule);   
+        $offres->user()->associate($user);             
+        $tags = $this->tag_services->findById($data['tags']);
         $offres->tags()->sync($tags);
 
         return $this->offre_repositery->update($offres);

@@ -80,4 +80,13 @@ class UserService implements IUser
         
      return    $this->user_repositery->findByEmail($email);
     }
+
+    public function FindClient(){
+        
+        return    $this->user_repositery->FindClient();
+       }
+       public function getUser($id){
+        
+        return    $this->user_repositery->getUser($id);
+       }
 }
