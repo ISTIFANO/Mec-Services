@@ -1,24 +1,24 @@
 <?php 
 namespace App\Repository\Interfaces;
 
-use App\Models\Tag;
-use App\Models\User;
-use App\Models\Vehicule;
-use App\Models\Categorie;
+use App\Models\Offre;
+
 
 
 
 interface OffreInterface{
 
 
-public function create(Categorie $categorie , Tag $tag , User $user , Vehicule $vehicule , $data);
+    public function create(Offre $offres);
 public function delete($id);
 
 
-public function update($data , $id);
-public function     afficher();
+public function update($data);
+public function  show();
 
 public function findbyOne($name);
+public function findById($id);
+
 
     
 }

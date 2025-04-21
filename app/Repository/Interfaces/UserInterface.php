@@ -16,6 +16,9 @@ public function     show();
 
 public function findbyOne($name);
 public function findByFields($email);
+public function findByEmail($email);
+
+
 
 }
 

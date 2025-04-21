@@ -14,17 +14,22 @@ class Offre extends Model
 
 
 
+    protected $fillable =["titre","description","budjet","duree_disponibilite","status","image"];
+
+    protected $table="offers";
 
     public function categorie(){
         return $this->belongsTo(Categorie::class, 'categorie_id');
     }
 
-    public function tags(){
-        return $this->belongsToMany(Tag::class);
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'offer_tag', 'offer_id', 'tag_id');
     }
-
-    public function vihecule(){
-        return $this->belongsTo(Vehicule::class, 'vihecule_id');
+    
+    
+    public function vehicule(){
+        return $this->belongsTo(Vehicule::class, 'vehicule_id');
     }
     
     public function service(){
@@ -33,9 +38,15 @@ class Offre extends Model
 
     }
     
+    // public function user(){
+
+    //     return $this->hasMany(User::class,"user_id");
+
+    // }
+
     public function user(){
 
-        return $this->hasMany(User::class,"user_id");
+        return $this->belongsTo(User::class,"client_id");
 
     }
 

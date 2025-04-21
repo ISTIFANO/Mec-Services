@@ -10,7 +10,9 @@ interface IUser{
     public function update($data,$id);
     public function delete($id);
     public function show();
-    public function findByFields($email);
+    public function findByFields($name);
+    public function findByEmail($email);
+
 
 }
 

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id'); 
             $table->string('certificat')->nullable();
+            $table->string('experience_years')->nullable();
+            $table->string('specialization')->nullable();
             $table->date('variable_at')->nullable();
             $table->date('variable_to')->nullable();
             $table->boolean('is_active')->default(true); 

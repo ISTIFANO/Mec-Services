@@ -7,9 +7,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\OffreController;
 
 Route::get('/', function () {
-    return view('pages.register');
+    return view('pages.login');
 });
 
 Route::prefix("admin")->group(function ()  {
@@ -29,6 +30,10 @@ Route::prefix("admin")->group(function ()  {
     Route::post('/vehicule', [VehiculeController::class, 'store'])->name('admin.vehicule.store');
     Route::delete('/vehicule', [VehiculeController::class, 'delete'])->name('admin.vehicule.destroy');
     Route::put('/vehicule', [VehiculeController::class, 'update'])->name('admin.vehicule.update');
+    Route::get('/offre',[OffreController::class, 'index']);
+    Route::post('/offre', [OffreController::class, 'store'])->name('admin.offre.store');
+    Route::delete('/offre', [OffreController::class, 'delete'])->name('admin.offre.destroy');
+    Route::put('/offre', [OffreController::class, 'update'])->name('admin.offre.update');
 
 
 

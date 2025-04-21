@@ -36,9 +36,12 @@ return view("Pages.login");
 
             return response()->json(["message" => "Not woking"]);
         }
+ 
+     $user =   $this->user_service->findByEmail($request->email);
 
-        $this->user_service->findByFields($request->email);
-
+     Auth::login($user);
+       
+     $request->session()->regenerate();
 
         return redirect("/");
     }

@@ -49,6 +49,10 @@ class VehiculeService implements IVehiculeService {
         return $this->vehicule_repositery->findbyName($name);
 
     }
+    public function findByOne($name){
+        return $this->vehicule_repositery->findByOne($name);
+
+    }
 }
 
 

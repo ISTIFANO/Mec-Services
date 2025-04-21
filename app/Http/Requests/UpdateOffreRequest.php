@@ -11,7 +11,7 @@ class UpdateOffreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class UpdateOffreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-        ];
+            'vehicule' => 'required|string|max:255',
+            'tags' => 'required|array|min:1',
+            // 'tags.*' => 'required|string|max:255',
+            'duree_disponibilite' => 'required|string|max:255',
+            'image' => 'required|image|max:2048',
+            'titre' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'budjet' => 'required|numeric|max:999999.99',
+            'categorie' => 'required|integer|exists:categories,id'        ];
     }
 }

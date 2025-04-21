@@ -10,6 +10,9 @@ interface ITag{
     public function update($data);
     public function delete($id);
     public function show();
+    public function findByNames($name);
+    public function findByOne($data);
+
 
 
 

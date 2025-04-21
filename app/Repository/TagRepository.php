@@ -38,13 +38,19 @@ class TagRepository implements TagInterface{
        
         return $tag;
     }
-    public function  findbyName($name){
+    public function  findByNames($name){
+
         $tag =  Tag::where('name', '=', $name)->first();
 
         return $tag;
     }
 
+ public function  findByOne($id){
+        
+        $tag =  Tag::where('id', '=', $id)->first();
 
+        return $tag;
+    }
 
 
 
