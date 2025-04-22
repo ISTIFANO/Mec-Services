@@ -46,4 +46,17 @@ class CompetenceService implements ICompetence
     {
         return $this->Competence_repositerie->show();
     }
+    public function findByName($data){
+
+
+return $this->Competence_repositerie->findByName($data);
+
+    }
+
+    public function findByID($data){
+
+
+return $this->Competence_repositerie->findByID($data);
+
+    }
 }

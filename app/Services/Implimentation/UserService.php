@@ -5,24 +5,27 @@ namespace App\Services\Implimentation;
 use App\Enums\Image;
 use App\Models\User;
 use  App\Enums\Roles;
+use App\Helpers\Mapper;
 use App\Services\IRole;
 use App\Services\IUser;
 use Illuminate\Support\Facades\Hash;
 use App\Repository\Interfaces\UserInterface;
+use App\Services\ICompetence;
 
 class UserService implements IUser
 {
     protected IRole $role_service;
     protected UserInterface $user_repositery;
-
+protected ICompetence $competence_services;
     protected  User $model;
 
 
-    public function  __construct( IRole $role_service,  UserInterface $user_repositery,User $model)
+    public function  __construct( IRole $role_service,  UserInterface $user_repositery,User $model, ICompetence $competence_services)
     {
         $this->role_service = $role_service;
         $this->user_repositery = $user_repositery;
         $this->model= $model;    
+        $this->competence_services = $competence_services;
 
     }
 
@@ -88,5 +91,27 @@ class UserService implements IUser
        public function getUser($id){
         
         return    $this->user_repositery->getUser($id);
+       }
+
+       public function  SaveMechanicien( $user,$data){
+
+        $utilisateur = $this->user_repositery->getUser($user);
+
+        $mecanicien = Mapper::M_user($utilisateur);
+        $mecanicien->TouxHoraire = $data["TouxHoraire"];
+        $mecanicien->certificat = $data["certificat"];
+        $mecanicien->is_active = $data["is_active"];
+        $mecanicien->portfolio = $data["specialization"];
+        $mecanicien->portfolio = $data["variable_at"];
+        $mecanicien->portfolio = $data["variable_to"];
+        foreach($data["competences"] as $competence){
+            $competences = $this->competence_services->findByID($competence);
+            $user->competences()->attatch($competences);
+        }
+         
+        $mecanicien->avis()->associate(0);
+
+        return $this->user_repositery->SaveMechanicien($mecanicien);
+
        }
 }

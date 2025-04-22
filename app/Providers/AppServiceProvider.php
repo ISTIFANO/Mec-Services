@@ -34,12 +34,14 @@ use App\Services\Implimentation\UserService;
 use App\Services\IRole;
 use App\Services\IUser;
 use App\Services\Implimentation\CompetenceService;
+use App\Services\Implimentation\MechanicService;
 use App\Services\Implimentation\OffreService;
 use App\Services\Implimentation\TagService;
 use App\Services\Implimentation\VehiculeService;
 use App\Services\IOffre;
 use App\Services\ITag;
 use App\Services\IVehiculeService;
+use IMechanic;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -48,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(IMechanic::class,MechanicService::class);
         $this->app->bind(ICompetence::class,CompetenceService::class);
         $this->app->bind(CompetenceInterface::class,CompetenceRepository::class);
         $this->app->bind(TagInterface::class,TagRepository::class);

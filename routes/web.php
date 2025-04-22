@@ -4,12 +4,15 @@ use App\Enums\Vehicule;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OffreController;
+use App\Http\Controllers\MechanicController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CompetenceController;
-use App\Http\Controllers\OffreController;
-
 Route::get('/', function () {
+    return view('Client.BecomeFreelancer');
+});
+Route::get('/lo', function () {
     return view('pages.login');
 });
 
@@ -34,10 +37,12 @@ Route::prefix("admin")->group(function ()  {
     Route::post('/offre', [OffreController::class, 'store'])->name('admin.offre.store');
     Route::delete('/offre', [OffreController::class, 'delete'])->name('admin.offre.destroy');
     Route::put('/offre', [OffreController::class, 'update'])->name('admin.offre.update');
-
-
-
 });
+Route::prefix("client")->group(function ()  {
+    Route::get('/to_mechanicien', [MechanicController::class, 'to_mechanicien'])->name('to_mechanicien');
+   
+});
+
 
 
 

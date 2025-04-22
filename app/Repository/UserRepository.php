@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Models\User;
 use App\Enums\Image;
+use App\Models\Mechanic;
 use Illuminate\Support\Facades\Hash;
 use App\Repository\Interfaces\UserInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -67,6 +68,13 @@ return $user;
 return $user;
         
     }
+
+    public function SaveMechanicien(Mechanic $mechanic){
+
+       
+return $mechanic->save();
+        
+    }
     public function FindClient(){
         $users = User::whereHas('role', function ($query) {
             $query->where('name', 'client');
@@ -74,6 +82,20 @@ return $user;
         return $users;
     }
 
+public function become_mechanicien($data){
+
+    $user = User::where("email","=",$data['email'])->first();
+    $user->become_mechanicien = false;
+
+ return $user->save();
+    
+}
+
+public function willbemechanicien(){
+
+    return     User::where("become_mechanicien","=",true)->first();
+
+}
     
 }
 

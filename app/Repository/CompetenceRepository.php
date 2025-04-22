@@ -53,6 +53,20 @@ public function update($data){
         return $Competence;
         
     }
+    public function findByName($data){
+
+        $Competence = Competence::where("name", "=", "$data")->first();
+
+        return $Competence;
+            }
+        
+            public function findByID($data){
+        
+        
+  $Competence = Competence::where("id","=","$data")->first();
+
+        return $Competence;        
+            }
 
 
 

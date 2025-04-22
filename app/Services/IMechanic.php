@@ -1,11 +1,8 @@
 <?php 
 
 
-namespace App\Services;
 
-
-interface ICompetence {
-
+interface IMechanic{
 
 
     public function create($data);
@@ -20,9 +17,11 @@ interface ICompetence {
 
     public function findByID($id);
 
+    public function to_mechanicien($data);
+    public function willbemechanicien();
+
 
 }
-
 
 
 

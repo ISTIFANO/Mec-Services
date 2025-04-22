@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Mechanic;
 use App\Http\Requests\StoreMechanicRequest;
 use App\Http\Requests\UpdateMechanicRequest;
+use App\Services\IUser;
+use IMechanic;
 
 class MechanicController extends Controller
 {
+
+    private IMechanic $mechanicien_services;
+private IUser $user_services;
+    public function __construct(IMechanic $mechanicien_services, IUser $user_services)
+    {
+        $this->mechanicien_services = $mechanicien_services;
+        $this->user_services = $user_services;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -62,5 +72,23 @@ class MechanicController extends Controller
     public function destroy(Mechanic $mechanic)
     {
         //
+    }
+
+    public function to_mechanicien()
+    {
+        
+    $user_email = auth()->user()->email; 
+   
+        $to_mechanicien = $this->mechanicien_services->to_mechanicien($user_email);
+
+        return $to_mechanicien;
+        
+    }
+
+    public function willbemechanicien(){
+
+        
+       return  $this->mechanicien_services->willbemechanicien();
+        
     }
 }
