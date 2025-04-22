@@ -81,7 +81,7 @@
                   <i class="fas fa-chevron-down ml-2 transition-transform"></i>
                 </button>
                 <div class="dropdown-menu hidden px-2 py-1 mt-1 space-y-1 text-sm" data-menu="categories">
-                  <a href="/categories" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
+                  <a href="/admin/categorie" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
                     <i class="fas fa-list mr-3"></i>
                     All Categories
                   </a>

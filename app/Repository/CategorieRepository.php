@@ -35,7 +35,12 @@ class CategorieRepository implements CategorieInterface{
        
         return $data;
     }
-    public function  findbyid($id){
+    public function  FindByName($name){
+        $Categorie =  Categorie::where('name', '=', $name)->first();
+
+        return $Categorie;
+    }
+    public function  findByOne($id){
         $Categorie =  Categorie::where('id', '=', $id)->first();
 
         return $Categorie;

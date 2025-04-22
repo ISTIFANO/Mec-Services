@@ -17,12 +17,10 @@ class Tag extends Model
 protected $table ="tags";
 
 
-
-    public function offres(){
-
-        return $this->belongsToMany(Offre::class);
-
-    }
+public function offers()
+{
+    return $this->belongsToMany(Offre::class, 'offer_tag', 'tag_id', 'offer_id');
+}
 
     
 

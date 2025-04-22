@@ -50,4 +50,14 @@ class CategorieService implements ICategorie
     {
         return $this->categorie_repositerie->show();
     }
+
+    public function FindByName($name)
+    {
+        return $this->categorie_repositerie->FindByName($name);
+    }
+    public function findByOne($name)
+    {
+        return $this->categorie_repositerie->findByOne($name);
+    }
 }
+

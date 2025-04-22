@@ -16,14 +16,16 @@ return new class extends Migration
             $table->string('titre')->nullable();
             $table->text('description')->nullable();
             $table->date('duree_disponibilite')->nullable();
+            $table->float('budjet')->default(12);
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('categorie_id')->nullable();
             $table->unsignedBigInteger('vehicule_id')->nullable();
-            $table->timestamps();
-            
+            $table->string('image')->nullable();
             $table->foreign('client_id')->references('id')->on('users');
             $table->foreign('categorie_id')->references('id')->on('categories');
             $table->foreign('vehicule_id')->references('id')->on('vehicules');
+            $table->timestamps();
+
         });
     }
 

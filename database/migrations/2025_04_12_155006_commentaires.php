@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('commentaires', function (Blueprint $table) {
             $table->id();
+            $table->text('note')->nullable();
             $table->text('contenu')->nullable();
             $table->timestamps();
         });

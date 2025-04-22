@@ -40,6 +40,18 @@ class TagService implements ITag{
     {
         return $this->tag_repositery->show();
     }
+    public function findByNames($tags)
+    {
+        return $this->tag_repositery->findByNames($tags);
+    }
+    public function findByOne($tags)
+    {
+        return $this->tag_repositery->findByOne($tags);
+    }
+    public function findById($tags)
+    {
+        return $this->tag_repositery->findById($tags);
+    }
 
 
    

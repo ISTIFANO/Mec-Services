@@ -10,7 +10,7 @@ use App\Services\IUser;
 use Illuminate\Support\Facades\Hash;
 use App\Repository\Interfaces\UserInterface;
 
-class UserService implements IUser,UserInterface
+class UserService implements IUser
 {
     protected IRole $role_service;
     protected UserInterface $user_repositery;
@@ -72,8 +72,21 @@ class UserService implements IUser,UserInterface
 
     }
 
-    public function findByFields($email){
+    public function findByFields($name){
         
-        $this->user_repositery->findByFields($email);
+        return  $this->user_repositery->findByFields($name);
     }
+    public function findByEmail($email){
+        
+     return    $this->user_repositery->findByEmail($email);
+    }
+
+    public function FindClient(){
+        
+        return    $this->user_repositery->FindClient();
+       }
+       public function getUser($id){
+        
+        return    $this->user_repositery->getUser($id);
+       }
 }

@@ -13,19 +13,9 @@ use App\Repository\Interfaces\OffreInterface;
 class OffreRepository implements OffreInterface{
 
 
-    public function create(Categorie $categorie , Tag $tag , User $user , Vehicule $vehicule , $data){
+    public function create(Offre $offres){
 
-        $offres = new Offre();
-        $offres->titre = $data["titre"];
-        $offres->description = $data["description"];
-        $offres->budjet = $data["budjet"];
-        $offres->duree = $data["duree"];
-        $offres->image = $data["image"];
-        $offres->categorie()->associate($categorie);
-        $offres->vehicule()->associate($vehicule);
-        $offres->user()->associate($user);
-        $offres->tags()->attach($tag);
-        $offres->save();        
+       return  $offres->save();        
     }
     public function delete($id){
 
@@ -36,31 +26,39 @@ class OffreRepository implements OffreInterface{
     }
     
     
-    public function update($data , $id){
+    public function update($data){
+        $offres = Offre::where("id", "=", $data['id'])->first();
+        if ($offres) {
+            $offres->update($data->toArray());
+            return $offres;
+        }
 
-        $offres = Offre::where("id","=",$id)->update($data);
+        return null;
+    }
+    public function  show(){
+
+        $offres = Offre::with(['tags', 'categorie', 'vehicule', 'user'])->get();
 
         return $offres;
-
-        
-    }
-    public function  afficher(){
-
-        $offres = Offre::all();
-
-        return $offres;
         
         
     }
-    
-    public function findbyOne($name){
-
+  public function findbyOne($name){
 
         $offres = Offre::where("id","=",$name)->first();
 
         return $offres;
         
     }
+    public function findById($id){
+
+
+        $offres = Offre::where("id","=",$id)->first();
+
+        return $offres;
+        
+    }
+   
 
 
     

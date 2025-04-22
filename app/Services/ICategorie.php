@@ -16,6 +16,11 @@ interface ICategorie {
     
     public function show();
 
+    public function FindByName($data);
+    public function FindByOne($data);
+
+
+
 }
 
 

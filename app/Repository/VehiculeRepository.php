@@ -48,6 +48,13 @@ class VehiculeRepository implements VehiculeInterface{
         return $vehicule;
         
     }
+    public function findByOne($id){
+
+        $vehicule = Vehicule::find($id);
+
+        return $vehicule;
+        
+    }
 
 
 

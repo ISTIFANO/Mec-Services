@@ -20,8 +20,10 @@ use App\Repository\Interfaces\ServiceInterface;
 use App\Repository\Interfaces\VehiculeInterface;
 use App\Repository\Interfaces\CategorieInterface;
 use App\Repository\Interfaces\CompetenceInterface;
+use App\Repository\Interfaces\OffreInterface;
 use App\Repository\Interfaces\RoleInterface;
 use App\Repository\Interfaces\UserInterface;
+use App\Repository\OffreRepository;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Services\ICategorie;
@@ -32,8 +34,10 @@ use App\Services\Implimentation\UserService;
 use App\Services\IRole;
 use App\Services\IUser;
 use App\Services\Implimentation\CompetenceService;
+use App\Services\Implimentation\OffreService;
 use App\Services\Implimentation\TagService;
 use App\Services\Implimentation\VehiculeService;
+use App\Services\IOffre;
 use App\Services\ITag;
 use App\Services\IVehiculeService;
 
@@ -60,6 +64,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserInterface::class,UserRepository::class);
         $this->app->bind(ICategorie::class,CategorieService::class);
         $this->app->bind(ITag::class,TagService::class);
+        $this->app->bind(IOffre::class,OffreService::class);
+        $this->app->bind(OffreInterface::class,OffreRepository::class);
+
+
 
 
 

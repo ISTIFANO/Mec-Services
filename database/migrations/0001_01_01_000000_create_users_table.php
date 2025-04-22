@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('rating')->nullable();
             $table->boolean('est_service')->default(false);
             $table->string('image')->nullable();
+        
             $table->rememberToken();
             $table->timestamps();
         });

@@ -45,15 +45,34 @@ class UserRepository implements UserInterface{
         return $user;
         
     }
-    public function findByFields($email){
+    public function findByFields($name){
 
 
-        $user =  User::where('email', '=', $email)->first();
+        $user =  User::where('firstname', '=', $name)->first();
 
         return $user;
         
     }
+    public function findByEmail($email){
 
+        $user =  User::where('email', '=', $email)->first();
+       
+return $user;
+        
+    }
+    public function getUser($id){
+
+        $user =  User::where('id', '=', $id)->first();
+       
+return $user;
+        
+    }
+    public function FindClient(){
+        $users = User::whereHas('role', function ($query) {
+            $query->where('name', 'client');
+        })->get();
+        return $users;
+    }
 
     
 }

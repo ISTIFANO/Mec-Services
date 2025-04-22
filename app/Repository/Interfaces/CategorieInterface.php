@@ -15,6 +15,9 @@ public function create(Categorie $data);
 public function delete($id);
 
 public function update($data);
+public function FindByName($data);
+public function findByOne($data);
+
 
 
     

@@ -18,6 +18,7 @@ public function update($date);
 public function delete($id);
 
 public function findbyName($name);
+public function findByOne($data);
 
 }
 

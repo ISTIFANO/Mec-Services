@@ -12,5 +12,7 @@ interface IVehiculeService
     
     public function show();
     public function findbyName($name);
+    public function findByOne($name);
+
 
 }
