@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\IUser;
 use App\Models\Mechanic;
+use App\Services\IMechanic;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreMechanicRequest;
 use App\Http\Requests\UpdateMechanicRequest;
-use App\Services\IUser;
-use IMechanic;
 
 class MechanicController extends Controller
 {
 
     private IMechanic $mechanicien_services;
-private IUser $user_services;
+    // private IUser $user_services;
     public function __construct(IMechanic $mechanicien_services, IUser $user_services)
     {
         $this->mechanicien_services = $mechanicien_services;
-        $this->user_services = $user_services;
+        // $this->user_services = $user_services;
     }
     /**
      * Display a listing of the resource.
@@ -76,19 +77,20 @@ private IUser $user_services;
 
     public function to_mechanicien()
     {
-        
-    $user_email = auth()->user()->email; 
-   
+
+        $user_email = auth()->user();
+
         $to_mechanicien = $this->mechanicien_services->to_mechanicien($user_email);
 
         return $to_mechanicien;
-        
     }
 
-    public function willbemechanicien(){
+    public function willbemechanicien(Request $request)
+    {
+               $users =$this->mechanicien_services->willbemechanicien()->get();
 
-        
-       return  $this->mechanicien_services->willbemechanicien();
-        
+            //    $array = gettype($users);
+
+               return view("Admin.Utilisateur.ValidateMechanicien", compact("users"));
     }
 }

@@ -19,12 +19,14 @@
         This user is currently a client. Click below to promote them to a <span class="font-semibold text-blue-600">mécanicien</span>.
       </p>
 
-      <form action="/to_mechanicien" method="POST">
+      <form action="/tomechanicien" method="get">
 @csrf
-        <button type="submit" 
+@method('GET')
+
+<input type="hidden" value="2" name="value">
+        <input type="submit"  value=" 🔧 Promote Now"
                 class="inline-block bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition duration-300 hover:bg-blue-700 hover:scale-105">
-          🔧 Promote Now
-        </button>
+         
       </form>
     </div>
 

@@ -38,11 +38,13 @@ Route::prefix("admin")->group(function ()  {
     Route::delete('/offre', [OffreController::class, 'delete'])->name('admin.offre.destroy');
     Route::put('/offre', [OffreController::class, 'update'])->name('admin.offre.update');
 });
+
+
 Route::prefix("client")->group(function ()  {
-    Route::get('/to_mechanicien', [MechanicController::class, 'to_mechanicien'])->name('to_mechanicien');
+    // Route::post('/to_mechanicien', [MechanicController::class, 'willbemechanicien'])->name('to_mechanicien');
    
 });
-
+Route::get('/tomechanicien', [MechanicController::class, 'willbemechanicien']);
 
 
 

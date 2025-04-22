@@ -114,4 +114,18 @@ protected ICompetence $competence_services;
         return $this->user_repositery->SaveMechanicien($mecanicien);
 
        }
+
+       public function become_mechanicien($data){
+
+return  $this->user_repositery->become_mechanicien($data);
+
+
+       }
+       public function willbemechanicien(){
+
+        return  $this->user_repositery->willbemechanicien();
+        
+        
+               }
+
 }
