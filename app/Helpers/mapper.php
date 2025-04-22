@@ -5,13 +5,14 @@ namespace App\Helpers;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\Mechanic;
 
 class Mapper{
 
 /*
  * 
  * 
- * pour mapper object user avec client
+ * pour mapper object user avec mechanicien
  * 
  * 
  * @return Client
@@ -20,18 +21,27 @@ class Mapper{
  * 
  * 
  */
-public static function M_user(User $user , Client $client){
-    
-    $client->id = $user->id;
-    $client->name = $user->name;
-    $client->email = $user->email;
-    $client->password = $user->password;
-    $client->image = $user->image;
-    $role = Role::find($user->role->id);
-    $client->role()->associate($role);
+public static function M_user(User $user, Mechanic $mechanic = null)
+{
+    if ($mechanic === null) {
+        $mechanic = new Mechanic();
+    }
 
-    return  $client ;
+    $mechanic->id = $user->id;
+    $mechanic->firstname = $user->firstname;
+    $mechanic->lastname = $user->lastname;
+    $mechanic->password = $user->password;
+    $mechanic->phone = $user->phone;
+    $mechanic->image = $user->image;
 
+    if ($user->role) {
+        $role = Role::find($user->role->id);
+        if ($role) {
+            $mechanic->role()->associate($role);
+        }
+    }
+
+    return $mechanic;
 }
 
 
