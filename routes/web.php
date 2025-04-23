@@ -9,13 +9,34 @@ use App\Http\Controllers\MechanicController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CompetenceController;
-Route::get('/', function () {
+Route::get('/BecomeFreelancer', function () {
     return view('Client.BecomeFreelancer');
+});
+Route::get('/', function () {
+    return view('welcome');
 });
 Route::get('/lo', function () {
     return view('pages.login');
 });
+Route::get('/AjouterVehicule', function () {
+    return view('Admin.Vehicule.ClientVehicule');
+});
+Route::get('/MesVehicule', function () {
+    return view('Admin.Vehicule.MesVehicule');
+});
 
+Route::get('/Services', function () {
+    return view('Admin.Service.Service');
+});
+Route::get('/Offre', function () {
+    return view('Admin.Offre.Detailes');
+});
+Route::get('/Chat', function () {
+    return view('Admin.Service.Chat');
+});
+Route::get('/Adminn', function () {
+    return view('Admin.Statistic.statistic');
+});
 Route::prefix("admin")->group(function ()  {
     Route::get('/categorie', [CategorieController::class, 'index'])->name('categorie');
     Route::post('/categorie', [CategorieController::class, 'create'])->name('admin.category.store');
@@ -42,7 +63,18 @@ Route::prefix("admin")->group(function ()  {
 
 Route::prefix("client")->group(function ()  {
     // Route::post('/to_mechanicien', [MechanicController::class, 'willbemechanicien'])->name('to_mechanicien');
-   
+    Route::post('/vehicule', [VehiculeController::class, 'store'])->name('client.vehicles.store');
+    Route::get('/ClientOffre',[OffreController::class, 'show'])->name('client.offre.show');
+    Route::get('/offre',[OffreController::class, 'index']);
+    Route::post('/offre', [OffreController::class, 'store'])->name('client.offre.store');
+    Route::delete('/offre', [OffreController::class, 'delete'])->name('client.offre.destroy');
+    Route::put('/offre', [OffreController::class, 'update'])->name('client.offre.update');
+    Route::get('/vehicule', [VehiculeController::class, 'index']);
+    Route::get('/Allvehicules', [VehiculeController::class, 'getVehicules']);
+    Route::post('/vehicule', [VehiculeController::class, 'store'])->name('client.vehicule.store');
+    Route::delete('/vehicule', [VehiculeController::class, 'delete'])->name('client.vehicule.destroy');
+    Route::delete('/deletevehicules', [VehiculeController::class, 'deletevehicules'])->name('client.deletevehicules.destroy');
+    Route::put('/vehicule', [VehiculeController::class, 'update'])->name('client.vehicule.update');
 });
 Route::get('/tomechanicien', [MechanicController::class, 'willbemechanicien']);
 

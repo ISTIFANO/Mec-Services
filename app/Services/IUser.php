@@ -19,6 +19,8 @@ interface IUser{
     public function become_mechanicien($data);
     
     public function willbemechanicien();
+    public function getVehicules($id);
+
 
 
 

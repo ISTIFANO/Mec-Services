@@ -57,6 +57,12 @@ class User extends Authenticatable
         return $this->hasMany(Commentaire::class);
 
     }
+    
+    public function vehicules()
+    {
+        return $this->hasMany(Vehicule::class);
+    }
+    
     /**
      * Get the attributes that should be cast.
      *

@@ -4,33 +4,34 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
         DB::table('categories')->insert([
             [
-                'nom' => 'Technology',
-                'image' => 'technology.jpg',
-                'description' => 'All things tech-related.',
+                'nom' => 'Informatique',
+                'image' => 'informatique.jpg',
+                'description' => 'Catégorie pour les offres liées à l\'informatique.',
+                'active' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nom' => 'Health',
-                'image' => 'health.jpg',
-                'description' => 'Health tips and wellness.',
+                'nom' => 'Marketing',
+                'image' => 'marketing.jpg',
+                'description' => 'Tout ce qui touche au marketing digital et traditionnel.',
+                'active' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'nom' => 'Travel',
-                'image' => 'travel.jpg',
-                'description' => 'Explore new places and adventures.',
+                'nom' => 'Comptabilité',
+                'image' => 'comptabilite.jpg',
+                'description' => 'Offres d\'emploi dans la finance et la comptabilité.',
+                'active' => false,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

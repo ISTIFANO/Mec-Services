@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('model')->nullable();
             $table->date('annee_fabrication')->nullable();
             $table->year('year')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+                        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');            
             $table->timestamps();
         });
     }

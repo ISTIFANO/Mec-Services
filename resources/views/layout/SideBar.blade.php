@@ -5,172 +5,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
     
     <title>Document</title>
 </head>
 <body>
     <div class="hidden h-screen md:flex md:flex-shrink-0">
-        <div class="flex flex-col w-64 bg-gray-800">
-          <!-- Brand Header -->
-          <div class="flex items-center justify-center h-16 bg-gray-900">
-            <span class="text-white font-bold text-lg">Mechanics Admin</span>
-          </div>
-      
-          <!-- Sidebar Navigation -->
-          <div class="flex flex-col flex-grow overflow-y-auto">
-            <nav class="flex-1 px-2 py-4 space-y-1">
-      
-              <!-- Dashboard -->
-              <a href="#dashboard" class="flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md">
-                <i class="fas fa-tachometer-alt mr-3"></i>
-                Dashboard
-              </a>
-      
-              <!-- Dropdown Item Template -->
-              <!-- Repeat this block for each dropdown menu item -->
-      
-              <!-- Brand Dropdown -->
-              <div class="dropdown">
-                <button class="dropdown-toggle flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md" data-toggle="brand">
-                  <div class="flex items-center">
-                    <i class="fas fa-copyright mr-3"></i>
-                    Brand
-                  </div>
-                  <i class="fas fa-chevron-down ml-2 transition-transform"></i>
-                </button>
-                <div class="dropdown-menu hidden px-2 py-1 mt-1 space-y-1 text-sm" data-menu="brand">
-                  <a href="#new-brand" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fas fa-plus-circle mr-3"></i>
-                    New Brand
-                  </a>
-                  <a href="#brands" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fas fa-list mr-3"></i>
-                    Brands
-                  </a>
-                </div>
-              </div>
-      
-              <!-- Mechanics Dropdown -->
-              <div class="dropdown">
-                <button class="dropdown-toggle flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md" data-toggle="mechanics">
-                  <div class="flex items-center">
-                    <i class="fas fa-wrench mr-3"></i>
-                    Mechanics
-                  </div>
-                  <i class="fas fa-chevron-down ml-2 transition-transform"></i>
-                </button>
-                <div class="dropdown-menu hidden px-2 py-1 mt-1 space-y-1 text-sm" data-menu="mechanics">
-                  <a href="#mechanics-list" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fas fa-list mr-3"></i>
-                    All Mechanics
-                  </a>
-                  <a href="#mechanic-add" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fas fa-plus mr-3"></i>
-                    Add Mechanic
-                  </a>
-                </div>
-              </div>
-      
-              <!-- Categories Dropdown -->
-              <div class="dropdown">
-                <button class="dropdown-toggle flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md" data-toggle="categories">
-                  <div class="flex items-center">
-                    <i class="fas fa-tags mr-3"></i>
-                    Categories
-                  </div>
-                  <i class="fas fa-chevron-down ml-2 transition-transform"></i>
-                </button>
-                <div class="dropdown-menu hidden px-2 py-1 mt-1 space-y-1 text-sm" data-menu="categories">
-                  <a href="/admin/categorie" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fas fa-list mr-3"></i>
-                    All Categories
-                  </a>
-                  <a href="/categories/ajouter" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fas fa-plus mr-3"></i>
-                    Add Category
-                  </a>
-                </div>
-              </div>
-      
-              <!-- Tags Dropdown -->
-              <div class="dropdown">
-                <button class="dropdown-toggle flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md" data-toggle="tags">
-                  <div class="flex items-center">
-                    <i class="fas fa-tag mr-3"></i>
-                    Tags
-                  </div>
-                  <i class="fas fa-chevron-down ml-2 transition-transform"></i>
-                </button>
-                <div class="dropdown-menu hidden px-2 py-1 mt-1 space-y-1 text-sm" data-menu="tags">
-                  <a href="#tag-list" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fas fa-list mr-3"></i>
-                    All Tags
-                  </a>
-                  <a href="#tag-add" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fas fa-plus mr-3"></i>
-                    Add Tag
-                  </a>
-                </div>
-              </div>
-      
-              <!-- Services Dropdown -->
-              <div class="dropdown">
-                <button class="dropdown-toggle flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md" data-toggle="services">
-                  <div class="flex items-center">
-                    <i class="fas fa-cogs mr-3"></i>
-                    Services
-                  </div>
-                  <i class="fas fa-chevron-down ml-2 transition-transform"></i>
-                </button>
-                <div class="dropdown-menu hidden px-2 py-1 mt-1 space-y-1 text-sm" data-menu="services">
-                  <a href="#service-list" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fas fa-list mr-3"></i>
-                    All Services
-                  </a>
-                  <a href="#service-add" class="flex items-center pl-9 pr-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                    <i class="fas fa-plus mr-3"></i>
-                    Add Service
-                  </a>
-                </div>
-              </div>
-      
-              <!-- Offers -->
-              <a href="#offers" class="flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                <i class="fas fa-percentage mr-3"></i>
-                Offers
-              </a>
-      
-              <!-- Payments -->
-              <a href="#payments" class="flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                <i class="fas fa-credit-card mr-3"></i>
-                Payments
-              </a>
-      
-              <!-- Users -->
-              <a href="#users" class="flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                <i class="fas fa-users mr-3"></i>
-                Users
-              </a>
-      
-              <!-- Settings -->
-              <a href="#settings" class="flex items-center px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white rounded-md">
-                <i class="fas fa-cog mr-3"></i>
-                Settings
-              </a>
-            </nav>
-          </div>
-      
-          <!-- Footer / Admin -->
-          <div class="flex-shrink-0 flex border-t border-gray-700 p-4">
-            <div class="flex items-center">
-              <img class="h-8 w-8 rounded-full" src="/placeholder.svg?height=32&width=32" alt="Admin">
-              <div class="ml-3">
-                <p class="text-sm font-medium text-white">Admin User</p>
-                <a href="#" class="text-xs font-medium text-gray-300 hover:text-gray-200">Logout</a>
-              </div>
-            </div>
-          </div>
+      <div class="w-64 bg-gray-800 text-white flex flex-col">
+        <div class="p-4 border-b border-gray-700">
+            <a href="index.html" class="text-2xl font-bold text-white">
+                <span class="text-secondary-500">Méca</span>Connect
+            </a>
+            <p class="text-xs text-gray-400 mt-1">Panneau d'administration</p>
         </div>
+        
+        <div class="flex-1 overflow-y-auto py-4">
+            <nav class="px-2">
+                <div class="mb-6">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-3">
+                        Tableau de bord
+                    </p>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md bg-gray-900 text-white mb-1">
+                        <i class="fas fa-tachometer-alt w-5 h-5 mr-2"></i>
+                        Vue d'ensemble
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-chart-line w-5 h-5 mr-2"></i>
+                        Statistiques
+                    </a>
+                </div>
+                
+                <div class="mb-6">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-3">
+                        Gestion des utilisateurs
+                    </p>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-users w-5 h-5 mr-2"></i>
+                        Tous les utilisateurs
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-wrench w-5 h-5 mr-2"></i>
+                        Mécaniciens
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-building w-5 h-5 mr-2"></i>
+                        Entreprises
+                    </a>
+                </div>
+                
+                <div class="mb-6">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-3">
+                        Gestion des offres
+                    </p>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-clipboard-list w-5 h-5 mr-2"></i>
+                        Toutes les offres
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-exclamation-circle w-5 h-5 mr-2"></i>
+                        Offres urgentes
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-flag w-5 h-5 mr-2"></i>
+                        Offres signalées
+                    </a>
+                </div>
+                
+                <div class="mb-6">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-3">
+                        Catégories & Tags
+                    </p>
+                    <a href="/admin/categorie" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-tags w-5 h-5 mr-2"></i>
+                        Types de véhicules
+                    </a>
+                    <a href="/admin/tag" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-tools w-5 h-5 mr-2"></i>
+                        tags de véhicules
+                    </a>
+                </div>
+                
+                <div class="mb-6">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-3">
+                        Finances
+                    </p>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-money-bill-wave w-5 h-5 mr-2"></i>
+                        Transactions
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-file-invoice-dollar w-5 h-5 mr-2"></i>
+                        Factures
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-percentage w-5 h-5 mr-2"></i>
+                        Commissions
+                    </a>
+                </div>
+          
+            </nav>
+        </div>
+        
+        <div class="p-4 border-t border-gray-700">
+            <div class="flex items-center">
+                <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center mr-3">
+                    <span class="font-bold text-white">A</span>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-white">Admin</p>
+                    <p class="text-xs text-gray-400">admin@mecaconnect.fr</p>
+                </div>
+                <button class="ml-auto text-gray-400 hover:text-white">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
         <div class="space-y-6 flex-grow">
             <div class="bg-white w-full p-6 rounded-xl shadow-sm">        
                 @yield('content')

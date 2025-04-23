@@ -22,9 +22,9 @@ class StoreCategorieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nom"=>"required|max:255",
-            "description"=>"required|max:255"
-            ,"image"=>"required|max:255"
-        ];
+         
+            "nom" => "required",
+            "description" => "required",
+            "image" => "required"        ];
     }
 }

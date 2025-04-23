@@ -62,6 +62,9 @@ protected ICompetence $competence_services;
     {
         
     }
+    public function getVehicules($id){
+        $this->user_repositery->getVehicules($id);
+    }
     public function delete($id) {
 
 
