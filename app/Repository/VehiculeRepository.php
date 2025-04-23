@@ -56,6 +56,14 @@ class VehiculeRepository implements VehiculeInterface{
         
     }
 
+    public function GetUserVehicule($id){
+
+        $vehicule = Vehicule::where("user_id","=",$id)->first();
+
+        return $vehicule;
+        
+    }
+
 
 
 

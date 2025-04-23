@@ -124,5 +124,17 @@ public function store(StoreOffreRequest $request)
             return back()->with("error", "An error occurred: " . $e->getMessage());
         }
     }
+
+    public function showOffre(Offre $offre)
+    {
+     $offers = Offre::with(['categorie', 'vehicule', 'tags'])->where("client_id", Auth::user()->id)->get();
+        
+     $categories = $this->categorie_service->show();
+       $vehicules = $this->ivehicule_service->show();
+        $vehicles = $this->ivehicule_service->GetUserVehicule(Auth::user()->id);
+
+        $tags = $this->tag_service->show();
+        return view('Admin.Offre.ClientOffre', compact('offers', 'categories', 'vehicules', 'vehicles','tags'));
+    }
     }
 

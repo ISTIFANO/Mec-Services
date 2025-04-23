@@ -64,7 +64,7 @@ Route::prefix("admin")->group(function ()  {
 Route::prefix("client")->group(function ()  {
     // Route::post('/to_mechanicien', [MechanicController::class, 'willbemechanicien'])->name('to_mechanicien');
     Route::post('/vehicule', [VehiculeController::class, 'store'])->name('client.vehicles.store');
-    Route::get('/ClientOffre',[OffreController::class, 'show'])->name('client.offre.show');
+    Route::get('/ClientOffre',[OffreController::class, 'showOffre'])->name('client.offre.show');
     Route::get('/offre',[OffreController::class, 'index']);
     Route::post('/offre', [OffreController::class, 'store'])->name('client.offre.store');
     Route::delete('/offre', [OffreController::class, 'delete'])->name('client.offre.destroy');

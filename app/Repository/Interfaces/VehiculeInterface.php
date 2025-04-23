@@ -19,6 +19,8 @@ public function delete($id);
 
 public function findbyName($name);
 public function findByOne($data);
+public function GetUserVehicule($id);
+
 
 }
 
