@@ -5,14 +5,15 @@ namespace App\Services\Implimentation;
 
 
 
+use App\Enums\Statut;
+use App\Models\Offre;
 use App\Services\ITag;
 use App\Services\IUser;
 use App\Services\IOffre;
-use App\Models\Offre;
 use App\Services\ICategorie;
-use App\Repository\Interfaces\OffreInterface;
 use App\Services\IVehiculeService;
-use App\Enums\Statut;
+use Illuminate\Support\Facades\Auth;
+use App\Repository\Interfaces\OffreInterface;
 
 class OffreService implements IOffre
 {
@@ -38,7 +39,9 @@ class OffreService implements IOffre
 {
     $categorie = $this->categorie_services->findByOne($data['categorie']);
     $vehicule = $this->ivehicule_service->findByOne($data['vehicule']);
-    $user = $this->user_services->findByEmail($data['user_email']);
+    $email=Auth::user()->email;
+
+    $user = $this->user_services->findByEmail($email);
 
     $offres = new Offre();
     $offres->titre = $data["titre"];
@@ -69,7 +72,9 @@ class OffreService implements IOffre
 
     public function update($data)
     {        
-    $user = $this->user_services->getUser($data['user']);
+        $email=Auth::user()->id;
+
+    $user = $this->user_services->getUser($email);
     $categorie = $this->categorie_services->findByOne($data['categorie']);
     $vehicule = $this->ivehicule_service->findByOne($data['vehicule']);
     
@@ -106,5 +111,10 @@ class OffreService implements IOffre
     public function findbyName($titre)
     {
         return $this->offre_repositery->findbyOne($titre);
+    }
+    public function getUserOffreDetails($offre)
+    {
+        $client =  Auth::user()->id;
+        return $this->offre_repositery->getUserOffreDetails($offre,$client);
     }
 }

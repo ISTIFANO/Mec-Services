@@ -59,7 +59,15 @@ class OffreRepository implements OffreInterface{
         
     }
    
+    public function getUserOffreDetails($offres,$client){
 
+
+        $offres =Offre::with(['categorie', 'vehicule', 'tags'])->where("client_id","=",$client)->where("id","=",$offres)->first();
+
+        return $offres;
+        
+    }
+   
 
     
 }

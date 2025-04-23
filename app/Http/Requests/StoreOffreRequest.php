@@ -25,7 +25,6 @@ class StoreOffreRequest extends FormRequest
         return [
             'vehicule' => 'required|string|max:255',
             'tags' => 'required|array|min:1',
-            // 'tags.*' => 'required|string|max:255',
             'duree_disponibilite' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
             'titre' => 'required|string|max:255',

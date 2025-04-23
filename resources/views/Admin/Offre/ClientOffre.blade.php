@@ -56,8 +56,16 @@
                                 <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">{{ $offer->vehicule->name }}</span>
                             </div>
                             <div class="mt-3 flex justify-between">
-                                <button type="button" data-id="{{ $offer->id }}" class="viewOfferBtn text-blue-700 bg-blue-100 hover:bg-blue-200 px-3 py-1.5 rounded text-xs">Details</button>
-                                <button 
+                                <form action="/client/Detailes" method="POST">
+
+@csrf
+                                    @method('POST')
+                                    <input type="hidden" value="{{ $offer->id }}" name="id">
+                                    <input type="hidden" value="{{ $offer->client_id }}" name="client_id">
+
+                            <input type="submit" data-id="{{ $offer->id }}" class="viewOfferBtn text-blue-700 bg-blue-100 hover:bg-blue-200 px-3 py-1.5 rounded text-xs" value="Details">
+                        </form>  
+                            <button 
                                 class="edit-button inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-150"
                                 data-id="{{$offer->id}}"
                                 data-titre="{{$offer->titre}}"
@@ -73,8 +81,10 @@
                                     </svg>
                                     Edit
                                 </button>
-                                <form action="" method="POST" onsubmit="return confirm('Are you sure?');">
-                                    @csrf @method('DELETE')
+                                <form action="/client/offre" method="POST" onsubmit="return confirm('Are you sure?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="id" value="{{ $offer->id }}">
                                     <button type="submit" class="text-red-700 bg-red-100 hover:bg-red-200 px-3 py-1.5 rounded text-xs">Delete</button>
                                 </form>
                             </div>
@@ -108,12 +118,12 @@
                 <textarea name="description" placeholder="Description" class="border rounded p-2 md:col-span-2" required></textarea>
                 <input name="budjet" type="number" placeholder="Budget (€)" class="border rounded p-2" required>
                 <input name="duree_disponibilite" type="date" class="border rounded p-2" required>
-                <select name="categorie_id" class="border rounded p-2" required>
+                <select name="categorie" class="border rounded p-2" required>
                     @foreach($categories as $categorie)
                         <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
                     @endforeach
                 </select>
-                <select name="vehicule_id" class="border rounded p-2" required>
+                <select name="vehicule" class="border rounded p-2" required>
                     @foreach($vehicules as $vehicule)
                         <option value="{{ $vehicule->id }}">{{ $vehicule->name }}</option>
                     @endforeach
@@ -143,7 +153,7 @@
                 </svg>
             </button>
         </div>
-        <form id="editOfferForm" action="" method="POST" enctype="multipart/form-data" class="p-6">
+        <form id="editOfferForm" action="/client/offre" method="POST" enctype="multipart/form-data" class="p-6">
             @csrf
             @method('PUT')
             <input type="hidden" id="editOfferId" name="id">
@@ -191,7 +201,7 @@
                 
                 <div class="form-element">
                     <label for="editCategorie" class="block text-sm font-medium text-gray-700 mb-1">Catégorie</label>
-                    <select id="editCategorie" name="categorie_id" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 shadow-sm">
+                    <select id="editCategorie" name="categorie" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 shadow-sm">
                         @foreach($categories as $categorie)
                             <option value="{{$categorie->id}}">{{$categorie->nom}}</option>
                         @endforeach
@@ -200,7 +210,7 @@
                 
                 <div class="form-element">
                     <label for="editVehicule" class="block text-sm font-medium text-gray-700 mb-1">Véhicule</label>
-                    <select id="editVehicule" name="vehicule_id" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 shadow-sm">
+                    <select id="editVehicule" name="vehicule" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 shadow-sm">
                         @foreach($vehicules as $vehicule)
                             <option value="{{$vehicule->id}}">{{$vehicule->name}}</option>
                         @endforeach
@@ -314,67 +324,7 @@
             });
         });
 
-        // Handle View Offer Details Buttons
-        document.querySelectorAll('.viewOfferBtn').forEach(button => {
-            button.addEventListener('click', async () => {
-                const offerId = button.dataset.id;
-                try {
-                    const response = await fetch(`/client/offers/${offerId}`);
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch offer data');
-                    }
-
-                    const offer = await response.json();
-                    document.getElementById('viewOfferTitle').textContent = offer.titre;
-                    
-                    const content = document.getElementById('viewOfferContent');
-                    content.innerHTML = `
-                        <div class="aspect-w-16 aspect-h-9 mb-4">
-                            <img src="${window.location.origin}/storage/${offer.image}" alt="${offer.titre}" class="rounded-lg object-cover w-full h-64">
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <h3 class="text-sm font-medium text-gray-500">Description</h3>
-                                <p class="mt-1 text-sm text-gray-900">${offer.description}</p>
-                            </div>
-                            <div>
-                                <h3 class="text-sm font-medium text-gray-500">Budget</h3>
-                                <p class="mt-1 text-sm text-gray-900">${offer.budjet} €</p>
-                            </div>
-                            <div>
-                                <h3 class="text-sm font-medium text-gray-500">Durée Disponibilité</h3>
-                                <p class="mt-1 text-sm text-gray-900">${offer.duree_disponibilite}</p>
-                            </div>
-                            <div>
-                                <h3 class="text-sm font-medium text-gray-500">Catégorie</h3>
-                                <p class="mt-1 text-sm text-gray-900">${offer.categorie.nom}</p>
-                            </div>
-                            <div>
-                                <h3 class="text-sm font-medium text-gray-500">Véhicule</h3>
-                                <p class="mt-1 text-sm text-gray-900">${offer.vehicule.name}</p>
-                            </div>
-                            <div>
-                                <h3 class="text-sm font-medium text-gray-500">Status</h3>
-                                <p class="mt-1 text-sm text-gray-900">${offer.status || 'Pending'}</p>
-                            </div>
-                            <div class="md:col-span-2">
-                                <h3 class="text-sm font-medium text-gray-500">Tags</h3>
-                                <div class="mt-1 flex flex-wrap gap-2">
-                                    ${offer.tags.map(tag => `
-                                        <span class="px-2 py-1 text-xs rounded-full bg-indigo-100 text-indigo-800">${tag.name}</span>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    showModal('viewOfferModal');
-                } catch (e) {
-                    console.error('Error loading offer data:', e);
-                    alert("Erreur de chargement: " + e.message);
-                }
-            });
-        });
+       
     });
 </script>
 @endsection

@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Delete_offres;
 use App\Models\Offre;
-use App\Http\Requests\StoreOffreRequest;
-use App\Http\Requests\UpdateOffreRequest;
-use App\Services\ICategorie;
-use App\Services\IOffre;
 use App\Services\ITag;
 use App\Services\IUser;
-use App\Services\IVehiculeService;
-use Illuminate\Container\Attributes\Auth;
+use App\Services\IOffre;
+use App\Services\ICategorie;
 use Illuminate\Http\Request;
+use App\Services\IVehiculeService;
+use App\Http\Requests\Delete_offres;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreOffreRequest;
+use App\Http\Requests\UpdateOffreRequest;
+use App\Http\Requests\getUserOffreDetailsRequest;
+use Illuminate\Contracts\View\View;
 
 class OffreController extends Controller
 {
@@ -96,6 +98,7 @@ public function store(StoreOffreRequest $request)
 
         //     return back();
         // }
+        // dd($request->all());
         
         $this->offre_services->update($request->all());
 
@@ -110,4 +113,16 @@ public function store(StoreOffreRequest $request)
 
         return back();
     }
-}
+
+    public function getUserOffreDetails(getUserOffreDetailsRequest $request)
+    {
+        try {
+            $offre = $this->offre_services->getUserOffreDetails($request->id);
+            $user = $this->user_services->getUser($request->client_id);
+            return view("Admin.Offre.Detailes", compact("offre", "user"));
+        } catch (\Exception $e) {
+            return back()->with("error", "An error occurred: " . $e->getMessage());
+        }
+    }
+    }
+

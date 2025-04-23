@@ -1,4 +1,4 @@
-@extends('layout.App')
+{{-- @extends('layout.App')
 
 @section('content')
 <div class="min-h-screen bg-gray-50 py-8">
@@ -30,7 +30,6 @@
             <div class="border-t border-gray-100 p-6">
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
                     <div class="grid grid-cols-1 gap-y-6 gap-x-6 sm:grid-cols-2">
                         <!-- Make -->
@@ -73,25 +72,8 @@
                             @enderror
                         </div>
 
-                        <!-- Color -->
-                        <div>
-                            <label for="color" class="block text-sm font-medium text-gray-700">Couleur</label>
-                            <input type="text" name="color" id="color"
-                                   class="mt-1 block w-full shadow-sm border border-gray-300 rounded-md transition duration-150 ease-in-out focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 hover:border-gray-400 sm:text-sm">
-                            @error('color')
-                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- VIN -->
-                        <div>
-                            <label for="vin" class="block text-sm font-medium text-gray-700">Numéro d'identification (VIN)</label>
-                            <input type="text" name="vin" id="vin"
-                                   class="mt-1 block w-full shadow-sm border border-gray-300 rounded-md transition duration-150 ease-in-out focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 hover:border-gray-400 sm:text-sm">
-                            @error('vin')
-                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+                      
+                       
                     </div>
 
                     <!-- Description -->
@@ -129,4 +111,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection --}}

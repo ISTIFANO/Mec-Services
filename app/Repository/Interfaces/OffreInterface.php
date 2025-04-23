@@ -19,6 +19,8 @@ public function  show();
 public function findbyOne($name);
 public function findById($id);
 
+public function getUserOffreDetails($offres,$client);
+
 
     
 }

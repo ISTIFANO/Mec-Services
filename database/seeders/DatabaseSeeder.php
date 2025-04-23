@@ -8,6 +8,7 @@ use Database\Seeders\TagSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\CategorySeeder;
+use Database\Seeders\PositionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            VehiculeSeeder::class,CompetencesSeeder::class,CategorySeeder::class,TagSeeder::class,RoleSeeder::class,CategorySeeder::class
+            VehiculeSeeder::class,CompetencesSeeder::class,CategorySeeder::class,TagSeeder::class,RoleSeeder::class,CategorySeeder::class,PositionSeeder::class
         ]);
     }
 }
