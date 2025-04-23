@@ -35,6 +35,7 @@ class CategorieController extends Controller
     public function create(StoreCategorieRequest $request)
     {
         try {
+
             $this->categorie_service->create($request->all());
 
             session()->flash('succMessage', 'Categorie created successfully!');

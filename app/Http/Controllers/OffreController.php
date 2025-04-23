@@ -75,7 +75,15 @@ public function store(StoreOffreRequest $request)
      */
     public function show(Offre $offre)
     {
-        //
+        $offers = Offre::with(['categorie', 'vehicule', 'tags'])->get();
+
+        $categories = $this->categorie_service->show();
+        $vehicules = $this->ivehicule_service->show();
+        $vehicles = $this->ivehicule_service->show();
+
+
+        $tags = $this->tag_service->show();
+        return view('Admin.Offre.ClientOffre', compact('offers', 'categories', 'vehicules', 'vehicles','tags'));
     }
 
     /**

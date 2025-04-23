@@ -11,14 +11,20 @@ use App\Http\Requests\StoreVehiculeRequest;
 use App\Http\Requests\DeleteVehiculeREQUEST;
 use App\Http\Requests\UpdateVehiculeRequest;
 use App\Repository\Interfaces\VehiculeInterface;
+use App\Services\IUser;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VehiculeController extends Controller
 {
     protected IVehiculeService $vehicule_service;
+    protected IUser $user_servces;
 
-    public function __construct(IVehiculeService $vehicule_service)
+    public function __construct(IVehiculeService $vehicule_service,  IUser $user_servces)
     {
         $this->vehicule_service = $vehicule_service;
+        $this->user_servces = $user_servces;
+
     }
     /**
      * Display a listing of the resource.
@@ -45,7 +51,12 @@ class VehiculeController extends Controller
     public function store(StoreVehiculeRequest $request)
     {
         try {
-            $this->vehicule_service->create($request->all());
+            
+    $email = auth()->user()->email; 
+    $data = array_merge($request->all(), ["email" => $email]); 
+    
+    // dd($data);
+            $this->vehicule_service->create($data);
 
             session()->flash('succMessage', 'vehicule created successfully!');
 
@@ -64,21 +75,22 @@ class VehiculeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function getVehicules()
     {
+        
+        $vehicules = Auth::user()->vehicules;
+            // dd($vehicules); 
         try {
-            $vehicules = $this->vehicule_service->show();
-    
-            return redirect()->route('Admin.Vehicule.Vehicule', compact('vehicules'));
-    
-                return back();
-    
-            } catch (Exception $e) {
-    
-                Log::error($e->getMessage());
-    
-                return redirect()->back();
-            }    }
+            // $users = $this->user_servces->getVehicules($id);
+            return view('Admin.Vehicule.AllVehicule', compact('vehicules'));
+
+        } catch (Exception $e) {
+
+            Log::error($e->getMessage());
+
+            return redirect()->back()->with('ErrMessage', 'Unable to fetch vehicule details.');
+        }
+    }
 
   
 
@@ -118,6 +130,27 @@ class VehiculeController extends Controller
         try {
             
             $this->vehicule_service->delete($request->id);
+
+            session()->flash('succMessage', 'vehicule deleted  successfully!');
+        
+            return back();
+
+
+        } catch (Exception $e) {
+
+            Log::error($e->getMessage());
+
+            session()->flash('ErrMessage', ' vehicule has a problemes.');
+
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function deletevehicules(Request $request)
+    {
+        try {
+            
+            $this->vehicule_service->delete($request->vehicle_id);
 
             session()->flash('succMessage', 'vehicule deleted  successfully!');
         

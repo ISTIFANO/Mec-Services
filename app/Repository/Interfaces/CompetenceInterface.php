@@ -15,6 +15,11 @@ public function create(Competence $date);
 
 public function update($date);
 public function delete($id);
+public function findByName($name);
+public function findByID($id);
+
+
+
 }
 
 

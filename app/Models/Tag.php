@@ -19,7 +19,7 @@ protected $table ="tags";
 
 public function offers()
 {
-    return $this->belongsToMany(Offre::class, 'offer_tag', 'tag_id', 'offer_id');
+    return $this->belongsToMany(Offre::class, 'offer_tag', 'offer_id', 'tag_id');
 }
 
     

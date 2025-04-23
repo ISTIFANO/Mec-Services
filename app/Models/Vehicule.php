@@ -20,5 +20,10 @@ class Vehicule extends Model
         return $this->hasMany(Offre::class);
 
     }
+    public function user(){
+
+        return $this->belongsTo(User::class,'user_id');
+
+    }
 
 }

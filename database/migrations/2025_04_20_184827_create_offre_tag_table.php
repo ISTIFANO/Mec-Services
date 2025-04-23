@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('offre_tag', function (Blueprint $table) {
-            $table->unsignedBigInteger('offre_id');
+        Schema::create('offer_tag', function (Blueprint $table) {
+            $table->unsignedBigInteger('offer_id');
             $table->unsignedBigInteger('tag_id');
         
-            $table->foreign('offre_id')->references('id')->on('offres')->onDelete('cascade');
+            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         
-            $table->primary(['offre_id', 'tag_id']);
+            $table->primary(['offer_id', 'tag_id']);
         });
         
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('offre_tag');
+        Schema::dropIfExists('offer_tag');
     }
 };

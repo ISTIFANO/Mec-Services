@@ -35,29 +35,37 @@ class OffreService implements IOffre
     }
 
     public function create($data)
-    {
-        $categorie = $this->categorie_services->findByOne($data['categorie']);
-        $vehicule = $this->ivehicule_service->findByOne($data['vehicule']);
-        $user = $this->user_services->findByEmail($data['user_email']);
+{
+    $categorie = $this->categorie_services->findByOne($data['categorie']);
+    $vehicule = $this->ivehicule_service->findByOne($data['vehicule']);
+    $user = $this->user_services->findByEmail($data['user_email']);
 
-        $offres = new Offre();
-        $offres->titre = $data["titre"];
-        $offres->description = $data["description"];
-        $offres->budjet = $data["budjet"];
-        $offres->status =Statut::PENDING;
-        $offres->duree_disponibilite = $data["duree_disponibilite"];
-        $offres->image = isset($data["image"]) ? $data["image"]->store('images/offres', 'public') : null;
-        $offres->categorie()->associate($categorie);
-        $offres->vehicule()->associate($vehicule);
-        $offres->user()->associate($user);
-        foreach ($data['tags'] as $tagName) {
-            $tags = $this->tag_services->findByOne($tagName);
-            $offres->tags()->sync($tags);
+    $offres = new Offre();
+    $offres->titre = $data["titre"];
+    $offres->description = $data["description"];
+    $offres->budjet = $data["budjet"];
+    $offres->status = Statut::PENDING;
+    $offres->duree_disponibilite = $data["duree_disponibilite"];
+    $offres->image = isset($data["image"]) ? $data["image"]->store('images/offres', 'public') : null;
+    $offres->categorie()->associate($categorie);
+    $offres->vehicule()->associate($vehicule);
+    $offres->user()->associate($user);
 
+    // Save the Offre instance to generate the offer_id
+    $offres->save();
+
+    // Sync tags after saving the Offre
+    $tagIds = [];
+    foreach ($data['tags'] as $tagName) {
+        $tag = $this->tag_services->findByOne($tagName);
+        if ($tag) {
+            $tagIds[] = $tag->id;
         }
-
-        return $this->offre_repositery->create($offres);
     }
+    $offres->tags()->sync($tagIds);
+
+    return $this->offre_repositery->create($offres);
+}
 
     public function update($data)
     {        
