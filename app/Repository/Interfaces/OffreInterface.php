@@ -20,9 +20,8 @@ public function findbyOne($name);
 public function findById($id);
 
 public function getUserOffreDetails($offres,$client);
-
-
-    
+public function showRejectedOffres();
+public function showActiveOffres() ;   
 }
 
 

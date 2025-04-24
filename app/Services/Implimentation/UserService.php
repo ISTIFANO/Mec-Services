@@ -11,21 +11,25 @@ use App\Services\IUser;
 use Illuminate\Support\Facades\Hash;
 use App\Repository\Interfaces\UserInterface;
 use App\Services\ICompetence;
+use App\Services\IMechanic;
 
 class UserService implements IUser
 {
     protected IRole $role_service;
     protected UserInterface $user_repositery;
-protected ICompetence $competence_services;
+    protected ICompetence $competence_services;
     protected  User $model;
+    protected IMechanic $mechanicien_service ;
 
 
-    public function  __construct( IRole $role_service,  UserInterface $user_repositery,User $model, ICompetence $competence_services)
+    public function  __construct( IRole $role_service,  UserInterface $user_repositery,User $model, ICompetence $competence_services,IMechanic $mechanicien_service )
     {
         $this->role_service = $role_service;
         $this->user_repositery = $user_repositery;
         $this->model= $model;    
         $this->competence_services = $competence_services;
+        $this->mechanicien_service = $mechanicien_service;
+
 
     }
 
@@ -86,6 +90,12 @@ protected ICompetence $competence_services;
         
      return    $this->user_repositery->findByEmail($email);
     }
+    public function store($data){
+      
+
+
+        // return    $this->user_repositery->findByEmail($email);
+       }
 
     public function FindClient(){
         
@@ -130,5 +140,14 @@ return  $this->user_repositery->become_mechanicien($data);
         
         
                }
+
+               public function changrRole($user , $role){
+                $mechanicienRole = $this->role_service->FindByName($role);
+                $utilisateur = $this->user_repositery->getUser($user);
+          
+                $mechanicien  =  $this->mechanicien_service->create($utilisateur,$mechanicienRole);
+                return $mechanicien;
+               }
+
 
 }

@@ -67,6 +67,20 @@ class OffreRepository implements OffreInterface{
         return $offres;
         
     }
+    public function showRejectedOffres(){
+
+        $offres = Offre::with(['tags', 'categorie', 'vehicule', 'user'])->where("status","=","approved")->get();
+
+        return $offres;
+        
+    }
+    public function showActiveOffres(){
+
+        $offres = Offre::with(['tags', 'categorie', 'vehicule', 'user'])->where("status","=","pending")->get();
+
+        return $offres;
+        
+    }
    
 
     

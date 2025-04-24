@@ -8,15 +8,18 @@ use App\Services\IMechanic;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreMechanicRequest;
 use App\Http\Requests\UpdateMechanicRequest;
+use App\Services\IRole;
 
 class MechanicController extends Controller
 {
-
+private IRole $role_services;
     private IMechanic $mechanicien_services;
     // private IUser $user_services;
-    public function __construct(IMechanic $mechanicien_services, IUser $user_services)
+    public function __construct(IMechanic $mechanicien_services, IRole $role_services)
     {
         $this->mechanicien_services = $mechanicien_services;
+        $this->role_services = $role_services;
+
         // $this->user_services = $user_services;
     }
     /**
@@ -30,10 +33,11 @@ class MechanicController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-    }
+return $this->mechanicien_services->store($request->all());
+
+}
 
     /**
      * Store a newly created resource in storage.
@@ -82,17 +86,19 @@ class MechanicController extends Controller
 
         $data = ["id" => $id];
 
-        $to_mechanicien = $this->mechanicien_services->to_mechanicien($data);
+         $this->mechanicien_services->to_mechanicien($data);
 
-        return $to_mechanicien;
+        return back();
     }
 
     public function willbemechanicien(Request $request)
     {
+     
         $users = $this->mechanicien_services->willbemechanicien()->get();
-
+$roles = $this->role_services->show();
+// dd($roles);
         //    $array = gettype($users);
 
-        return view("Admin.Utilisateur.ValidateMechanicien", compact("users"));
+        return view("Admin.Utilisateur.ValidateMechanicien", compact("users","roles"));
     }
 }

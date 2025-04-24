@@ -7,6 +7,7 @@ interface IUser{
 
 
     public function create($data,$role);
+    public function store($data);
     public function update($data,$id);
     public function delete($id);
     public function show();
@@ -20,6 +21,8 @@ interface IUser{
     
     public function willbemechanicien();
     public function getVehicules($id);
+    public function changrRole($user , $role);
+
 
 
 

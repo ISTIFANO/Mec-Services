@@ -8,16 +8,20 @@ use App\Http\Controllers\OffreController;
 use App\Http\Controllers\MechanicController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\RoleController;
+use App\Models\Role;
+
 Route::get('/BecomeFreelancer', function () {
     return view('Client.BecomeFreelancer');
 });
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/lo', function () {
-    return view('pages.login');
-});
+// Route::get('/lo', function () {
+//     return view('Admin.Utilisateur.ValidateMechanicien');
+// });
 Route::get('/AjouterVehicule', function () {
     return view('Admin.Vehicule.ClientVehicule');
 });
@@ -58,11 +62,13 @@ Route::prefix("admin")->group(function ()  {
     Route::post('/offre', [OffreController::class, 'store'])->name('admin.offre.store');
     Route::delete('/offre', [OffreController::class, 'delete'])->name('admin.offre.destroy');
     Route::put('/offre', [OffreController::class, 'update'])->name('admin.offre.update');
+    Route::put('/role', [RoleController::class, 'Update']);
+
 });
 
 
 Route::prefix("client")->group(function ()  {
-    // Route::post('/to_mechanicien', [MechanicController::class, 'willbemechanicien'])->name('to_mechanicien');
+    Route::get('/willbemechanicien', [MechanicController::class, 'willbemechanicien'])->name('willbemechanicien');
     Route::post('/vehicule', [VehiculeController::class, 'store'])->name('client.vehicles.store');
     Route::get('/ClientOffre',[OffreController::class, 'showOffre'])->name('client.offre.show');
     Route::get('/offre',[OffreController::class, 'index']);
@@ -76,6 +82,7 @@ Route::prefix("client")->group(function ()  {
     Route::delete('/vehicule', [VehiculeController::class, 'delete'])->name('client.vehicule.destroy');
     Route::delete('/deletevehicules', [VehiculeController::class, 'deletevehicules'])->name('client.deletevehicules.destroy');
     Route::put('/vehicule', [VehiculeController::class, 'update'])->name('client.vehicule.update');
+    Route::post('/BecomeFreelancerMethode', [MechanicController::class, 'create']);
 });
 Route::post('/tomechanicien', [MechanicController::class, 'to_mechanicien']);
 

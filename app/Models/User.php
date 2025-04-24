@@ -57,6 +57,10 @@ class User extends Authenticatable
         return $this->hasMany(Commentaire::class);
 
     }
+    public function mechanicien(){
+        return $this->hasOne(Mechanic::class);
+
+    }
     
     public function vehicules()
     {

@@ -13,7 +13,8 @@ interface IOffre{
     public function delete($id);
     public function show();
     public function getUserOffreDetails($offres);
-
+    public function showActiveOffres();
+    public function showRejectedOffres();
 
 
 }

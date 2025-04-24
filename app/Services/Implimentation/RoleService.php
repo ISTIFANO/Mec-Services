@@ -46,6 +46,9 @@ class RoleService implements IRole
     public function show(){
 
 
+        $role =$this->role_repositery->show();
+
+        return $role;
 
 
         

@@ -37,6 +37,15 @@ public function update($data,$id){
     }
 
 
+  public function show(){
+
+        $role = Role::all();
+
+        return $role;
+
+        
+    }
+
 
     
 }

@@ -117,4 +117,10 @@ class OffreService implements IOffre
         $client =  Auth::user()->id;
         return $this->offre_repositery->getUserOffreDetails($offre,$client);
     }
+    public function showActiveOffres(){
+        return $this->offre_repositery->showActiveOffres();
+    }
+    public function showRejectedOffres(){
+        return $this->offre_repositery->showRejectedOffres();
+    }
 }
