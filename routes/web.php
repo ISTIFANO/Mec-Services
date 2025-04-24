@@ -86,6 +86,11 @@ Route::prefix("client")->group(function ()  {
 
 });
 
+Route::prefix("mechanicien")->group(function ()  {
+    Route::post('/OffreDetails', [OffreController::class, 'getOffreDetails']);
+
+
+});
 Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
 
 Route::post('/tomechanicien', [MechanicController::class, 'to_mechanicien']);

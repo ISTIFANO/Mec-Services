@@ -202,7 +202,7 @@
                     <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
                         <div class="p-6">
                             <div class="flex flex-col md:flex-row justify-between">
-                                <div>
+                                <div class="flex-1">
                                     <div class="flex items-center mb-2">
                                         @if($offre->duree_disponibilite && \Carbon\Carbon::parse($offre->duree_disponibilite)->diffInDays(now()) <= 2)
                                             <span class="bg-red-100 text-red-600 text-xs font-medium px-2.5 py-0.5 rounded-full">Urgent</span>
@@ -232,6 +232,12 @@
                                     <p class="text-xl font-bold text-primary-600">{{ $offre->budjet }}€</p>
                                     <p class="text-sm text-gray-500">Publié {{ \Carbon\Carbon::parse($offre->created_at)->diffForHumans() }}</p>
                                 </div>
+                                @if($offre->image)
+                                <div class="w-full md:w-1/4 lg:w-1/5 md:ml-4">
+                                    <img src="{{ asset('storage/' . $offre->image) }}" alt="Image de l'offre" class="rounded-lg object-cover w-full h-32 md:h-24">
+                                </div>
+                                @endif
+                               
                             </div>
                             
                             <p class="mt-4 text-gray-700">
@@ -244,9 +250,15 @@
                                     <span>Intervention souhaitée: {{ $offre->duree_disponibilite ? \Carbon\Carbon::parse($offre->duree_disponibilite)->format('d/m/Y') : 'Non spécifiée' }}</span>
                                 </div>
                                 <div class="mt-4 sm:mt-0 flex space-x-3">
-                                    <a href="" class="px-4 py-2 bg-white border border-primary-600 text-primary-600 rounded-md hover:bg-primary-50 transition">
-                                        Détails
-                                    </a>
+                                    <form action="/mechanicien/OffreDetails" method="POST">
+                                        @csrf
+
+                                        @method('POST')
+                                            <input type="hidden" name="id" value="{{ $offre->id }}">
+
+                                        <input value="Détails" type="submit" class="px-4 py-2 bg-white border border-primary-600 text-primary-600 rounded-md hover:bg-primary-50 transition">
+                                            
+                                    </form>
                                     <button class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition">
                                         Postuler
                                     </button>

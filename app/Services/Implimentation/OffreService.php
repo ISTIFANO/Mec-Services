@@ -104,6 +104,10 @@ class OffreService implements IOffre
         return $this->offre_repositery->show();
     }
 
+    public function findById($id)
+    {
+        return $this->offre_repositery->findById($id);
+    }
     public function findByFields($email)
     {
         return $this->offre_repositery->findbyOne($email);
@@ -115,6 +119,7 @@ class OffreService implements IOffre
     public function getUserOffreDetails($offre)
     {
         $client =  Auth::user()->id;
+
         return $this->offre_repositery->getUserOffreDetails($offre,$client);
     }
     public function showActiveOffres(){

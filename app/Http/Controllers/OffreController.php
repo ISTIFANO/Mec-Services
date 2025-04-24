@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreOffreRequest;
 use App\Http\Requests\UpdateOffreRequest;
 use App\Http\Requests\getUserOffreDetailsRequest;
+use App\Http\Requests\getUserOffreDetailsRequests;
 use Illuminate\Contracts\View\View;
 
 class OffreController extends Controller
@@ -127,6 +128,7 @@ class OffreController extends Controller
 
     public function showOffre(Offre $offre)
     {
+
         $offers = Offre::with(['categorie', 'vehicule', 'tags'])->where("client_id", Auth::user()->id)->get();
 
         $categories = $this->categorie_service->show();
@@ -143,4 +145,16 @@ class OffreController extends Controller
 
         return view('Admin.Service.Service', compact("offres"))->with('message', "Active offers retrieved successfully");
     }
+
+    public function getOffreDetails(getUserOffreDetailsRequests $request)
+    {
+        try {
+            $offre = $this->offre_services->findById($request->id);
+            $user = $this->user_services->getUser($offre->client_id);
+            return view("Admin.Offre.Detailes", compact("offre", "user"));
+        } catch (\Exception $e) {
+            return back()->with("error", "An error occurred: " . $e->getMessage());
+        }
+    }
+
 }

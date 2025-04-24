@@ -15,6 +15,8 @@ interface IOffre{
     public function getUserOffreDetails($offres);
     public function showActiveOffres();
     public function showRejectedOffres();
+    public function findById($id);
+
 
 
 }
