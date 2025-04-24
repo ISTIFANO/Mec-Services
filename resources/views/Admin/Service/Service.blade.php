@@ -259,9 +259,13 @@
                                         <input value="Détails" type="submit" class="px-4 py-2 bg-white border border-primary-600 text-primary-600 rounded-md hover:bg-primary-50 transition">
                                             
                                     </form>
-                                    <button class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition">
-                                        Postuler
-                                    </button>
+                                    <form action="/mechanicien/Postuler" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="offre_id" value="{{ $offre->id }}">
+                                        <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition">
+                                            Postuler
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
