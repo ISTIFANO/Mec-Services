@@ -61,7 +61,7 @@ class VehiculeRepository implements VehiculeInterface{
         $vehicule = Vehicule::where("user_id","=",$id)->first();
 
         return $vehicule;
-        
+       
     }
 
 

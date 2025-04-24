@@ -78,19 +78,21 @@ class MechanicController extends Controller
     public function to_mechanicien()
     {
 
-        $user_email = auth()->user();
+        $id = auth()->user()->id;
 
-        $to_mechanicien = $this->mechanicien_services->to_mechanicien($user_email);
+        $data = ["id" => $id];
+
+        $to_mechanicien = $this->mechanicien_services->to_mechanicien($data);
 
         return $to_mechanicien;
     }
 
     public function willbemechanicien(Request $request)
     {
-               $users =$this->mechanicien_services->willbemechanicien()->get();
+        $users = $this->mechanicien_services->willbemechanicien()->get();
 
-            //    $array = gettype($users);
+        //    $array = gettype($users);
 
-               return view("Admin.Utilisateur.ValidateMechanicien", compact("users"));
+        return view("Admin.Utilisateur.ValidateMechanicien", compact("users"));
     }
 }

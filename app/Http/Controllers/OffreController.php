@@ -22,9 +22,9 @@ class OffreController extends Controller
     protected ITag $tag_service;
     protected IVehiculeService $ivehicule_service;
     protected IOffre $offre_services;
-    protected IUser $user_services ;
+    protected IUser $user_services;
 
-    public function __construct(ICategorie $categorie_service, IUser $user_services, ITag $tag_service , IVehiculeService $ivehicule_service,IOffre $offre_services)
+    public function __construct(ICategorie $categorie_service, IUser $user_services, ITag $tag_service, IVehiculeService $ivehicule_service, IOffre $offre_services)
     {
         $this->categorie_service = $categorie_service;
         $this->tag_service = $tag_service;
@@ -44,8 +44,7 @@ class OffreController extends Controller
         $categories = $this->categorie_service->show();
         $vehicules = $this->ivehicule_service->show();
         $tags = $this->tag_service->show();
-        return view('Admin.Offre.Offre', compact('offres', 'categories', 'vehicules', 'tags','users'));
-   
+        return view('Admin.Offre.Offre', compact('offres', 'categories', 'vehicules', 'tags', 'users'));
     }
 
     /**
@@ -59,18 +58,18 @@ class OffreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-public function store(StoreOffreRequest $request)
-{
-    if (!$request->validated()) { 
-        return back()->with("error", "Validation failed");
+    public function store(StoreOffreRequest $request)
+    {
+        if (!$request->validated()) {
+            return back()->with("error", "Validation failed");
+        }
+
+        $user_email = auth()->user()->email;
+        $data = array_merge($request->all(), ["user_email" => $user_email]);
+        $this->offre_services->create($data);
+
+        return back()->with("success", "Offre created successfully");
     }
-
-    $user_email = auth()->user()->email; 
-    $data = array_merge($request->all(), ["user_email" => $user_email]); 
-    $this->offre_services->create($data);
-
-    return back()->with("success", "Offre created successfully");
-}
 
     /**
      * Display the specified resource.
@@ -85,13 +84,13 @@ public function store(StoreOffreRequest $request)
 
 
         $tags = $this->tag_service->show();
-        return view('Admin.Offre.ClientOffre', compact('offers', 'categories', 'vehicules', 'vehicles','tags'));
+        return view('Admin.Offre.ClientOffre', compact('offers', 'categories', 'vehicules', 'vehicles', 'tags'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-  
+
     public function update(Request $request)
     {
         // if(!$request->validate()){
@@ -99,10 +98,11 @@ public function store(StoreOffreRequest $request)
         //     return back();
         // }
         // dd($request->all());
-        
+
         $this->offre_services->update($request->all());
 
-        return back()->with("success", "Offre created successfully");    }
+        return back()->with("success", "Offre created successfully");
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -127,14 +127,13 @@ public function store(StoreOffreRequest $request)
 
     public function showOffre(Offre $offre)
     {
-     $offers = Offre::with(['categorie', 'vehicule', 'tags'])->where("client_id", Auth::user()->id)->get();
-        
-     $categories = $this->categorie_service->show();
-       $vehicules = $this->ivehicule_service->show();
+        $offers = Offre::with(['categorie', 'vehicule', 'tags'])->where("client_id", Auth::user()->id)->get();
+
+        $categories = $this->categorie_service->show();
+        $vehicules = $this->ivehicule_service->show();
         $vehicles = $this->ivehicule_service->GetUserVehicule(Auth::user()->id);
-
+        // dd($vehicles);
         $tags = $this->tag_service->show();
-        return view('Admin.Offre.ClientOffre', compact('offers', 'categories', 'vehicules', 'vehicles','tags'));
+        return view('Admin.Offre.ClientOffre', compact('offers', 'categories', 'vehicules', 'vehicles', 'tags'));
     }
-    }
-
+}

@@ -124,7 +124,7 @@
                     @endforeach
                 </select>
                 <select name="vehicule" class="border rounded p-2" required>
-                    @foreach($vehicules as $vehicule)
+                    @foreach(Auth::user()->vehicules as $vehicule)
                         <option value="{{ $vehicule->id }}">{{ $vehicule->name }}</option>
                     @endforeach
                 </select>

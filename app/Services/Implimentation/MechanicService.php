@@ -52,6 +52,7 @@ class MechanicService implements IMechanic
 
         $data = array_merge($data, ["status" => true]);
 
+// dd($data);
         $mechanicien = $this->user_service->become_mechanicien($data);
 
         return $mechanicien;
