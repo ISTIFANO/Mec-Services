@@ -136,4 +136,11 @@ class OffreController extends Controller
         $tags = $this->tag_service->show();
         return view('Admin.Offre.ClientOffre', compact('offers', 'categories', 'vehicules', 'vehicles', 'tags'));
     }
+
+    public function showActiveOffres()
+    {
+        $offres = $this->offre_services->showActiveOffres();
+
+        return view('Admin.Service.Service', compact("offres"))->with('message', "Active offers retrieved successfully");
+    }
 }

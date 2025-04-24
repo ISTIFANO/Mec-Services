@@ -83,7 +83,11 @@ Route::prefix("client")->group(function ()  {
     Route::delete('/deletevehicules', [VehiculeController::class, 'deletevehicules'])->name('client.deletevehicules.destroy');
     Route::put('/vehicule', [VehiculeController::class, 'update'])->name('client.vehicule.update');
     Route::post('/BecomeFreelancerMethode', [MechanicController::class, 'create']);
+
 });
+
+Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
+
 Route::post('/tomechanicien', [MechanicController::class, 'to_mechanicien']);
 
 
