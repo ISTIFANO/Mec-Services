@@ -49,10 +49,20 @@ class RoleService implements IRole
         $role =$this->role_repositery->show();
 
         return $role;
-
-
-        
     }
+
+        public function become_mechanicien(){
+            
+            $role = $this->role_repositery->become_mechanicien();
+
+            return $role;
+        }
+        public function sendPermissionForMechanic($data){
+            
+            $role = $this->role_repositery->sendPermissionForMechanic($data);
+
+            return $role;
+        }
 
 
 

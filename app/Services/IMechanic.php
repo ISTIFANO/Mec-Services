@@ -19,6 +19,10 @@ interface IMechanic{
 
     public function to_mechanicien($data);
     public function willbemechanicien();
+    public function mechanicienInfo($id);
+    public function validateMechanicien($id);
+
+
 
 
 }

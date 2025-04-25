@@ -128,15 +128,15 @@ class UserService implements IUser
 
        }
 
-       public function become_mechanicien($data){
+//        public function become_mechanicien($data){
 
-return  $this->user_repositery->become_mechanicien($data);
+// return  $this->user_repositery->become_mechanicien();
 
 
-       }
+//        }
        public function willbemechanicien(){
 
-        return  $this->user_repositery->willbemechanicien();
+        return  $this->role_service->become_mechanicien();
         
         
                }

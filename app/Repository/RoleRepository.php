@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\Role;
+use App\Models\User;
 use App\Repository\Interfaces\RoleInterface;
 
 
@@ -36,6 +37,22 @@ public function update($data,$id){
         
     }
 
+    public  function become_mechanicien(){
+
+        return     User::where("become_mechanicien","=",true)->get();
+    
+    }
+ 
+
+    public function sendPermissionForMechanic($data){
+        $user = User::where("id", "=", $data['id'])->first();
+    
+        if ($user) {
+            $user->become_mechanicien = $data['status'];
+            $user->save();
+        }
+        return $user;
+    }
 
   public function show(){
 

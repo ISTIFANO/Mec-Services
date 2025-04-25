@@ -13,15 +13,19 @@ use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\RoleController;
 use App\Models\Role;
 
+Route::get('/ThankYou', function () {
+    return view('Pages.mechanicien');
+});
 Route::get('/BecomeFreelancer', function () {
     return view('Client.BecomeFreelancer');
 });
-Route::get('/', function () {
-    return view('welcome');
+
+
+  
+
+Route::get('/lo', function () {
+    return view('Admin.Utilisateur.ValidateMechanicien');
 });
-// Route::get('/lo', function () {
-//     return view('Admin.Utilisateur.ValidateMechanicien');
-// });
 Route::get('/AjouterVehicule', function () {
     return view('Admin.Vehicule.ClientVehicule');
 });
@@ -63,6 +67,9 @@ Route::prefix("admin")->group(function ()  {
     Route::delete('/offre', [OffreController::class, 'delete'])->name('admin.offre.destroy');
     Route::put('/offre', [OffreController::class, 'update'])->name('admin.offre.update');
     Route::put('/role', [RoleController::class, 'Update']);
+    Route::post('/mechanicienInfo', [MechanicController::class, 'mechanicienInfo']);
+    Route::post('/validate', [MechanicController::class, 'validateMechanicien']);
+
 
 });
 
@@ -94,6 +101,8 @@ Route::prefix("mechanicien")->group(function ()  {
 Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
 
 Route::post('/tomechanicien', [MechanicController::class, 'to_mechanicien']);
+Route::get('/willbemechanicien', [MechanicController::class, 'willbemechanicien']);
+
 
 
 

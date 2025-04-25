@@ -17,7 +17,7 @@ interface IUser{
     public function FindClient();
     public function getUser($data);
     public function SaveMechanicien($user,$data);
-    public function become_mechanicien($data);
+    // public function become_mechanicien($data);
     
     public function willbemechanicien();
     public function getVehicules($id);

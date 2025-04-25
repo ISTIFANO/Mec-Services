@@ -7,18 +7,17 @@ use App\Services\IUser;
 use App\Models\Mechanic;
 use App\Services\IMechanic;
 use App\Repository\Interfaces\UserInterface;
+use App\Services\IRole;
 
 class MechanicService implements IMechanic
 {
-    // private IUser $user_service;
-    // private IMechanic $mechanicien_service;
+    private IRole $role_service;
 
 
-    // public function __construct(IUser $user_service)
-    // {
-    //     // $this->mechanicien_service = $mechanicien_service;
-    //     $this->user_service = $user_service;
-    // }
+    public function __construct(IRole $role_service)
+    {
+        $this->role_service = $role_service;
+    }
     public function create($user, $role)
     {
         // $mechanicien = new Mechanic();
@@ -53,9 +52,8 @@ class MechanicService implements IMechanic
 
 
         
-        $mechanicien->save();
+       return  $mechanicien->save();
         
-        dd($mechanicien);
 
     }
     public function update($data) {
@@ -73,17 +71,20 @@ class MechanicService implements IMechanic
     public function to_mechanicien($data)
     {
 
-        // $data = array_merge($data, ["status" => true]);
+        $data = array_merge($data, ["status" => true]);
 
-        // // dd($data);
-        // $mechanicien = $this->user_service->become_mechanicien($data);
+        $mechanicien = $this->role_service->sendPermissionForMechanic($data);
 
-        // return $mechanicien;
+        return $mechanicien;
     }
 
     public function willbemechanicien()
     {
 
-    // return $this->user_service->willbemechanicien();
+    return $this->role_service->become_mechanicien();
+    }
+    public function mechanicienInfo($id)
+    {
+    return  Mechanic::where("user_id","=",$id)->first();
     }
 }

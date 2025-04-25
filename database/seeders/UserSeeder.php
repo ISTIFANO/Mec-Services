@@ -17,13 +17,13 @@ class UserSeeder extends Seeder
             'firstname' => $faker->firstName,
             'lastname' => $faker->lastName,
             'email' => $faker->unique()->safeEmail,
-            'password' => Hash::make('password'), // You can set a default password or generate a random one
+            'password' => Hash::make('password'),
             'phone' => $faker->unique()->phoneNumber,
-            'rating' => $faker->randomFloat(2, 1, 5), // Random rating between 1 and 5
-            'est_service' => $faker->boolean, // Random boolean value
-            'image' => $faker->imageUrl(), // Random image URL
+            'rating' => $faker->randomFloat(2, 1, 5), 
+            'est_service' => $faker->boolean, 
+            'image' => $faker->imageUrl(), 
             'become_mechanicien' => $faker->boolean,
-            'role_id' => 1 // Random boolean value
+            'role_id' => 1 
         ]);
     }
 }

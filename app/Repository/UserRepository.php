@@ -92,11 +92,7 @@ public function become_mechanicien($data){
     return $user;
 }
 
-public function willbemechanicien(){
 
-    return     User::where("become_mechanicien","=",true)->first();
-
-}
 public function getVehicules($id){
     return User::where("id","=",$id)->first();
 
