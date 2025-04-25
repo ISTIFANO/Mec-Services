@@ -5,18 +5,22 @@ namespace App\Services\Implimentation;
 use App\Models\User;
 use App\Services\IUser;
 use App\Models\Mechanic;
+use App\Repository\Interfaces\MechanicInterface;
 use App\Services\IMechanic;
-use App\Repository\Interfaces\UserInterface;
+
 use App\Services\IRole;
 
 class MechanicService implements IMechanic
 {
     private IRole $role_service;
+    private MechanicInterface $user_repositery;
 
 
-    public function __construct(IRole $role_service)
+    public function __construct(IRole $role_service, MechanicInterface $user_repositery)
     {
         $this->role_service = $role_service;
+        $this->user_repositery = $user_repositery;
+
     }
     public function create($user, $role)
     {
@@ -60,6 +64,11 @@ class MechanicService implements IMechanic
 
     }
 
+    public function validateMechanicien($data) {
+
+      return $this->user_repositery->validate($data);
+    }
+
     public function delete($id) {}
 
     public function show() {}
@@ -83,6 +92,7 @@ class MechanicService implements IMechanic
 
     return $this->role_service->become_mechanicien();
     }
+
     public function mechanicienInfo($id)
     {
     return  Mechanic::where("user_id","=",$id)->first();

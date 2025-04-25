@@ -101,7 +101,7 @@ private IRole $role_services;
 
         dd($request->user_id);
 
-         $this->mechanicien_services->validate($request->user_id);
+         $this->mechanicien_services->validateMechanicien($request->user_id);
 
         return back();
     }
