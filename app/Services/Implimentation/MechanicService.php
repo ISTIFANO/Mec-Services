@@ -3,12 +3,13 @@
 namespace App\Services\Implimentation;
 
 use App\Models\User;
+use App\Services\IRole;
 use App\Services\IUser;
 use App\Models\Mechanic;
-use App\Repository\Interfaces\MechanicInterface;
-use App\Services\IMechanic;
 
-use App\Services\IRole;
+use App\Services\IMechanic;
+use Illuminate\Support\Facades\DB;
+use App\Repository\Interfaces\MechanicInterface;
 
 class MechanicService implements IMechanic
 {
@@ -24,24 +25,32 @@ class MechanicService implements IMechanic
     }
     public function create($user, $role)
     {
-        $user->role()->assciate($role);
-        $avis = User::find(1);
+        try {
+            DB::beginTransaction();
 
-        $mechanicien = new Mechanic();
-        $mechanicien->certificat =null;
-        $mechanicien->experience_years = null ;
-        $mechanicien->specialization = null ;
-        $mechanicien->variable_at = null ;
-        $mechanicien->is_active = false ;
-        $mechanicien->user()->assciate($user);
-        $mechanicien->avis()->assciate($avis);
+            $user->role()->associate($role);
+            $avis = User::find(1);
 
-        dd($mechanicien);
-        return  $mechanicien->save();
+            $mechanicien = new Mechanic();
+            $mechanicien->certificat = null;
+            $mechanicien->experience_years = null;
+            $mechanicien->specialization = null;
+            $mechanicien->variable_at = null;
+            $mechanicien->variable_to = null;
+            $mechanicien->is_active = false;
 
+            $mechanicien->user()->associate($user);
+            $mechanicien->avis()->associate($avis);
 
+            $mechanicien->save();
+
+            DB::commit();
+            return $mechanicien;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
-
 
     public function store($data)
     {

@@ -63,7 +63,6 @@ class RoleController extends Controller
      */
     public function update(Request $request)
     {
-        dd($request->all());
 $this->iUser->changrRole($request->user_id,$request->role_name);
 
 return back();
