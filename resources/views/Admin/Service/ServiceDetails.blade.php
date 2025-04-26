@@ -106,16 +106,16 @@
                             <h3 class="text-lg font-medium mb-2">Catégorie</h3>
                             <div class="bg-white rounded-lg border overflow-hidden">
                                 <div class="p-6">
-                                    @if($service->offer && $service->offer->categorie)
+                                    @if($service->offre && $service->offre->categorie)
                                     <div class="flex items-center">
                                         <div class="h-12 w-12 relative mr-4">
-                                            <img src="{{ $service->offer->categorie->image ? url('storage/' .$service->offer->categorie->image) : asset('images/placeholder.jpg') }} --}}" 
-                                                 alt="{{ $service->offer->categorie->nom }}" 
+                                            <img src="{{ $service->offre->categorie->image ? url('storage/' .$service->offre->categorie->image) : asset('images/placeholder.jpg') }} --}}" 
+                                                 alt="{{ $service->offre->categorie->nom }}" 
                                                  class="w-full h-full object-cover rounded-md">
                                         </div>
                                         <div>
-                                            <p class="font-medium">{{ $service->offer->categorie->nom }}</p>
-                                            <p class="text-gray-500">{{ $service->offer->categorie->description }}</p>
+                                            <p class="font-medium">{{ $service->offre->categorie->nom }}</p>
+                                            <p class="text-gray-500">{{ $service->offre->categorie->description }}</p>
                                         </div>
                                     </div>
                                     @else
@@ -140,7 +140,7 @@
         <!-- Colonne latérale -->
         <div class="space-y-6">
             @include('Admin.Service.components.mechanicien', ['mechanic' => $service->mechanicien])
-            @include('Admin.Service.components.client', ['client' => $service->client])
+            @include('Admin.Service.components.client', ['client' => $service->user])
         </div>
     </div>
 </div>

@@ -59,9 +59,12 @@ class ServiceRepository implements ServiceInterface
             'mechanicien.user', 
             'offre.categorie', 
             'offre.vehicule', 
-            'offre.tags'
+            'offre.tags','user'
         ])->where('client_id', Auth::id())
           ->findOrFail($id)->first();
+
+
+
           return $service;
         
         }
