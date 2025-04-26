@@ -83,19 +83,16 @@ return $mechanic->save();
     }
 
 public function become_mechanicien($data){
+    $user = User::where("id", "=", $data['id'])->first();
 
-    $user = User::where("email","=",$data['email'])->first();
-    $user->become_mechanicien = false;
-
- return $user->save();
-    
+    if ($user) {
+        $user->become_mechanicien = $data['status'];
+        $user->save();
+    }
+    return $user;
 }
 
-public function willbemechanicien(){
 
-    return     User::where("become_mechanicien","=",true)->first();
-
-}
 public function getVehicules($id){
     return User::where("id","=",$id)->first();
 

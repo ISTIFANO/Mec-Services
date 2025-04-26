@@ -41,6 +41,8 @@ use App\Services\Implimentation\VehiculeService;
 use App\Repository\Interfaces\CategorieInterface;
 use App\Services\Implimentation\CategorieService;
 use App\Repository\Interfaces\CompetenceInterface;
+use App\Repository\Interfaces\MechanicInterface;
+use App\Repository\MechanicRepository;
 use App\Services\Implimentation\CompetenceService;
 
 class AppServiceProvider extends ServiceProvider
@@ -69,6 +71,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ITag::class,TagService::class);
         $this->app->bind(IOffre::class,OffreService::class);
         $this->app->bind(OffreInterface::class,OffreRepository::class);
+        $this->app->bind(MechanicInterface::class,MechanicRepository::class);
+
 
 
 

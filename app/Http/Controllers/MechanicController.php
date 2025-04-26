@@ -8,15 +8,19 @@ use App\Services\IMechanic;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreMechanicRequest;
 use App\Http\Requests\UpdateMechanicRequest;
+use App\Services\IRole;
+use Illuminate\Contracts\View\View;
 
 class MechanicController extends Controller
 {
-
+private IRole $role_services;
     private IMechanic $mechanicien_services;
-    // private IUser $user_services;
-    public function __construct(IMechanic $mechanicien_services, IUser $user_services)
+
+    public function __construct(IMechanic $mechanicien_services, IRole $role_services)
     {
         $this->mechanicien_services = $mechanicien_services;
+        $this->role_services = $role_services;
+
         // $this->user_services = $user_services;
     }
     /**
@@ -30,10 +34,16 @@ class MechanicController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-    }
+        if($this->to_mechanicien()){
+
+        }
+         $this->mechanicien_services->store($request->all());
+
+         return redirect('/ThankYou');
+
+}
 
     /**
      * Store a newly created resource in storage.
@@ -78,19 +88,39 @@ class MechanicController extends Controller
     public function to_mechanicien()
     {
 
-        $user_email = auth()->user();
+        $id = auth()->user()->id;
 
-        $to_mechanicien = $this->mechanicien_services->to_mechanicien($user_email);
+        $data = ["id" => $id];
+         $this->mechanicien_services->to_mechanicien($data);
 
-        return $to_mechanicien;
+        return back();
     }
 
+    public function validateMechanicien(Request $request)
+    {
+
+        $mechanic = $this->mechanicien_services->validateMechanicien($request->user_id);
+
+        $profile = $this->mechanicien_services->mechanicienInfo($mechanic->user_id);
+
+        return View("Pages.mechanicienInfo", compact("profile"));
+    }
     public function willbemechanicien(Request $request)
     {
-               $users =$this->mechanicien_services->willbemechanicien()->get();
+     
+        $users = $this->mechanicien_services->willbemechanicien();
 
-            //    $array = gettype($users);
 
-               return view("Admin.Utilisateur.ValidateMechanicien", compact("users"));
+        $roles = $this->role_services->show();
+        return view("Admin.Utilisateur.ValidateMechanicien", compact("users","roles"));
+    }
+
+    public function mechanicienInfo(Request  $request){
+
+$profile = $this->mechanicien_services->mechanicienInfo($request->id);
+
+
+return View("Pages.mechanicienInfo", compact("profile"));
+
     }
 }

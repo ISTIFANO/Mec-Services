@@ -5,10 +5,10 @@ namespace App\Services;
 interface IMechanic{
 
 
-    public function create($data);
+    public function create($user,$role);
 
     public function update($data);
-    
+    public function store($data);
     public function delete($id);
     
     public function show();
@@ -19,7 +19,11 @@ interface IMechanic{
 
     public function to_mechanicien($data);
     public function willbemechanicien();
+    public function mechanicienInfo($id);
+    public function validateMechanicien($id);
 
+
+    
 
 }
 

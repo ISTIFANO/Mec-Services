@@ -8,15 +8,23 @@ use App\Http\Controllers\OffreController;
 use App\Http\Controllers\MechanicController;
 use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\RoleController;
+use App\Models\Role;
+
+Route::get('/ThankYou', function () {
+    return view('Pages.mechanicien');
+});
 Route::get('/BecomeFreelancer', function () {
     return view('Client.BecomeFreelancer');
 });
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+  
+
 Route::get('/lo', function () {
-    return view('pages.login');
+    return view('Admin.Utilisateur.ValidateMechanicien');
 });
 Route::get('/AjouterVehicule', function () {
     return view('Admin.Vehicule.ClientVehicule');
@@ -58,54 +66,41 @@ Route::prefix("admin")->group(function ()  {
     Route::post('/offre', [OffreController::class, 'store'])->name('admin.offre.store');
     Route::delete('/offre', [OffreController::class, 'delete'])->name('admin.offre.destroy');
     Route::put('/offre', [OffreController::class, 'update'])->name('admin.offre.update');
+    Route::put('/role', [RoleController::class, 'Update']);
+    Route::post('/mechanicienInfo', [MechanicController::class, 'mechanicienInfo']);
+    Route::post('/validate', [MechanicController::class, 'validateMechanicien']);
+
+
 });
 
 
 Route::prefix("client")->group(function ()  {
-    // Route::post('/to_mechanicien', [MechanicController::class, 'willbemechanicien'])->name('to_mechanicien');
+    Route::get('/willbemechanicien', [MechanicController::class, 'willbemechanicien'])->name('willbemechanicien');
     Route::post('/vehicule', [VehiculeController::class, 'store'])->name('client.vehicles.store');
-    Route::get('/ClientOffre',[OffreController::class, 'show'])->name('client.offre.show');
+    Route::get('/ClientOffre',[OffreController::class, 'showOffre'])->name('client.offre.show');
     Route::get('/offre',[OffreController::class, 'index']);
     Route::post('/offre', [OffreController::class, 'store'])->name('client.offre.store');
     Route::delete('/offre', [OffreController::class, 'delete'])->name('client.offre.destroy');
     Route::put('/offre', [OffreController::class, 'update'])->name('client.offre.update');
+    Route::post('/Detailes', [OffreController::class, 'getUserOffreDetails']);
     Route::get('/vehicule', [VehiculeController::class, 'index']);
     Route::get('/Allvehicules', [VehiculeController::class, 'getVehicules']);
     Route::post('/vehicule', [VehiculeController::class, 'store'])->name('client.vehicule.store');
     Route::delete('/vehicule', [VehiculeController::class, 'delete'])->name('client.vehicule.destroy');
     Route::delete('/deletevehicules', [VehiculeController::class, 'deletevehicules'])->name('client.deletevehicules.destroy');
     Route::put('/vehicule', [VehiculeController::class, 'update'])->name('client.vehicule.update');
+    Route::post('/BecomeFreelancerMethode', [MechanicController::class, 'create']);
+
 });
-Route::get('/tomechanicien', [MechanicController::class, 'willbemechanicien']);
 
+Route::prefix("mechanicien")->group(function ()  {
+    Route::post('/OffreDetails', [OffreController::class, 'getOffreDetails']);
 
+});
+Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Route::post('/tomechanicien', [MechanicController::class, 'to_mechanicien']);
+Route::get('/willbemechanicien', [MechanicController::class, 'willbemechanicien']);
 
 Route::get("/seConnect",[AuthController::class, "index"]);
 Route::get("/inscription",[AuthController::class, "Vregister"]);
@@ -124,3 +119,15 @@ Route::post("/connexion",[AuthController::class, "login"]);
 Route::get('/dashboard', function () {
     return view('Admin.Categorie.Categorie');
 });
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+
+
+
+
+

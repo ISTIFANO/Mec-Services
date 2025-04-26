@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('phone')->unique();
+            $table->string('phone')->unique();
             $table->float('rating')->nullable();
             $table->boolean('est_service')->default(false);
             $table->string('image')->nullable();

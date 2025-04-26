@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Services\IUser;
+use Illuminate\Http\Request;
+
 
 class RoleController extends Controller
 {
+    private IUser $iUser;
+
+    public function __construct( IUser $iUser)
+    {
+        $this->iUser = $iUser;
+        
+    }
     /**
      * Display a listing of the resource.
      */
@@ -51,9 +61,11 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function update(Request $request)
     {
-        //
+$this->iUser->changrRole($request->user_id,$request->role_name);
+
+return back();
     }
 
     /**

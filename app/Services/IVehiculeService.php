@@ -12,7 +12,9 @@ interface IVehiculeService
     
     public function show();
     public function findbyName($name);
-    public function findByOne($name);
+    public function findByOne($id);
+    public function GetUserVehicule($user_id);
+
 
 
 }

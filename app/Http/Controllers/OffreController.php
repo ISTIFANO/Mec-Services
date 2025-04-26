@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Delete_offres;
 use App\Models\Offre;
-use App\Http\Requests\StoreOffreRequest;
-use App\Http\Requests\UpdateOffreRequest;
-use App\Services\ICategorie;
-use App\Services\IOffre;
 use App\Services\ITag;
 use App\Services\IUser;
-use App\Services\IVehiculeService;
-use Illuminate\Container\Attributes\Auth;
+use App\Services\IOffre;
+use App\Services\ICategorie;
 use Illuminate\Http\Request;
+use App\Services\IVehiculeService;
+use App\Http\Requests\Delete_offres;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreOffreRequest;
+use App\Http\Requests\UpdateOffreRequest;
+use App\Http\Requests\getUserOffreDetailsRequest;
+use App\Http\Requests\getUserOffreDetailsRequests;
+use Illuminate\Contracts\View\View;
 
 class OffreController extends Controller
 {
@@ -20,9 +23,9 @@ class OffreController extends Controller
     protected ITag $tag_service;
     protected IVehiculeService $ivehicule_service;
     protected IOffre $offre_services;
-    protected IUser $user_services ;
+    protected IUser $user_services;
 
-    public function __construct(ICategorie $categorie_service, IUser $user_services, ITag $tag_service , IVehiculeService $ivehicule_service,IOffre $offre_services)
+    public function __construct(ICategorie $categorie_service, IUser $user_services, ITag $tag_service, IVehiculeService $ivehicule_service, IOffre $offre_services)
     {
         $this->categorie_service = $categorie_service;
         $this->tag_service = $tag_service;
@@ -42,8 +45,7 @@ class OffreController extends Controller
         $categories = $this->categorie_service->show();
         $vehicules = $this->ivehicule_service->show();
         $tags = $this->tag_service->show();
-        return view('Admin.Offre.Offre', compact('offres', 'categories', 'vehicules', 'tags','users'));
-   
+        return view('Admin.Offre.Offre', compact('offres', 'categories', 'vehicules', 'tags', 'users'));
     }
 
     /**
@@ -57,18 +59,18 @@ class OffreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-public function store(StoreOffreRequest $request)
-{
-    if (!$request->validated()) { 
-        return back()->with("error", "Validation failed");
+    public function store(StoreOffreRequest $request)
+    {
+        if (!$request->validated()) {
+            return back()->with("error", "Validation failed");
+        }
+
+        $user_email = auth()->user()->email;
+        $data = array_merge($request->all(), ["user_email" => $user_email]);
+        $this->offre_services->create($data);
+
+        return back()->with("success", "Offre created successfully");
     }
-
-    $user_email = auth()->user()->email; 
-    $data = array_merge($request->all(), ["user_email" => $user_email]); 
-    $this->offre_services->create($data);
-
-    return back()->with("success", "Offre created successfully");
-}
 
     /**
      * Display the specified resource.
@@ -83,23 +85,25 @@ public function store(StoreOffreRequest $request)
 
 
         $tags = $this->tag_service->show();
-        return view('Admin.Offre.ClientOffre', compact('offers', 'categories', 'vehicules', 'vehicles','tags'));
+        return view('Admin.Offre.ClientOffre', compact('offers', 'categories', 'vehicules', 'vehicles', 'tags'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-  
+
     public function update(Request $request)
     {
         // if(!$request->validate()){
 
         //     return back();
         // }
-        
+        // dd($request->all());
+
         $this->offre_services->update($request->all());
 
-        return back()->with("success", "Offre created successfully");    }
+        return back()->with("success", "Offre created successfully");
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -110,4 +114,47 @@ public function store(StoreOffreRequest $request)
 
         return back();
     }
+
+    public function getUserOffreDetails(getUserOffreDetailsRequest $request)
+    {
+        try {
+            $offre = $this->offre_services->getUserOffreDetails($request->id);
+            $user = $this->user_services->getUser($request->client_id);
+            return view("Admin.Offre.Detailes", compact("offre", "user"));
+        } catch (\Exception $e) {
+            return back()->with("error", "An error occurred: " . $e->getMessage());
+        }
+    }
+
+    public function showOffre(Offre $offre)
+    {
+
+        $offers = Offre::with(['categorie', 'vehicule', 'tags'])->where("client_id", Auth::user()->id)->get();
+
+        $categories = $this->categorie_service->show();
+        $vehicules = $this->ivehicule_service->show();
+        $vehicles = $this->ivehicule_service->GetUserVehicule(Auth::user()->id);
+        // dd($vehicles);
+        $tags = $this->tag_service->show();
+        return view('Admin.Offre.ClientOffre', compact('offers', 'categories', 'vehicules', 'vehicles', 'tags'));
+    }
+
+    public function showActiveOffres()
+    {
+        $offres = $this->offre_services->showActiveOffres();
+
+        return view('Admin.Service.Service', compact("offres"))->with('message', "Active offers retrieved successfully");
+    }
+
+    public function getOffreDetails(getUserOffreDetailsRequests $request)
+    {
+        try {
+            $offre = $this->offre_services->findById($request->id);
+            $user = $this->user_services->getUser($offre->client_id);
+            return view("Admin.Offre.Detailes", compact("offre", "user"));
+        } catch (\Exception $e) {
+            return back()->with("error", "An error occurred: " . $e->getMessage());
+        }
+    }
+
 }

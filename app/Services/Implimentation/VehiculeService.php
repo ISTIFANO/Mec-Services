@@ -68,4 +68,8 @@ class VehiculeService implements IVehiculeService
     {
         return $this->vehicule_repositery->findByOne($name);
     }
+    public function GetUserVehicule($user_id)
+    {
+        return $this->vehicule_repositery->GetUserVehicule($user_id);
+    }
 }
