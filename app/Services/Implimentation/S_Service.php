@@ -28,11 +28,7 @@ class S_Service implements IService
         $this->user_services = $user_services;
     }
 
-    // $data = [
-    //     "mechanicien_id" => $request->mechanicien_id,
-    //     "client_id" => $request->client_id,
-    //     "offre_id" => $request->offre_id
-    // ];
+  
 
     public function create($data)
     {
