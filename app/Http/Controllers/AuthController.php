@@ -17,12 +17,13 @@ class AuthController extends Controller
     {
         $this->user_service = $user_service;
     }
-public function index(){
+    public function index()
+    {
 
 
-return view("Pages.login");
-}  
-  public function login(LoginRequest $request)
+        return view("Pages.login");
+    }
+    public function login(LoginRequest $request)
     {
 
 
@@ -32,24 +33,25 @@ return view("Pages.login");
 
 
 
-        if (Auth::attempt(['email' => $request->email,'password' => $request->password])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
 
             return response()->json(["message" => "Not woking"]);
         }
- 
-     $user =   $this->user_service->findByEmail($request->email);
 
-     Auth::login($user);
-       
-     $request->session()->regenerate();
+        $user =   $this->user_service->findByEmail($request->email);
+
+        Auth::login($user);
+
+        $request->session()->regenerate();
 
         return redirect("/");
     }
-    public function Vregister(){
+    public function Vregister()
+    {
 
 
         return view("Pages.register");
-        } 
+    }
     public function logout(Request $request)
     {
         Auth::logout();
@@ -72,7 +74,7 @@ return view("Pages.login");
 
         $data['password'] = bcrypt($data['password']);
 
-        $this->user_service->create($data,$getRole);
+        $this->user_service->create($data, $getRole);
 
         return redirect("/login");
     }

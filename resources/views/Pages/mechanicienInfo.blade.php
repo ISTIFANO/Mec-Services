@@ -17,7 +17,7 @@
                         {{-- Left Column --}}
                         <div class="md:w-1/3">
                             <div class="text-center mb-6">
-                                <img src="{{ $profile->user->avatar ?? asset('images/default-avatar.png') }}"
+                                <img src="{{ $profile->user->image ? asset('storage/images/profile_images/' . $profile->user->image) : asset('images/default-avatar.png') }}" 
                                      alt="Profile Image"
                                      class="w-36 h-36 mx-auto rounded-full object-cover shadow">
                                 <h4 class="mt-4 text-lg font-semibold">{{ $profile->user->name }}</h4>
@@ -31,9 +31,9 @@
                                 </div>
                                 <div class="mt-6">
                                     <h4 class="text-lg font-semibold mb-2">Certificate Preview</h4>
-                                    @if($profile->certificat_pdf)
+                                    @if($profile->certificat)
                                         <iframe 
-                                            src="{{ asset('storage/certificates/' . $profile->certificat_pdf) }}" 
+                                            src="{{ asset('storage/certificates/' . $profile->certificat) }}" 
                                             class="w-full h-96 border rounded shadow"
                                             frameborder="0">
                                         </iframe>
@@ -54,7 +54,7 @@
                             <div class="mt-4">
                                 <form action="/admin/validate" method="POST">
                                     @csrf
-                                    <input type="hidden" name="user_id" value="{{ $profile->id }}">
+                                    <input type="hidden" name="user_id" value="{{ $profile->user->id }}">
                                     <button type="submit" class="w-full inline-block text-center bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded shadow">
                                         <i class="fas fa-edit mr-2"></i> Validate
                                     </button>

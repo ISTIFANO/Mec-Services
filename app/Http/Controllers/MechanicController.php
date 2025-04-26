@@ -99,11 +99,11 @@ private IRole $role_services;
     public function validateMechanicien(Request $request)
     {
 
-        dd($request->user_id);
+        $mechanic = $this->mechanicien_services->validateMechanicien($request->user_id);
 
-         $this->mechanicien_services->validateMechanicien($request->user_id);
+        $profile = $this->mechanicien_services->mechanicienInfo($mechanic->user_id);
 
-        return back();
+        return View("Pages.mechanicienInfo", compact("profile"));
     }
     public function willbemechanicien(Request $request)
     {

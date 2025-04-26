@@ -44,7 +44,7 @@
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="user_id" value="{{ $user->id }}">
-                                    <select name="role_id" required class="mr-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <select name="role_name" required class="mr-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                         @foreach($roles as $role)
                                         <option value="{{ $role->name }}">{{ $role->name }}</option>
                                         @endforeach

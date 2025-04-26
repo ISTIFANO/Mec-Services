@@ -13,25 +13,31 @@ use App\Services\IRole;
 class MechanicService implements IMechanic
 {
     private IRole $role_service;
-    private MechanicInterface $user_repositery;
+    private MechanicInterface $mechanic_repositery;
 
 
-    public function __construct(IRole $role_service, MechanicInterface $user_repositery)
+    public function __construct(IRole $role_service, MechanicInterface $mechanic_repositery)
     {
         $this->role_service = $role_service;
-        $this->user_repositery = $user_repositery;
+        $this->mechanic_repositery = $mechanic_repositery;
 
     }
     public function create($user, $role)
     {
-        // $mechanicien = new Mechanic();
-        // $mechanicien->certificat = $data['certificat'] ;
-        // $mechanicien->experience_years = null ;
-        // $mechanicien->specialization = null ;
-        // $mechanicien->variable_at = null ;
-        // $mechanicien->is_active = false ;
-        // $mechanicien->user()->assciate($user);
-        // $mechanicien->user()->assciate();
+        $user->role()->assciate($role);
+        $avis = User::find(1);
+
+        $mechanicien = new Mechanic();
+        $mechanicien->certificat =null;
+        $mechanicien->experience_years = null ;
+        $mechanicien->specialization = null ;
+        $mechanicien->variable_at = null ;
+        $mechanicien->is_active = false ;
+        $mechanicien->user()->assciate($user);
+        $mechanicien->avis()->assciate($avis);
+
+        dd($mechanicien);
+        return  $mechanicien->save();
 
 
     }
@@ -42,22 +48,15 @@ class MechanicService implements IMechanic
         $user = User::find($data['user_id']);
         $avis = User::find(1);
         $mechanicien = new Mechanic();
-        $mechanicien->certificat = $data['certificat']->store('certificates', 'public'); 
+        $mechanicien->certificat = $data['certificat']->store('images/certificates', 'public'); 
         $mechanicien->experience_years = $data['experience_years'];
         $mechanicien->specialization = $data['specialization'];
         $mechanicien->variable_at = $data['variable_at']; 
         $mechanicien->variable_to = $data['variable_to']; 
-        $mechanicien->is_active = false;
-
-
-        
+        $mechanicien->is_active = false;        
         $mechanicien->user()->associate($user);
         $mechanicien->avis()->associate($avis);
-
-
-        
        return  $mechanicien->save();
-        
 
     }
     public function update($data) {
@@ -66,7 +65,7 @@ class MechanicService implements IMechanic
 
     public function validateMechanicien($data) {
 
-      return $this->user_repositery->validate($data);
+      return $this->mechanic_repositery->validate($data);
     }
 
     public function delete($id) {}

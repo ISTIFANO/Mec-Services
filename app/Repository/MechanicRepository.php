@@ -1,6 +1,10 @@
 <?php
 namespace App\Repository;
+
 use Exception;
+use App\Enums\Image;
+use App\Enums\Roles;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Mechanic;
 use Illuminate\Support\Facades\DB;
@@ -47,27 +51,34 @@ class MechanicRepository implements MechanicInterface
 
     public function validate($data)
     {
-        dd($data['user_id']);
         try {
             DB::beginTransaction();
-            $user = User::where("id", "=", $data['user_id'])->first();
-            if ($user) {
-            $user->become_mechanicien = false;
-            $user->save();
-            } else {
-            throw new Exception("User not found");
+            $user = User::find($data);
+
+            if (!$user) {
+                throw new Exception("User not found");
             }
 
-            $mechanicien = Mechanic::where("user_id", "=", $user->id)->first();
+            $role = Role::where("name", Roles::MECHANICIEN)->first();
+            if (!$role) {
+                throw new Exception("Mechanic role not found");
+            }
+
+            $user->become_mechanicien = false;
+            $user->image = Image::MechanicIMG;
+            $user->role()->associate($role);
+            $user->save();
+
+            $mechanicien = Mechanic::where("user_id", $user->id)->first();
             if (!$mechanicien) {
-            throw new Exception("User is not a mechanic");
+                throw new Exception("User is not a mechanic");
             }
 
             $mechanicien->is_active = true;
             $mechanicien->save();
 
             DB::commit();
-            return $user;
+            return $mechanicien;
         } catch (Exception $e) {
             DB::rollBack();
             throw $e;

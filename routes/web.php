@@ -96,42 +96,11 @@ Route::prefix("client")->group(function ()  {
 Route::prefix("mechanicien")->group(function ()  {
     Route::post('/OffreDetails', [OffreController::class, 'getOffreDetails']);
 
-
 });
 Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
 
 Route::post('/tomechanicien', [MechanicController::class, 'to_mechanicien']);
 Route::get('/willbemechanicien', [MechanicController::class, 'willbemechanicien']);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Route::get("/seConnect",[AuthController::class, "index"]);
 Route::get("/inscription",[AuthController::class, "Vregister"]);
@@ -150,3 +119,15 @@ Route::post("/connexion",[AuthController::class, "login"]);
 Route::get('/dashboard', function () {
     return view('Admin.Categorie.Categorie');
 });
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+
+
+
+
+
