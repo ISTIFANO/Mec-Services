@@ -21,6 +21,7 @@ interface IMechanic{
     public function willbemechanicien();
     public function mechanicienInfo($id);
     public function validateMechanicien($id);
+    public function is_mechanicien($id);
 
 
     

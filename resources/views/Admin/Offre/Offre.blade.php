@@ -107,7 +107,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Search and Filter Bar -->
         <div class="mb-6 flex flex-col sm:flex-row gap-4">
             <div class="relative rounded-md shadow-sm flex-grow max-w-md">

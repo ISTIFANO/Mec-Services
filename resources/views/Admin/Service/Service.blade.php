@@ -262,6 +262,9 @@
                                     <form action="/mechanicien/Postuler" method="POST">
                                         @csrf
                                         <input type="hidden" name="offre_id" value="{{ $offre->id }}">
+                                        <input type="hidden" name="client_id" value="{{ $offre->client_id }}">
+                                        <input type="hidden" name="mechanicien_id" value="{{ Auth::user()->id }}">
+
                                         <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition">
                                             Postuler
                                         </button>

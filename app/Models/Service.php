@@ -11,12 +11,12 @@ class Service extends Model
     /** @use HasFactory<\Database\Factories\ServiceFactory> */
     use HasFactory;
 
-    protected $fillable =["status"];
-
+    protected $fillable =["titre","status"];
+   protected $table = "services";
 
     public function offre(){
 
-        return $this->belongsTo(Offre::class,"offre_id");
+        return $this->belongsTo(Offre::class,"offer_id");
 
     }
     public function mechanicien(){
@@ -25,11 +25,11 @@ class Service extends Model
 
     }
 
-    public function avis(){
+    // public function avis(){
 
-        return $this->belongsToMany(Avis::class, 'service_avis', 'service_id', 'avis_id');
+    //     return $this->belongsToMany(Avis::class, 'service_avis', 'service_id', 'avis_id');
 
-    }
+    // }
 
     public function user(){
 

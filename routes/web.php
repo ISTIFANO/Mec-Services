@@ -11,6 +11,7 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ServiceController;
 use App\Models\Role;
 
 Route::get('/ThankYou', function () {
@@ -95,6 +96,8 @@ Route::prefix("client")->group(function ()  {
 
 Route::prefix("mechanicien")->group(function ()  {
     Route::post('/OffreDetails', [OffreController::class, 'getOffreDetails']);
+    Route::post('/Postuler', [ServiceController::class, 'store']);
+
 
 });
 Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
