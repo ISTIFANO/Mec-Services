@@ -64,10 +64,20 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Service $service)
+    public function show()
     {
-        //
+        $services = $this->service->show();
+
+
+        return view("Admin.Service.ServiceClient", compact("services"));
     }
+
+public function find(Request $request)
+{
+    $service = $this->service->showOne($request->service_id);
+
+
+return view("Admin.Service.ServiceDetails",compact("service"));    }
 
     /**
      * Show the form for editing the specified resource.

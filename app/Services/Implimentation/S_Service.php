@@ -61,6 +61,11 @@ class S_Service implements IService
 
     }
     public function show() {
+        return $this->service_repositery->show();
+
+    }
+    public function showOne($id) {
+        return $this->service_repositery->showOne($id);
 
     }
 }

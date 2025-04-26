@@ -5,13 +5,14 @@
 
 
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <section> <div class="hidden sm:ml-6 sm:flex sm:space-x-8 h-[122px]">
-            <a href="client/ClientOffre" class="font-semibold text-gray-500 hover:text-black px-3 py-2 text-sm">Offres</a>
-            <a href="/MesVehicule" class="font-semibold text-gray-500 hover:text-black px-3 py-2 text-sm">Mes Véhicules</a>
-            <a href="/AjouterVehicule" class="font-semibold text-gray-500 hover:text-black px-3 py-2 text-sm">Ajouter Véhicules </a>
-            <a href="/MesServices" class="font-semibold text-gray-500 hover:text-black px-3 py-2 text-sm"> Services </a>
-        </div>
-    </section>
+        <section>
+            <div class="hidden sm:ml-6 sm:flex sm:space-x-8 h-[122px]">
+                <a href="client/ClientOffre" class="font-semibold text-gray-500 hover:text-black px-3 py-2 text-sm">Offres</a>
+                <a href="/client/Allvehicules" class="font-semibold text-gray-500 hover:text-black px-3 py-2 text-sm">Mes Véhicules</a>
+                <a href="/AjouterVehicule" class="font-semibold text-gray-500 hover:text-black px-3 py-2 text-sm">Ajouter Véhicules </a>
+                <a href="/client/ServiceDetails" class="font-semibold text-gray-500 hover:text-black px-3 py-2 text-sm"> Services </a>
+            </div>
+        </section>
         <!-- Header -->
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900">Manage Your Offers</h1>

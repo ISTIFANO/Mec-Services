@@ -13,6 +13,7 @@ use App\Http\Controllers\CompetenceController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use App\Models\Role;
+use App\Models\Service;
 
 Route::get('/ThankYou', function () {
     return view('Pages.mechanicien');
@@ -91,6 +92,10 @@ Route::prefix("client")->group(function ()  {
     Route::delete('/deletevehicules', [VehiculeController::class, 'deletevehicules'])->name('client.deletevehicules.destroy');
     Route::put('/vehicule', [VehiculeController::class, 'update'])->name('client.vehicule.update');
     Route::post('/BecomeFreelancerMethode', [MechanicController::class, 'create']);
+    Route::get('/ServiceDetails', [ServiceController::class, 'show']);
+    Route::post('/Service', [ServiceController::class, 'find']);
+
+
 
 });
 

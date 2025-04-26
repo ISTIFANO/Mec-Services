@@ -19,6 +19,8 @@ class Mechanic extends User
     ];
 
 protected $table="mechaniciens";
+
+
     public function user(){
 
         return $this->belongsTo(User::class,'user_id');

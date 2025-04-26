@@ -3,10 +3,11 @@
 namespace App\Repository;
 
 use App\Models\Avis;
-use App\Models\Client;
-use App\Models\Offre;
-use App\Models\Service;
 use App\Models\User;
+use App\Models\Offre;
+use App\Models\Client;
+use App\Models\Service;
+use Illuminate\Support\Facades\Auth;
 use App\Repository\Interfaces\ServiceInterface;
 
 
@@ -34,7 +35,7 @@ class ServiceRepository implements ServiceInterface
     public function  show()
     {
 
-        $service =  Service::all();
+        $service = Service::with(['mechanicien.user', 'offre.categorie', 'offre.tags'])->where('client_id', Auth::id())->get();
 
         return $service;
     }
@@ -51,4 +52,18 @@ class ServiceRepository implements ServiceInterface
         $service =  Service::where("id", "=", $id);
         return $service;
     }
+
+    public function showOne($id)
+    {
+        $service = Service::with([
+            'mechanicien.user', 
+            'offre.categorie', 
+            'offre.vehicule', 
+            'offre.tags'
+        ])->where('client_id', Auth::id())
+          ->findOrFail($id)->first();
+          return $service;
+        
+        }
+        
 }

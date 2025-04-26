@@ -13,6 +13,8 @@ interface ServiceInterface{
     public function create(Service $service);
     public function delete($id);
     public function findService($id);
+    public function showOne($id);
+
 
 
     
