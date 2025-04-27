@@ -36,18 +36,9 @@ class MessageRepository implements MessageInterface{
             'receiver_id'   => $data['receiverId'],
             'message_text'       => $data['message']
         ]);
-
-
     }
     public function Find($user_id){
-
-
         return  User::find($user_id);
-
-
-
-
-
     }
     
  

@@ -44,9 +44,11 @@ Route::get('/Services', function () {
 Route::get('/Offre', function () {
     return view('Admin.Offre.Detailes');
 });
-Route::get('/Chat', function () {
+
+Route::get('/chat', function () {
     return view('Admin.Service.Chat');
 });
+
 Route::get('/Adminn', function () {
     return view('Admin.Statistic.statistic');
 });
@@ -142,4 +144,4 @@ Route::get('/', function () {
 
 Route::get("/Payement",[PaymentController::class, "index"]);
 
-    
+
