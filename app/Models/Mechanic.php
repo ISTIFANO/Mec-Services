@@ -32,5 +32,6 @@ protected $table="mechaniciens";
         return $this->belongsTo(Avis::class,'avis_id');
 
     }
+    
 
 }
