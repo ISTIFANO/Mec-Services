@@ -121,6 +121,8 @@ Route::get('/categories/ajouter', [CategorieController::class, 'store']);
 
 
 Route::post("/register",[AuthController::class, "register"])->name('register');
+Route::post("/deconnect",[AuthController::class, "logout"])->name('logout');
+
 Route::post("/connexion",[AuthController::class, "login"]);
 
 
