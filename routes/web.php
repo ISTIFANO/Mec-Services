@@ -10,6 +10,7 @@ use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use App\Models\Role;
@@ -139,9 +140,6 @@ Route::get('/', function () {
 
 
 
-Route::get('/Payement', function () {
-    return view('Client.Payement.payment');
-});
-
+Route::get("/Payement",[PaymentController::class, "index"]);
 
 

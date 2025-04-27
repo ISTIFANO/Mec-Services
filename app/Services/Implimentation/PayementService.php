@@ -11,7 +11,6 @@ use Stripe\Exception\CardException;
 class PaymentService implements Ipayment
 {
 
-    // 
     public function processPayment($amount , $data)
     {
         try{
@@ -40,7 +39,7 @@ class PaymentService implements Ipayment
             ]);
         
             return back()->with('success', 'Payment successful!');
-            
+
         } catch (CardException $e){
 
             return "error " . $e;
