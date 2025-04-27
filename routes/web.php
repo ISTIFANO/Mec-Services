@@ -17,6 +17,8 @@ use App\Models\Service;
 
 Route::get('/ThankYou', function () {
     return view('Pages.mechanicien');
+
+    
 });
 Route::get('/BecomeFreelancer', function () {
     return view('Client.BecomeFreelancer');
@@ -137,7 +139,9 @@ Route::get('/', function () {
 
 
 
-
+Route::get('/Payement', function () {
+    return view('Client.Payement.payment');
+});
 
 
 
