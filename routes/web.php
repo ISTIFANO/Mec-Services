@@ -142,4 +142,4 @@ Route::get('/', function () {
 
 Route::get("/Payement",[PaymentController::class, "index"]);
 
-
+    
