@@ -10,11 +10,16 @@ use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ServiceController;
 use App\Models\Role;
+use App\Models\Service;
 
 Route::get('/ThankYou', function () {
     return view('Pages.mechanicien');
+
+    
 });
 Route::get('/BecomeFreelancer', function () {
     return view('Client.BecomeFreelancer');
@@ -90,11 +95,17 @@ Route::prefix("client")->group(function ()  {
     Route::delete('/deletevehicules', [VehiculeController::class, 'deletevehicules'])->name('client.deletevehicules.destroy');
     Route::put('/vehicule', [VehiculeController::class, 'update'])->name('client.vehicule.update');
     Route::post('/BecomeFreelancerMethode', [MechanicController::class, 'create']);
+    Route::get('/ServiceDetails', [ServiceController::class, 'show']);
+    Route::post('/Service', [ServiceController::class, 'find']);
+
+
 
 });
 
 Route::prefix("mechanicien")->group(function ()  {
     Route::post('/OffreDetails', [OffreController::class, 'getOffreDetails']);
+    Route::post('/Postuler', [ServiceController::class, 'store']);
+
 
 });
 Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
@@ -113,6 +124,8 @@ Route::get('/categories/ajouter', [CategorieController::class, 'store']);
 
 
 Route::post("/register",[AuthController::class, "register"])->name('register');
+Route::post("/deconnect",[AuthController::class, "logout"])->name('logout');
+
 Route::post("/connexion",[AuthController::class, "login"]);
 
 
@@ -127,7 +140,6 @@ Route::get('/', function () {
 
 
 
-
-
+Route::get("/Payement",[PaymentController::class, "index"]);
 
 

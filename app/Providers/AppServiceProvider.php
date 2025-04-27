@@ -43,7 +43,9 @@ use App\Services\Implimentation\CategorieService;
 use App\Repository\Interfaces\CompetenceInterface;
 use App\Repository\Interfaces\MechanicInterface;
 use App\Repository\MechanicRepository;
+use App\Repository\PayementRepository;
 use App\Services\Implimentation\CompetenceService;
+use App\Services\Ipayment;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -52,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(Ipayment::class,PayementRepository::class);
         $this->app->bind(IMechanic::class,MechanicService::class);
         $this->app->bind(ICompetence::class,CompetenceService::class);
         $this->app->bind(CompetenceInterface::class,CompetenceRepository::class);

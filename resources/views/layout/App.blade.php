@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -83,51 +85,89 @@
     </div>
 @endif
 <body class="text-gray-800">
-<nav class="bg-gray-900 h-[141px] flex items-center text-white shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex items-center">
-                <a href="index.html" class="flex-shrink-0 flex items-center">
-                    <h1 class="text-xl font-bold text-red-500 cursor-pointer font-sans">AUTO<span class="text-gray-200">EXPERT</span></h1>
-                </a>
-                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="/" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Accueil</a>
-                    <a href="/services" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Services</a>
-                    <a href="/reparations" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Réparations</a>
-                    <a href="/entretien" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Entretien</a>
-                    <a href="/diagnostic" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Diagnostic</a>
-                    <a href="/contact" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Contact</a>
+    <nav class="bg-gray-900 h-[141px] flex items-center text-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex-shrink-0 flex items-center">
+                        <a href="#" class="text-2xl font-bold text-primary-600">
+                            <span class="text-secondary-500">Méca</span>Connect
+                        </a>
+                    </a>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="/" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Accueil</a>
+                        <a href="/services" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Services</a>
+                        <a href="/reparations" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Réparations</a>
+                        <a href="/entretien" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Entretien</a>
+                        <a href="/diagnostic" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Diagnostic</a>
+                        <a href="/contact" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-4">
+                    @guest
+                    <a class="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700 transition-colors" href="/seConnect">Connexion</a>
+                    <a class="bg-yellow-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-600 transition-colors" href="/inscription">Inscription</a>
+                    @else
+                        <a class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium" href="/profile">Mon compte</a>
+                    @endguest
+                    
+                </div>
+                <div class="flex items-center sm:hidden">
+                    <button type="button" class="text-gray-300 hover:text-white focus:outline-none" id="mobile-menu-button">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
                 </div>
             </div>
-            <div class="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-4">
-                <a class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium" href="/mon-compte">Mon compte</a>
-                <a class="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700 transition-colors" href="/rdv">Prendre RDV</a>
-                <a class="bg-yellow-500 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-600 transition-colors" href="/devis">Devis gratuit</a>
+        </div>
+        
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Accueil</a>
+                <a href="services.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Services</a>
+                <a href="reparations.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Réparations</a>
+                <a href="entretien.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Entretien</a>
+                <a href="diagnostic.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Diagnostic</a>
+                <a href="contact.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Contact</a>
+                <div class="flex flex-col space-y-2 mt-4">
+                    @guest
+                        <a href="seConnect" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Connexion</a>
+                        <a href="/inscription" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Inscription</a>
+                    @else
+                        <a href="/mon-compte" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Mon compte</a>
+                        <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="block">
+                            @csrf
+                            <button type="submit" class="w-full text-left pl-3 pr-4 py-2 text-base font-medium text-red-500 hover:bg-red-700 hover:text-white">
+                                Déconnexion
+                            </button>
+                        </form>
+                    @endguest
+                    <a href="/rdv" class="block text-center bg-red-600 text-white px-4 py-2 rounded-md text-base font-medium hover:bg-red-700 transition-colors mx-3">Prendre RDV</a>
+                    <a href="/devis" class="block text-center bg-yellow-500 text-white px-4 py-2 rounded-md text-base font-medium hover:bg-yellow-600 transition-colors mx-3">Devis gratuit</a>
+                </div>
             </div>
-            <div class="flex items-center sm:hidden">
-                <button type="button" class="text-gray-300 hover:text-white focus:outline-none" id="mobile-menu-button">
-                    <i class="fas fa-bars text-xl"></i>
+        </div>
+        
+        @auth
+        <div class="flex items-center space-x-4">
+            <form id="logout-form" action="" method="POST" style="display: none;">
+                @csrf
+            </form>
+            <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="block">
+                @csrf
+                <button type="submit" class="w-full text-left pl-3 pr-4 py-2 text-base font-medium text-red-500 hover:bg-red-700 hover:text-white">
+                    Déconnexion
+                </button>
+            </form>
+            <div class="relative">
+                <button class="flex items-center text-gray-300 hover:text-white focus:outline-none">
+                    <img src="{{ url('storage/' . auth()->user()->image) }}" alt="Photo de profil" class="w-8 h-8 rounded-full object-cover">
+                    <span class="ml-1">{{ auth()->user()->first_name }}</span>
+                    <i class="fas fa-chevron-down ml-1 text-xs"></i>
                 </button>
             </div>
         </div>
-    </div>
-    
-    <div class="sm:hidden hidden" id="mobile-menu">
-        <div class="pt-2 pb-3 space-y-1">
-            <a href="index.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Accueil</a>
-            <a href="services.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Services</a>
-            <a href="reparations.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Réparations</a>
-            <a href="entretien.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Entretien</a>
-            <a href="diagnostic.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Diagnostic</a>
-            <a href="contact.html" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Contact</a>
-            <div class="flex flex-col space-y-2 mt-4">
-                <a href="/mon-compte" class="block pl-3 pr-4 py-2 text-base font-medium text-gray-300 hover:bg-gray-800 hover:text-white">Mon compte</a>
-                <a href="/rdv" class="block text-center bg-red-600 text-white px-4 py-2 rounded-md text-base font-medium hover:bg-red-700 transition-colors mx-3">Prendre RDV</a>
-                <a href="/devis" class="block text-center bg-yellow-500 text-white px-4 py-2 rounded-md text-base font-medium hover:bg-yellow-600 transition-colors mx-3">Devis gratuit</a>
-            </div>
-        </div>
-    </div>
-</nav>
+        @endauth
+    </nav>
     @yield('content')
 
 
@@ -135,8 +175,9 @@
         <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="md:col-span-1">
-                    <h1 class="text-xl font-bold text-red-500 cursor-pointer font-sans">AUTO<span class="text-gray-200">EXPERT</span></h1>
-                    <p class="mt-2 text-sm text-gray-300">Votre garage automobile de confiance depuis 1995. Expertise, qualité et service personnalisé.</p>
+                    <a href="#" class="text-2xl font-bold text-primary-600">
+                        <span class="text-secondary-500">Méca</span>Connect
+                    </a>                    <p class="mt-2 text-sm text-gray-300">Votre garage automobile de confiance depuis 1995. Expertise, qualité et service personnalisé.</p>
                     <div class="flex space-x-4 mt-4">
                         <a href="#" class="text-gray-400 hover:text-white">
                             <i class="fab fa-facebook-f"></i>
@@ -146,7 +187,7 @@
                         </a>
                         <a href="#" class="text-gray-400 hover:text-white">
                             <i class="fab fa-instagram"></i>
-                        </a>
+                        </a>    
                         <a href="#" class="text-gray-400 hover:text-white">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
