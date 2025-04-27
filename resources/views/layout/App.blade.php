@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -88,8 +90,9 @@
         <div class="flex justify-between h-16">
             <div class="flex items-center">
                 <a href="index.html" class="flex-shrink-0 flex items-center">
-                    <h1 class="text-xl font-bold text-red-500 cursor-pointer font-sans">AUTO<span class="text-gray-200">EXPERT</span></h1>
-                </a>
+                    <a href="#" class="text-2xl font-bold text-primary-600">
+                        <span class="text-secondary-500">Méca</span>Connect
+                    </a>                </a>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                     <a href="/" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Accueil</a>
                     <a href="/services" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Services</a>
@@ -135,8 +138,9 @@
         <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="md:col-span-1">
-                    <h1 class="text-xl font-bold text-red-500 cursor-pointer font-sans">AUTO<span class="text-gray-200">EXPERT</span></h1>
-                    <p class="mt-2 text-sm text-gray-300">Votre garage automobile de confiance depuis 1995. Expertise, qualité et service personnalisé.</p>
+                    <a href="#" class="text-2xl font-bold text-primary-600">
+                        <span class="text-secondary-500">Méca</span>Connect
+                    </a>                    <p class="mt-2 text-sm text-gray-300">Votre garage automobile de confiance depuis 1995. Expertise, qualité et service personnalisé.</p>
                     <div class="flex space-x-4 mt-4">
                         <a href="#" class="text-gray-400 hover:text-white">
                             <i class="fab fa-facebook-f"></i>
@@ -146,7 +150,7 @@
                         </a>
                         <a href="#" class="text-gray-400 hover:text-white">
                             <i class="fab fa-instagram"></i>
-                        </a>
+                        </a>    
                         <a href="#" class="text-gray-400 hover:text-white">
                             <i class="fab fa-linkedin-in"></i>
                         </a>

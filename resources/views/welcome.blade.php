@@ -4,87 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MécaConnect - Plateforme de connexion pour mécaniciens freelances</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        },
-                        secondary: {
-                            50: '#fff7ed',
-                            100: '#ffedd5',
-                            200: '#fed7aa',
-                            300: '#fdba74',
-                            400: '#fb923c',
-                            500: '#f97316',
-                            600: '#ea580c',
-                            700: '#c2410c',
-                            800: '#9a3412',
-                            900: '#7c2d12',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
+  
 </head>
+@extends('layout.app')
+@section('content')
 <body class="font-sans antialiased text-gray-800">
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center">
-                <a href="#" class="text-2xl font-bold text-primary-600">
-                    <span class="text-secondary-500">Méca</span>Connect
-                </a>
-            </div>
-            
-            <nav class="hidden md:flex space-x-8">
-                <a href="#services" class="text-gray-600 hover:text-primary-600 transition">Services</a>
-                <a href="#fonctionnement" class="text-gray-600 hover:text-primary-600 transition">Comment ça marche</a>
-                <a href="#avantages" class="text-gray-600 hover:text-primary-600 transition">Avantages</a>
-                <a href="#temoignages" class="text-gray-600 hover:text-primary-600 transition">Témoignages</a>
-            </nav>
-            
-            <div class="flex items-center space-x-4">
-                <div class="hidden md:block">
-                    <select class="bg-transparent text-sm text-gray-600 border-none focus:ring-0">
-                        <option value="fr">FR</option>
-                        <option value="en">EN</option>
-                    </select>
-                </div>
-                <a href="#" class="hidden md:inline-block px-4 py-2 text-sm text-primary-600 hover:text-primary-700 font-medium">Se connecter</a>
-                <a href="#" class="px-4 py-2 text-sm bg-primary-600 text-white rounded-md hover:bg-primary-700 transition font-medium">S'inscrire</a>
-                
-                <button class="md:hidden text-gray-600" id="mobile-menu-button">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Mobile menu -->
-        <div class="md:hidden hidden bg-white pb-4 px-4" id="mobile-menu">
-            <nav class="flex flex-col space-y-3">
-                <a href="#services" class="text-gray-600 hover:text-primary-600 transition py-2">Services</a>
-                <a href="#fonctionnement" class="text-gray-600 hover:text-primary-600 transition py-2">Comment ça marche</a>
-                <a href="#avantages" class="text-gray-600 hover:text-primary-600 transition py-2">Avantages</a>
-                <a href="#temoignages" class="text-gray-600 hover:text-primary-600 transition py-2">Témoignages</a>
-                <a href="#" class="text-gray-600 hover:text-primary-600 transition py-2">Se connecter</a>
-            </nav>
-        </div>
-    </header>
+
 
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-16 md:py-24">
@@ -99,7 +24,7 @@
                     </div>
                 </div>
                 <div class="md:w-1/2 flex justify-center">
-                    <img src="https://placehold.co/600x400/2563eb/FFFFFF/png?text=MécaConnect" alt="Mécanicien travaillant sur un autocar" class="rounded-lg shadow-xl max-w-full h-auto">
+                    <img src="{{ asset('storage/images/img/mechanicien.webp') }}" alt="Mécanicien travaillant sur un autocar" class="rounded-lg  max-w-full h-auto">
                 </div>
             </div>
         </div>
@@ -347,71 +272,41 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- Logo et description -->
-                <div class="md:col-span-1">
-                    <a href="#" class="text-2xl font-bold mb-4 inline-block">
-                        <span class="text-secondary-500">Méca</span>Connect
-                    </a>
-                    <p class="text-gray-400 mt-2">La plateforme qui révolutionne la maintenance des véhicules de transport.</p>
-                </div>
-                
-                <!-- Liens rapides -->
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Liens rapides</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Accueil</a></li>
-                        <li><a href="#services" class="text-gray-400 hover:text-white transition">Services</a></li>
-                        <li><a href="#fonctionnement" class="text-gray-400 hover:text-white transition">Comment ça marche</a></li>
-                        <li><a href="#temoignages" class="text-gray-400 hover:text-white transition">Témoignages</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Légal -->
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Informations légales</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Conditions d'utilisation</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Politique de confidentialité</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Mentions légales</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">CGV</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Contact -->
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Contact</h4>
-                    <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-envelope text-gray-400 mt-1 mr-3"></i>
-                            <span class="text-gray-400">contact@mecaconnect.fr</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-phone text-gray-400 mt-1 mr-3"></i>
-                            <span class="text-gray-400">+33 1 23 45 67 89</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt text-gray-400 mt-1 mr-3"></i>
-                            <span class="text-gray-400">123 Avenue de la Mécanique, 75001 Paris</span>
-                        </li>
-                    </ul>
-                    <div class="mt-4 flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2023 MécaConnect. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
 
     <script>
         // Mobile menu toggle
@@ -424,3 +319,4 @@
     </script>
 </body>
 </html>
+@endsection
