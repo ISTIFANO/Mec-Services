@@ -45,6 +45,7 @@ class S_Service implements IService
             $service = new Service();
             $service->titre = $offres->titre;
             $service->status = Statut::EN_COURS;
+            $service->etat = Statut::POSTULE;
             $service->user()->associate($client);
             $service->offre()->associate($offres);
             $service->mechanicien()->associate($mechanicien);
@@ -66,6 +67,13 @@ class S_Service implements IService
     }
     public function showOne($id) {
         return $this->service_repositery->showOne($id);
+
+    }
+    public function ValidateService($data){
+
+        
+
+
 
     }
 }

@@ -33,5 +33,9 @@ protected $table="mechaniciens";
 
     }
     
+    public function contract(){
 
+        return $this->hasMany(Contract::class);
+    
+    }
 }

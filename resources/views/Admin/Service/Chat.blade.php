@@ -10,6 +10,8 @@
     <title>Messagerie - MécaConnect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    @vite(['resources/js/app.js'])
+
     <script>
         tailwind.config = {
             theme: {
@@ -109,19 +111,16 @@
             <!-- Chat area (middle) -->
             <div class="w-full md:w-2/4 lg:w-2/5 bg-white rounded-lg shadow-md overflow-hidden flex flex-col mb-4 md:mb-0">
                 <!-- Chat header -->
-                <div class="p-4 border-b border-gray-200 flex items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
-                            <span class="font-bold text-gray-600">TM</span>
-                        </div>
-                        <div>
-                            <h3 class="font-bold">Transports Martin</h3>
-                            <div class="flex items-center">
-                                <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                                <span class="text-xs text-gray-500">En ligne</span>
-                            </div>
+                <div class="flex items-center">
+                    <img src="{{ url('storage/' . $receiver->image) }}" alt="{{ $receiver->name }}" class="w-10 h-10 rounded-full">
+                    <div class="ml-3">
+                        <h3 class="font-bold">{{ $receiver->name }}</h3>
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                            <span class="text-xs text-gray-500">En ligne</span>
                         </div>
                     </div>
+                </div>
                     <div class="flex items-center">
                         <button class="text-gray-500 hover:text-gray-700 p-2">
                             <i class="fas fa-phone"></i>
@@ -141,55 +140,27 @@
                         <span class="bg-gray-200 text-gray-600 text-xs font-medium px-3 py-1 rounded-full">Aujourd'hui</span>
                     </div>
                     
-                    <!-- System message -->
                     <div class="flex justify-center mb-4">
                         <div class="bg-gray-200 text-gray-600 text-xs font-medium px-3 py-1 rounded-full">
                             Vous avez postulé à cette offre
-                        </div>
-                    </div>
-                    
-                    <!-- Received message -->
-                    <div class="flex mb-4">
-                        <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                            <span class="font-bold text-gray-600 text-xs">TM</span>
-                        </div>
-                        <div class="max-w-[75%]">
-                            <div class="bg-white rounded-lg p-3 shadow-sm">
-                                <p class="text-gray-800">Bonjour Thomas, merci pour votre candidature concernant la réparation de notre autocar Volvo. Avez-vous déjà travaillé sur ce modèle spécifique (Volvo 9700) ?</p>
+                        @foreach ($messages as $message)
+                            <div class="mb-2 flex {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
+                                <div class="px-4 py-2 rounded-lg {{ $message->sender_id == auth()->id() ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-800' }}">
+                                    {{ $message->message }}
+                                </div>
                             </div>
-                            <div class="text-xs text-gray-500 mt-1">09:45</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Sent message -->
-                    <div class="flex justify-end mb-4">
-                        <div class="max-w-[75%]">
-                            <div class="bg-primary-600 rounded-lg p-3 shadow-sm text-white">
-                                <p>Bonjour, oui j'ai une bonne expérience avec les Volvo 9700. J'ai travaillé pendant 5 ans chez un concessionnaire Volvo et j'ai réparé plusieurs problèmes similaires sur ce modèle.</p>
-                            </div>
-                            <div class="text-xs text-gray-500 mt-1 text-right">09:48 <i class="fas fa-check-double ml-1"></i></div>
-                        </div>
-                    </div>
-                    
-                  
-                                    </div>
-                <div class="p-4 border-t border-gray-200">
+                        @endforeach
+                </div>
+                <div id="typing-indicator" class="mt-2 text-gray-500 text-sm" style="display: none;">{{ $receiver->name }} est en train d'écrire...</div>
+                <form id="message-form" class="mt-3" method="POST" action="">
+                    @csrf
                     <div class="flex items-center space-x-2">
-                        <button class="text-gray-500 hover:text-gray-700 p-2">
-                            <i class="fas fa-image"></i>
+                        <input type="text" id="message-input" name="message" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Écrivez votre message...">
+                        <button type="submit" class="bg-primary-600 text-white p-2 rounded-full hover:bg-primary-700">
+                            <i class="fas fa-paper-plane"></i>
                         </button>
-                        <button class="text-gray-500 hover:text-gray-700 p-2">
-                            <i class="fas fa-paperclip"></i>
-                        </button>
-                        <form action="" method="POST" class="flex-1">
-                            @csrf
-                            <div class="flex items-center space-x-2">
-                                <textarea name="message" rows="1" placeholder="Écrivez votre message..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"></textarea>
-                                <button type="submit" class="bg-primary-600 text-white p-2 rounded-full hover:bg-primary-700">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
-                        </form>
+                    </div>
+                </form>
                         <button class="text-gray-500 hover:text-gray-700 p-2">
                             <i class="fas fa-smile"></i>
                         </button>

@@ -10,6 +10,7 @@ use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
@@ -103,6 +104,9 @@ Route::prefix("client")->group(function ()  {
 
 
 });
+
+Route::post('/chat', [MessageController::class, 'chat'])->name('chat');
+Route::post('/chat/send', [MessageController::class, 'sendMessage']);
 
 Route::prefix("mechanicien")->group(function ()  {
     Route::post('/OffreDetails', [OffreController::class, 'getOffreDetails']);

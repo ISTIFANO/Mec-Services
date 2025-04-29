@@ -25,6 +25,12 @@ class Service extends Model
 
     }
 
+    public function contract(){
+
+        return $this->hasOne(Contract::class);
+
+    }
+
     // public function avis(){
 
     //     return $this->belongsToMany(Avis::class, 'service_avis', 'service_id', 'avis_id');

@@ -83,7 +83,10 @@ class MechanicService implements IMechanic
 
     public function findByName($name) {}
 
-    public function findByID($id) {}
+    public function findByID($id) {
+
+      return   $this->mechanic_repositery->find($id);
+    }
 
     public function to_mechanicien($data)
     {
