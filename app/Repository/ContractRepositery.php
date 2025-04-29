@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Models\Contract;
+
 class ContractRepositery{
 
 
@@ -12,6 +14,7 @@ class ContractRepositery{
     public function show(){
 
 
+        return Contract::all();
 
 
     }
@@ -42,6 +45,7 @@ class ContractRepositery{
     public function findByID($id){
 
 
+        return Contract::where("id","=",$id)->first();
 
 
     }

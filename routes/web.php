@@ -10,6 +10,7 @@ use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController;
@@ -115,6 +116,9 @@ Route::prefix("mechanicien")->group(function ()  {
 
 });
 Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
+
+Route::get('/pdf', [ContractController::class, 'generatePDF']);
+
 
 Route::post('/tomechanicien', [MechanicController::class, 'to_mechanicien']);
 Route::get('/willbemechanicien', [MechanicController::class, 'willbemechanicien']);

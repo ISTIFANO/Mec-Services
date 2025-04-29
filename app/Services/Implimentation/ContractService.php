@@ -9,6 +9,7 @@ use App\Services\IService;
 use App\Services\IContract;
 use App\Services\IMechanic;
 use PSpell\Config;
+use Barryvdh\DomPDF\PDF;
 
 class ContractService implements IContract{
  
@@ -44,16 +45,32 @@ return $this->contract_repositery->create($contract);
 
     }
     public function show(){
-
-
-
+return $this->contract_repositery->show();
     }
 
+public function find($id){
+  return $this->contract_repositery->findByID($id);
+}
 
 
+public function generatePDF($data)
+{
+  $pdf = app('dompdf.wrapper');
+  $pdf->loadView('pdf.sample-with-image', [
+    'title' => 'AlMechanicien Contract'
+    // 'mechanicien'=> $data["mechanicien"],
+    // 'client'=> $data["client"],
+    // 'service_titre' => $data["service_titre"],
+    // 'vehucule_image' => $data["vehucule_image"],
+    // 'description' => $data["description"],
+    // 'rule' => $data["rule"],
+    // 'logo' => Image::LOGO,
+    // 'tampon' => asset("/images/img/tampon.png"),
+    // 'footer' => 'by <a href="AlMechanicien">AlMechanicien.ma</a>'
+  ]);
 
-
-
+  return $pdf->download('Client.PDF.contract.blade.php.pdf');
+}
 }
 
 
