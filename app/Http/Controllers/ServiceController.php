@@ -79,6 +79,21 @@ public function find(Request $request)
 
 return view("Admin.Service.ServiceDetails",compact("service"));    }
 
+public function showMechanicien(Request $request)
+{
+    $service = $this->service->showMechanicien($request->offer_id);
+    $serviceId = $request->service_id;
+
+return view("Admin.Service.Condudatures",compact("service","serviceId")); 
+}
+
+
+public function ApprouveService(Request $request)
+{
+$service =  $this->service->ApprouveService($request->serviceId);
+
+return view("Admin.Service.ServiceDetails",compact("service")); ; 
+}
     /**
      * Show the form for editing the specified resource.
      */

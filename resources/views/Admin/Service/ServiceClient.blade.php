@@ -126,18 +126,41 @@
                     </div>
                     @endif
                 </div>
-                
-                <form action="/client/Service" method="POST" class="px-4 py-3 bg-gray-50 border-t border-gray-200">
+                @if($service->status == "postulee")
+                <form action="/Service/postulee" method="POST" class="px-4 py-3 bg-gray-50 border-t border-gray-200">
                     @csrf
+                    <input type="hidden" name="offer_id" value="{{ $service->offer_id }}">
                     <input type="hidden" name="service_id" value="{{ $service->id }}">
                     <button type="submit" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center justify-center">
-                        Voir les détails
+                        Voir candidature
+
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                     </button>
                 </form>
             </div>
+            @elseif($service->status == "annulé")
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Annulé
+            </span>
+            @else
+            <form action="/client/Service" method="POST" class="px-4 py-3 bg-gray-50 border-t border-gray-200">
+                @csrf
+                <input type="hidden" name="service_id" value="{{ $service->id }}">
+                Voir les détails
+
+                <button type="submit" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </button>
+            </form>
+            @endif
+
             @endforeach
         </div>
         

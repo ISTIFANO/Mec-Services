@@ -55,25 +55,25 @@ public function find($id){
 
 public function generatePDF($data)
 {
-  $pdf = app('dompdf.wrapper');
-  $pdf->loadView('pdf.sample-with-image', [
-    'title' => 'AlMechanicien Contract'
-    // 'mechanicien'=> $data["mechanicien"],
-    // 'client'=> $data["client"],
-    // 'service_titre' => $data["service_titre"],
-    // 'vehucule_image' => $data["vehucule_image"],
-    // 'description' => $data["description"],
-    // 'rule' => $data["rule"],
-    // 'logo' => Image::LOGO,
-    // 'tampon' => asset("/images/img/tampon.png"),
-    // 'footer' => 'by <a href="AlMechanicien">AlMechanicien.ma</a>'
-  ]);
-
-  return $pdf->download('Client.PDF.contract.blade.php.pdf');
+    $contract = $this->contract_repositery->findByID($data);
+    $pdf = app('dompdf.wrapper');
+    $pdf->loadView('Client.PDF.contract', [
+        'title' => 'AlMechanicien Contract',
+        'mechanicien' => $contract->service->mechanicien->user->firstname,
+        'client' => $contract->service->client->firstname,
+        'service_titre' => $contract->service->titre,
+        'vehicule_image' => $contract->service->offre->vehicule->image,
+        'description' => $contract->service->offre->description,
+        'rule' => " text",
+        'logo' => Image::LOGO,
+        'tampon' => asset("/images/img/tampon.png"),
+        'footer' => 'by <a href="AlMechanicien">AlMechanicien.ma</a>'
+    ]);
+    
+    return $pdf; 
 }
+
 }
-
-
 
 
 

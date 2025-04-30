@@ -119,6 +119,8 @@ Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
 
 Route::get('/pdf', [ContractController::class, 'generatePDF']);
 
+Route::post('/Service/postulee', [ServiceController::class, 'showMechanicien']);
+Route::post('/service/Approuver', [ServiceController::class, 'ApprouveService']);
 
 Route::post('/tomechanicien', [MechanicController::class, 'to_mechanicien']);
 Route::get('/willbemechanicien', [MechanicController::class, 'willbemechanicien']);

@@ -34,7 +34,7 @@ class S_Service implements IService
     {
         try {
             $mechanicien = $this->mechanicien_service->is_mechanicien($data["mechanicien_id"]);
-            
+
             if (!$mechanicien) {
                 throw new Exception("You are not a mechanicien");
             }
@@ -44,12 +44,10 @@ class S_Service implements IService
 
             $service = new Service();
             $service->titre = $offres->titre;
-            $service->status = Statut::EN_COURS;
-            $service->etat = Statut::POSTULE;
+            $service->status = Statut::POSTULE;
             $service->user()->associate($client);
             $service->offre()->associate($offres);
             $service->mechanicien()->associate($mechanicien);
-
             return $this->service_repositery->create($service);
         } catch (Exception $e) {
             throw new Exception("probleme de creation  service: " . $e->getMessage());
@@ -71,9 +69,35 @@ class S_Service implements IService
     }
     public function ValidateService($data){
 
+    }
+    public function showMechanicien($data){
+        return $this->service_repositery->showMechanicien($data);
+
+    }
+    public function ApprouveService($data){
+        try {
+            $service = $this->service_repositery->findService($data);
+            if (!$service) {
+                throw new Exception("Service not found");
+            }
+
+            $service->status = Statut::EN_COURS;
+            $this->service_repositery->create($service);
+
+            $mechaniciens = $this->service_repositery->getMechanicienSFromService($service->offer_id);
+
+            foreach ($mechaniciens as $mechanicien) {
+
+                    $this->service_repositery->delete($mechanicien->id);
+                
+            }
+            return $service;
+        } catch (Exception $e) {
+            throw new Exception("Error approving service: " . $e->getMessage());
+        }
+    }
+
+    public function remove_Mechanicien_From_Service($data){
         
-
-
-
     }
 }

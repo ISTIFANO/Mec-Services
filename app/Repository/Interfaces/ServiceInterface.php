@@ -14,8 +14,11 @@ interface ServiceInterface{
     public function delete($id);
     public function findService($id);
     public function showOne($id);
+    public function showMechanicien($id);
 
+    public function ApprouveService($id);
 
+    public function getMechanicienSFromService($id);
 
     
 }
