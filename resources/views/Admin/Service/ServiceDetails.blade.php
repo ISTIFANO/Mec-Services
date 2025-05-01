@@ -127,7 +127,21 @@
                     </div>
                 </div>
                 <div class="px-6 py-4 bg-gray-50 border-t flex justify-between">
-                    <a href="" class="px-4 py-2 bg-white text-gray-700 rounded-md border hover:bg-gray-50">Modifier</a>
+                    <form action="/pdf" method="POST">
+                        @csrf
+                        @method('POST')
+                        <input type="hidden" value="{{ $service->mechanicien->id }}" name="mechanicien_id">
+                        <input type="hidden" value="{{ $service->id }}" name="service_id">
+                        <input type="hidden" value="{{ $service->user->id }}" name="client_id">
+
+                        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 0a2 2 0 100-4H7a2 2 0 100 4m12 0v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6m16 0H5" />
+                            </svg>
+                            Voir Contrat
+                        </button>
+                    </form>
+
                     <form action="" method="POST">
                         @csrf
                         @method('PATCH')
@@ -137,10 +151,22 @@
             </div>
         </div>
 
-        <!-- Colonne latérale -->
         <div class="space-y-6">
             @include('Admin.Service.components.mechanicien', ['mechanic' => $service->mechanicien])
             @include('Admin.Service.components.client', ['client' => $service->user])
+
+            <div class="bg-white rounded-lg shadow p-6">
+              <form action="/Payement" method="POST">
+                @csrf
+                <input type="hidden" value="{{ $service->id }}" name="service_id">
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a4 4 0 00-8 0v2m-2 0a6 6 0 0112 0v2a2 2 0 01-2 2H7a2 2 0 01-2-2v-2m12 0H5" />
+                </svg>
+                Payer le service
+                </button>
+              </form>
+            </div>
         </div>
     </div>
 </div>

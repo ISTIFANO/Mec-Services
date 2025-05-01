@@ -66,6 +66,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Vehicule::class);
     }
+
+    
+    public function message()
+{
+    return $this->hasMany(Message::class);
+}
+
+public function contract(){
+
+    return $this->hasMany(Contract::class);
+
+}
+
     
     /**
      * Get the attributes that should be cast.

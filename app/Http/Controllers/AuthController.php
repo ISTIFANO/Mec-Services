@@ -76,6 +76,6 @@ class AuthController extends Controller
 
         $this->user_service->create($data, $getRole);
 
-        return redirect("/login");
+        return redirect("/seConnect");
     }
 }

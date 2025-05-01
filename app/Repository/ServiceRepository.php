@@ -49,7 +49,12 @@ class ServiceRepository implements ServiceInterface
     public function findService($id)
     {
 
-        $service =  Service::where("id", "=", $id);
+        $service = Service::with([
+            'mechanicien.user', 
+            'offre.categorie', 
+            'offre.vehicule', 
+            'offre.tags','user'
+        ])->where("id", "=", $id)->first();
         return $service;
     }
 
@@ -68,5 +73,27 @@ class ServiceRepository implements ServiceInterface
           return $service;
         
         }
+        public function showMechanicien($id){
+            $service = Service::with([
+                'mechanicien.user'
+            ])->where('offer_id', $id)->get();
+    
+            $mechanics =  $service->pluck('mechanicien')->unique('id')->values();
+              return $mechanics;
+            
+            }
+
+            public function ApprouveService($id){
+                $service = Service::where('id', $id)->first();
+        
+                $mechanics =  $service->pluck('mechanicien')->unique('id')->values();
+                  return $mechanics;
+                
+                }  
+                public function getMechanicienSFromService($id){
+                    $service = Service::where('offer_id', $id)->where('status', 'postulee')->get();
+                    return $service;
+                    
+                    }  
         
 }

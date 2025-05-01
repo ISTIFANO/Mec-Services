@@ -81,7 +81,11 @@ class OffreRepository implements OffreInterface{
         return $offres;
         
     }
-   
+   public function Isreserved($offre){
+   $offre->is_reserved = true;
+    return $offre->save();
+
+   }
 
     
 }

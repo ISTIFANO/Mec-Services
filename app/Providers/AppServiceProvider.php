@@ -7,7 +7,9 @@ use App\Services\ITag;
 use App\Services\IRole;
 use App\Services\IUser;
 use App\Services\IOffre;
+use App\Services\Ipayment;
 use App\Services\IService;
+use App\Services\IContract;
 use App\Services\IMechanic;
 use App\Services\ICategorie;
 use App\Services\ICompetence;
@@ -19,6 +21,9 @@ use App\Services\IVehiculeService;
 use App\Repository\OffreRepository;
 use App\Repository\MessageRepository;
 use App\Repository\ServiceRepository;
+use App\Repository\ContractRepositery;
+use App\Repository\MechanicRepository;
+use App\Repository\PayementRepository;
 use App\Repository\VehiculeRepository;
 use App\Repository\CategorieRepository;
 use Illuminate\Support\ServiceProvider;
@@ -33,19 +38,20 @@ use App\Services\Implimentation\RoleService;
 use App\Services\Implimentation\UserService;
 use App\Repository\Interfaces\OffreInterface;
 use App\Services\Implimentation\OffreService;
+use App\Repository\Interfaces\ContracInterface;
 use App\Repository\Interfaces\MessageInterface;
 use App\Repository\Interfaces\ServiceInterface;
+use App\Repository\Interfaces\MechanicInterface;
 use App\Repository\Interfaces\VehiculeInterface;
+use App\Services\Implimentation\ContractService;
 use App\Services\Implimentation\MechanicService;
 use App\Services\Implimentation\VehiculeService;
 use App\Repository\Interfaces\CategorieInterface;
 use App\Services\Implimentation\CategorieService;
 use App\Repository\Interfaces\CompetenceInterface;
-use App\Repository\Interfaces\MechanicInterface;
-use App\Repository\MechanicRepository;
-use App\Repository\PayementRepository;
+use App\Services\Implementation\PaymentService;
 use App\Services\Implimentation\CompetenceService;
-use App\Services\Ipayment;
+use App\Services\Implimentation\PaymentService as ImplimentationPaymentService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -54,7 +60,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(Ipayment::class,PayementRepository::class);
+        $this->app->bind(Ipayment::class,ImplimentationPaymentService::class);
+        $this->app->bind(ContracInterface::class,ContractRepositery::class);
+        $this->app->bind(IContract::class,ContractService::class);
         $this->app->bind(IMechanic::class,MechanicService::class);
         $this->app->bind(ICompetence::class,CompetenceService::class);
         $this->app->bind(CompetenceInterface::class,CompetenceRepository::class);

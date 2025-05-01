@@ -12,6 +12,7 @@ interface OffreInterface{
     public function create(Offre $offres);
 public function delete($id);
 
+public function Isreserved($offre);
 
 public function update($data);
 public function  show();

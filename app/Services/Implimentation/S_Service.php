@@ -2,15 +2,18 @@
 
 namespace App\Services\Implimentation;
 
+use Exception;
 use App\Enums\Statut;
 use App\Models\Service;
-use Exception;
+use App\Services\IUser;
 use App\Services\IOffre;
 use App\Services\IService;
+use App\Services\IContract;
 use App\Services\IMechanic;
+use Illuminate\Support\Facades\DB;
 use App\Repository\Interfaces\UserInterface;
 use App\Repository\Interfaces\ServiceInterface;
-use App\Services\IUser;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class S_Service implements IService
 {
@@ -18,23 +21,25 @@ class S_Service implements IService
     protected IMechanic $mechanicien_service;
     protected IOffre $offres_services;
     protected IUser $user_services;
+    protected IContract $iContract;
 
 
-    public function __construct(ServiceInterface $service_repositery, IMechanic $mechanicien_service, IOffre $offres_services, IUser $user_services)
+    public function __construct(ServiceInterface $service_repositery, IContract $iContract, IMechanic $mechanicien_service, IOffre $offres_services, IUser $user_services)
     {
         $this->service_repositery = $service_repositery;
         $this->mechanicien_service = $mechanicien_service;
         $this->offres_services = $offres_services;
         $this->user_services = $user_services;
+        $this->iContract = $iContract;
     }
 
-  
+
 
     public function create($data)
     {
         try {
             $mechanicien = $this->mechanicien_service->is_mechanicien($data["mechanicien_id"]);
-            
+
             if (!$mechanicien) {
                 throw new Exception("You are not a mechanicien");
             }
@@ -44,28 +49,67 @@ class S_Service implements IService
 
             $service = new Service();
             $service->titre = $offres->titre;
-            $service->status = Statut::EN_COURS;
+            $service->status = Statut::POSTULE;
             $service->user()->associate($client);
             $service->offre()->associate($offres);
             $service->mechanicien()->associate($mechanicien);
-
             return $this->service_repositery->create($service);
         } catch (Exception $e) {
             throw new Exception("probleme de creation  service: " . $e->getMessage());
         }
     }
-    public function update($data) {
-
-    }
-    public function delete($id) {
-
-    }
-    public function show() {
+    public function update($data) {}
+    public function delete($id) {}
+    public function show()
+    {
         return $this->service_repositery->show();
-
     }
-    public function showOne($id) {
+    public function showOne($id)
+    {
         return $this->service_repositery->showOne($id);
-
     }
+    public function ValidateService($data) {}
+    public function showMechanicien($data)
+    {
+        return $this->service_repositery->showMechanicien($data);
+    }
+    public function findService($id)
+    {
+        return $this->service_repositery->findService($id);
+    }
+    public function ApprouveService($data)
+    {
+
+        try {
+            DB::beginTransaction();
+            $service = $this->service_repositery->findService($data);
+            if (!$service) {
+                throw new Exception("Service not found");
+            }
+
+            $service->status = Statut::EN_COURS;
+            $this->service_repositery->create($service);
+
+            $mechaniciens = $this->service_repositery->getMechanicienSFromService($service->offer_id);
+
+            foreach ($mechaniciens as $mechanicien) {
+
+                $this->service_repositery->delete($mechanicien->id);
+            }
+            $offredeservice =   $this->offres_services->findById($service->offer_id);
+            if (!$offredeservice) {
+                throw new NotFoundHttpException("Offre not found ");
+            } else {
+                $this->offres_services->Isreserved($offredeservice);
+            }
+            $this->iContract->create($service);
+            DB::commit();
+            return $service;
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception("Error approving service: " . $e->getMessage());
+        }
+    }
+
+    public function remove_Mechanicien_From_Service($data) {}
 }

@@ -287,7 +287,6 @@
                     @endforelse
                 </div>
                 
-                <!-- Pagination -->
                 @if(count($offres->toArray()) > 0)
                 <div class="mt-8 flex justify-center">
                     {{ $offres->links() }}

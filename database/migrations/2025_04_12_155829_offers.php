@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('categorie_id')->nullable();
             $table->unsignedBigInteger('vehicule_id')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('is_reserved')->default(false);
             $table->foreign('client_id')->references('id')->on('users');
             $table->foreign('categorie_id')->references('id')->on('categories');
             $table->foreign('vehicule_id')->references('id')->on('vehicules');

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string("titre");
-            $table->enum("status", ["en cours", "terminé", "annulé"])->default("en cours");
+            $table->enum("status", ["en cours", "terminé", "annulé","postulee"])->default("postulee");
             $table->unsignedBigInteger('mechanicien_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('offer_id')->nullable();

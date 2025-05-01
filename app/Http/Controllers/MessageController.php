@@ -2,75 +2,46 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Message;
+use App\Events\SendMessage;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Repository\MessageRepository;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
-use App\Repository\MessageRepository;
+use App\Repository\Interfaces\MessageInterface;
 
 class MessageController extends Controller
 {
-
-    protected MessageRepository $message_repository;
-
-    public function __construct(MessageRepository $message_repository)
+    protected MessageInterface $message_repositery;
+    public function __construct( MessageInterface $message_repositery)
     {
-        $this->message_repository->$message_repository;
-    } 
-
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+        $this->message_repositery = $message_repositery;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function chat($receiverId)
     {
-        //
+        $receiver =$this->message_repositery->Find($receiverId);
+
+        $messages =$this->message_repositery->chat($receiverId) ;
+
+        return view('chat', compact('receiver', 'messages'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreMessageRequest $request)
+    public function sendMessage(Request $request)
     {
-        //
+$data = ["message" => $request->message ,"receiverId" => $request->receiverId  ];
+
+
+
+        $message = $this->message_repositery->sendMessage($data);
+        
+        broadcast(new SendMessage($message))->toOthers();
+        
+        return response()->json(['status' => 'Message sent!']);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Message $message)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Message $message)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateMessageRequest $request, Message $message)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Message $message)
-    {
-        //
-    }
 }

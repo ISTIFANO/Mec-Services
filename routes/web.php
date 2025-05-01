@@ -10,6 +10,8 @@ use App\Http\Controllers\VehiculeController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\ContractController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
@@ -44,9 +46,11 @@ Route::get('/Services', function () {
 Route::get('/Offre', function () {
     return view('Admin.Offre.Detailes');
 });
-Route::get('/Chat', function () {
+
+Route::get('/chat', function () {
     return view('Admin.Service.Chat');
 });
+
 Route::get('/Adminn', function () {
     return view('Admin.Statistic.statistic');
 });
@@ -102,6 +106,9 @@ Route::prefix("client")->group(function ()  {
 
 });
 
+Route::post('/chat', [MessageController::class, 'chat'])->name('chat');
+Route::post('/chat/send', [MessageController::class, 'sendMessage']);
+
 Route::prefix("mechanicien")->group(function ()  {
     Route::post('/OffreDetails', [OffreController::class, 'getOffreDetails']);
     Route::post('/Postuler', [ServiceController::class, 'store']);
@@ -109,6 +116,11 @@ Route::prefix("mechanicien")->group(function ()  {
 
 });
 Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
+
+Route::post('/pdf', [ContractController::class, 'generatePDF']);
+
+Route::post('/Service/postulee', [ServiceController::class, 'showMechanicien']);
+Route::post('/service/Approuver', [ServiceController::class, 'ApprouveService']);
 
 Route::post('/tomechanicien', [MechanicController::class, 'to_mechanicien']);
 Route::get('/willbemechanicien', [MechanicController::class, 'willbemechanicien']);
@@ -140,6 +152,7 @@ Route::get('/', function () {
 
 
 
-Route::get("/Payement",[PaymentController::class, "index"]);
+Route::POST("/Payement",[PaymentController::class, "show"]);
 
+Route::get("/Service/payment",[PaymentController::class, "makePayement"]);
 

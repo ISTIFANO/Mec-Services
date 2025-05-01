@@ -32,5 +32,10 @@ protected $table="mechaniciens";
         return $this->belongsTo(Avis::class,'avis_id');
 
     }
+    
+    public function contract(){
 
+        return $this->hasMany(Contract::class);
+    
+    }
 }

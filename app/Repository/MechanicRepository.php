@@ -20,7 +20,7 @@ class MechanicRepository implements MechanicInterface
 
     public function find(int $id)
     {
-        return Mechanic::find($id);
+        return Mechanic::where("user_id" , "=" , $id)->first();
     }
 
     
