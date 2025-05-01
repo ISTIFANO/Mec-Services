@@ -49,7 +49,12 @@ class ServiceRepository implements ServiceInterface
     public function findService($id)
     {
 
-        $service =  Service::where("id", "=", $id)->first();
+        $service = Service::with([
+            'mechanicien.user', 
+            'offre.categorie', 
+            'offre.vehicule', 
+            'offre.tags','user'
+        ])->where("id", "=", $id)->first();
         return $service;
     }
 

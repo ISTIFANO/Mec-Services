@@ -72,7 +72,10 @@ class ContractController extends Controller
     }
     public function generatePDF(Request $data)
 {
-$pdf = $this->contract_service->generatePDF($data);
+    $array =["mechanicien_id" => $data->mechanicien_id,
+  "service_id" => $data->service_id,
+  "client_id" => $data->client_id];
+$pdf = $this->contract_service->generatePDF($array);
 
   return  $pdf->stream();
 }

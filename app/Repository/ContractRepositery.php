@@ -3,13 +3,9 @@
 namespace App\Repository;
 
 use App\Models\Contract;
+use App\Repository\Interfaces\ContracInterface;
 
-class ContractRepositery{
-
-
-
-
-
+class ContractRepositery implements ContracInterface{
 
     public function show(){
 
@@ -47,6 +43,16 @@ class ContractRepositery{
 
         return Contract::where("id","=",$id)->first();
 
+
+    }
+    
+    public function show_pdf_Contract($data){
+$contract = Contract::with(['service','service.offre','service.mechanicien.user','service.user','service.offre.vehicule'])->where([
+    ["mechanicien_id", "=", $data["mechanicien_id"]],
+    ["service_id", "=", $data["service_id"]],
+    ["client_id", "=", $data["client_id"]]
+])->first();
+return $contract;
 
     }
     

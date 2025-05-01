@@ -1,15 +1,24 @@
 <?php
 
-namespace App\Services\Implementation;
+namespace App\Services\Implimentation;
 
 use Stripe\Charge;
 use Stripe\Stripe;
 use Stripe\Transfer;
 use App\Services\Ipayment;
+use App\Services\IService;
 use Stripe\Exception\CardException;
 
 class PaymentService implements Ipayment
 {
+    protected IService $service;
+ 
+    public function __construct(IService $service )
+    {
+        $this->service = $service;
+     
+
+    }
 
     public function processPayment($amount , $data)
     {
@@ -50,6 +59,10 @@ class PaymentService implements Ipayment
     }
 
     public function MakePayment($data){
+
+    }
+    public function getService($data){
+        return $this->service->findService($data);
 
 
     }

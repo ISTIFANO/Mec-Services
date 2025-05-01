@@ -9,6 +9,7 @@ interface IService{
     public function update($data);
  public function delete($id);
     public function show();
+    public function findService($id);
     public function showOne($id);
     public function showMechanicien($id);
     public function ApprouveService($id);

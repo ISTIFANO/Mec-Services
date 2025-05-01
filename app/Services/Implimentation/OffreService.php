@@ -128,4 +128,8 @@ class OffreService implements IOffre
     public function showRejectedOffres(){
         return $this->offre_repositery->showRejectedOffres();
     }
+    public function Isreserved($offre){
+        
+        return $this->offre_repositery->Isreserved($offre);
+    }
 }

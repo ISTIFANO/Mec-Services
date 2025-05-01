@@ -117,7 +117,7 @@ Route::prefix("mechanicien")->group(function ()  {
 });
 Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
 
-Route::get('/pdf', [ContractController::class, 'generatePDF']);
+Route::post('/pdf', [ContractController::class, 'generatePDF']);
 
 Route::post('/Service/postulee', [ServiceController::class, 'showMechanicien']);
 Route::post('/service/Approuver', [ServiceController::class, 'ApprouveService']);
@@ -152,6 +152,7 @@ Route::get('/', function () {
 
 
 
-Route::get("/Payement",[PaymentController::class, "index"]);
+Route::POST("/Payement",[PaymentController::class, "show"]);
 
+Route::get("/Service/payment",[PaymentController::class, "makePayement"]);
 
