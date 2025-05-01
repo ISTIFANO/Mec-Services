@@ -154,5 +154,5 @@ Route::get('/', function () {
 
 Route::POST("/Payement",[PaymentController::class, "show"]);
 
-Route::get("/Service/payment",[PaymentController::class, "makePayement"]);
+Route::post("/Service/payment",[PaymentController::class, "makePayement"]);
 

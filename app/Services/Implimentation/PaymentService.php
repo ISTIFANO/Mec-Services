@@ -20,22 +20,22 @@ class PaymentService implements Ipayment
 
     }
 
-    public function processPayment($amount , $data)
+    public function processPayment($data)
     {
         try{
-        
+        $service = $this->getService($data["service_id"]);
             Stripe::setApiKey(env('STRIPE_SECRET'));
                         
             $outlet1Amount = $data["amount"] * 0.7; 
             $outlet2Amount = $data["amount"]  * 0.3;  
         
        Charge::create([
-                'amount' => $amount,
+                'amount' => $service->offre->budjet,
                 'currency' => 'usd',
                 'source' => $data['stripeToken'],
-                'description' => 'Payment  pour le service . ' . $data["service"] . " avec le client" . $data["client"],
+                'description' => 'Payment  pour le service . ' . $service->titre . " avec le client" . $service->user->firstname . $service->user->lastname,
                 'transfer_data' => [
-                    'destination' => $data['acct_outlet_id'],  
+                    'destination' => env('AAMIRSTRIPE'),  
                     'amount' => $outlet1Amount, 
                 ],
             ]);
@@ -44,7 +44,7 @@ class PaymentService implements Ipayment
                 'amount' => $outlet2Amount,  
                 'currency' => 'usd',
                 'destination' => env('AAMIRSTRIPE'),  
-                'description' => 'Transfer '.$data["client"] . 'to' .$data["mechnicien"] ,
+                'description' => 'Transfer '.$service->user->firstname . 'to' .$service->mechanicien->user->firstname ,
             ]);
         
             return back()->with('success', 'Payment successful!');
