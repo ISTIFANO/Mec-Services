@@ -1,11 +1,13 @@
-{{-- mechanic_validation.blade.php --}}
-
 <div class="max-w-4xl mx-auto py-8 px-4 w-screen">
     <h1 class="text-2xl font-bold mb-6">Validation des Candidatures de Mécaniciens</h1>
     
     @if($service->count() > 0)
-    
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {{-- Content for services --}}
+    @endif
+            @foreach($service as $mechanic)
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                {{-- Content of each mechanic --}}
+            @endforeach
             @foreach($service as $mechanic)
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="px-6 py-4 border-b">
@@ -146,18 +148,11 @@
                             Appeler
                         </a>
                         @endif
-                        <form action="/reviews" method="GET" class="block w-full">
-                            <input type="hidden" name="mechanic_id" value="{{ $mechanic->id }}">
-                            <button type="submit" class="w-full px-4 py-2 bg-yellow-500 text-white text-center rounded-md hover:bg-yellow-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                                </svg>
-                                Voir les avis
-                            </button>
+                        <form action="/Mechanic" method="POST" class="block w-full">
+                            @csrf
+                            <input type="hidden" name="mechanicien_id" value="{{ $mechanic->id }}">
+                            <input type="submit" value="Voir Profil" class="w-full px-4 py-2 bg-yellow-500 text-white text-center rounded-md hover:bg-yellow-600">
                         </form>
-                        
-                        <!-- Boutons de validation -->
-                            
                             <div class="grid grid-cols-2 gap-2">
                                 <form action="/service/Approuver" method="POST">
                                     @csrf
@@ -169,9 +164,10 @@
                                         Approuver
                                     </button>
                                 </form>
-                                <form action="" method="POST">
+                                <form action="/service/Rejected" method="POST">
                                     @csrf
-                                    <input type="hidden" name="action" value="reject">
+                                    <input type="hidden" name="serviceId" value="{{ $serviceId }}">
+                                    <input type="hidden" name="mechanic_id" value="{{ $mechanic->id }}">
                                     <button type="submit" class="px-12 py-2 bg-red-600 text-white text-center rounded-md hover:bg-red-700">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -180,26 +176,11 @@
                                     </button>
                                 </form>
                             </div>
-                   
+                        </div>
                     </div>
                 </div>
             </div>
-            @endforeach
         </div>
-    @else
-        <div class="bg-white rounded-lg shadow p-8 text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <h3 class="text-lg font-medium mb-2">Aucun candidat mécanicien</h3>
-            <p class="text-gray-500">Il n'y a actuellement aucune candidature de mécanicien à valider.</p>
-        </div>
-    @endif
-    
-    <!-- Pagination -->
-    @if(isset($mechanics) && $mechanics->hasPages())
-    <div class="mt-8">
-        {{ $mechanics->links() }}
-    </div>
-    @endif
-</div>
+
+
+                            @endforeach

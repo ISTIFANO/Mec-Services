@@ -19,6 +19,7 @@ interface ServiceInterface{
     public function ApprouveService($id);
 
     public function getMechanicienSFromService($id);
+    public function remove_Mechanicien_From_Service($data,$offre);
 
     
 }

@@ -100,6 +100,11 @@ class MechanicService implements IMechanic
 public function is_mechanicien($id){
 return $this->mechanic_repositery->find($id);
 }
+public function getMechanicien($data){
+
+
+    return $this->mechanic_repositery->getMechanicien($data);
+}
     public function willbemechanicien()
     {
 

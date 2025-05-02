@@ -111,5 +111,11 @@ class S_Service implements IService
         }
     }
 
-    public function remove_Mechanicien_From_Service($data) {}
+    public function remove_Mechanicien_From_Service($data) {
+        $service = $this->findService($data["serviceId"]);
+$offre = $service->offer_id;
+        return $this->service_repositery->remove_Mechanicien_From_Service($data,$offre);
+
+
+    }
 }
