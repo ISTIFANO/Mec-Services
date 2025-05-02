@@ -11,7 +11,11 @@
         </a>
         <h1 class="text-2xl font-bold text-gray-800">Paiement pour le Service #{{ $service->id }}</h1>
     </div>
-
+    @if(config('app.debug'))
+    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6">
+        <p>Debug: Stripe Key ({{ !empty(config('stripe.key')) ? 'Found' : 'Missing' }}): {{ !empty(config('stripe.key')) ? substr(config('stripe.key'), 0, 8).'...' : 'Not found' }}</p>
+    </div>
+    @endif
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="md:col-span-2 space-y-6">
             <div class="bg-white rounded-xl shadow-md p-6">
@@ -133,10 +137,8 @@
             var $error = $('.error');
             
             if (response.error) {
-                // Show the errors on the form
                 $error.removeClass('hidden').text(response.error.message);
             } else {
-                // Add the token to the form and submit
                 var token = response.id;
                 $form.append($('<input type="hidden" name="stripeToken" />').val(token));
                 $form.get(0).submit();
