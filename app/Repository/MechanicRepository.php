@@ -23,7 +23,9 @@ class MechanicRepository implements MechanicInterface
         return Mechanic::where("user_id" , "=" , $id)->first();
     }
 
-    
+    public function getMechanicien($id){
+        return Mechanic::where("id" , "=" , $id)->first();
+    }
     public function create(array $data)
     {
         return Mechanic::create($data);

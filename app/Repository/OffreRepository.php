@@ -76,7 +76,7 @@ class OffreRepository implements OffreInterface{
     }
     public function showActiveOffres(){
 
-        $offres = Offre::with(['tags', 'categorie', 'vehicule', 'user'])->where("status","=","pending")->paginate(7);
+        $offres = Offre::with(['tags', 'categorie', 'vehicule', 'user'])->where("status","=","pending")->where("is_reserved","=",false)->paginate(7);
 
         return $offres;
         

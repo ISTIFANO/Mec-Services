@@ -35,9 +35,13 @@ class ServiceController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function RejecterService(Request $request)
     {
-        
+
+        $data=["serviceId" => $request->serviceId, "mechanic_id"=>$request->mechanic_id];
+         $this->service->remove_Mechanicien_From_Service($data);
+
+         return redirect("/client/ServiceDetails");
     }
 
     /**

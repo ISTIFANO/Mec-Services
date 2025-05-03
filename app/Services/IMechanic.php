@@ -14,6 +14,7 @@ interface IMechanic{
     public function show();
 
     public function findByName($name);
+    public function getMechanicien($name);
 
     public function findByID($id);
 

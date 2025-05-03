@@ -12,6 +12,7 @@ interface MechanicInterface
     public function update(int $id, array $data);
 
     public function delete(int $id);
+    public function getMechanicien($data);
 
     public function validate($data);
 }

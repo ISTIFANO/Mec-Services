@@ -109,6 +109,8 @@ Route::prefix("client")->group(function ()  {
 Route::post('/chat', [MessageController::class, 'chat'])->name('chat');
 Route::post('/chat/send', [MessageController::class, 'sendMessage']);
 
+Route::post('/Mechanic', [MechanicController::class, 'show']);
+
 Route::prefix("mechanicien")->group(function ()  {
     Route::post('/OffreDetails', [OffreController::class, 'getOffreDetails']);
     Route::post('/Postuler', [ServiceController::class, 'store']);
@@ -132,6 +134,7 @@ Route::get("/inscription",[AuthController::class, "Vregister"]);
 Route::get('/categories', [CategorieController::class, 'index']);
 Route::get('/categories/ajouter', [CategorieController::class, 'store']);
 
+Route::post('/service/Rejected', [ServiceController::class, 'RejecterService']);
 
 
 

@@ -35,8 +35,11 @@ class ServiceRepository implements ServiceInterface
     public function  show()
     {
 
-        $service = Service::with(['mechanicien.user', 'offre.categorie', 'offre.tags'])->where('client_id', Auth::id())->get();
-
+        $service= Service::where('client_id', 5)
+        ->orderBy('offer_id')
+        ->orderByDesc('id')
+        ->get()
+        ->unique('offer_id');
         return $service;
     }
 
@@ -95,5 +98,10 @@ class ServiceRepository implements ServiceInterface
                     return $service;
                     
                     }  
+                    public function remove_Mechanicien_From_Service($data,$offre){
+                        $service = Service::where('offer_id', $offre)->where('mechanicien_id', $data["mechanic_id"])->delete();
+                        return $service;
+                        
+                        }  
         
 }

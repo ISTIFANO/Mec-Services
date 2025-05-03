@@ -56,10 +56,13 @@ private IRole $role_services;
     /**
      * Display the specified resource.
      */
-    public function show(Mechanic $mechanic)
+    public function show(Request $mechanic)
     {
-        //
-    }
+
+$mechanicien =$this->mechanicien_services->getMechanicien($mechanic->mechanicien_id);
+return View("Admin.Utilisateur.MechanicienDetails", compact("mechanicien"));
+
+}
 
     /**
      * Show the form for editing the specified resource.
