@@ -1,4 +1,4 @@
-<div class="bg-white rounded-lg shadow overflow-hidden">
+<div class="bg-white rounded-lg shadow h-[312px] overflow-hidden">
     <div class="px-6 py-4 border-b">
         <h3 class="text-lg font-bold">Client</h3>
     </div>

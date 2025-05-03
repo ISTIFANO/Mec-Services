@@ -153,6 +153,19 @@
 
         <div class="space-y-6">
             @include('Admin.Service.components.mechanicien', ['mechanic' => $service->mechanicien])
+            <div class="bg-white rounded-lg shadow p-6">
+                <form action="/conversation" method="POST">
+                  @csrf
+                  <input type="hidden" value="{{ $service->mechanicien->id }}" name="mechanicien_id">
+                  <input type="hidden" value="{{ $service->id }}" name="service_id">
+                  <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16h6m-7-4a9 9 0 1118 0 9 9 0 01-18 0z" />
+                  </svg>
+                  Contacter le mécanicien
+                  </button>
+                </form>
+              </div>
             @include('Admin.Service.components.client', ['client' => $service->user])
 
             <div class="bg-white rounded-lg shadow p-6">

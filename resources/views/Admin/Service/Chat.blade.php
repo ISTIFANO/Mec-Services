@@ -1,57 +1,8 @@
-
 @extends('layout.app')
 
 @section('content')
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messagerie - MécaConnect</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    @vite(['resources/js/app.js'])
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        },
-                        secondary: {
-                            50: '#fff7ed',
-                            100: '#ffedd5',
-                            200: '#fed7aa',
-                            300: '#fdba74',
-                            400: '#fb923c',
-                            500: '#f97316',
-                            600: '#ea580c',
-                            700: '#c2410c',
-                            800: '#9a3412',
-                            900: '#7c2d12',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="font-sans antialiased text-gray-800 bg-gray-50">
-
-
-
-    <main class="container mx-auto px-4 py-4 w-screen">
+<div class="font-sans antialiased text-gray-800 bg-gray-50">
+    <main class="container mx-auto px-4 py-4 w-full">
         <h1 class="text-2xl font-bold mb-6">Messagerie</h1>
         
         <div class="md:hidden mb-6">
@@ -69,7 +20,6 @@
         </div>
         
         <div class="flex flex-col md:flex-row h-[calc(100vh-180px)]">
-
             <div class="w-full md:w-1/4 lg:w-1/5 bg-white rounded-lg shadow-md overflow-hidden md:mr-4 mb-4 md:mb-0">
                 <div class="p-4 border-b border-gray-200">
                     <div class="relative">
@@ -81,7 +31,6 @@
                 </div>
                 
                 <div class="overflow-y-auto h-[calc(100%-60px)]">
-                    <!-- Active conversation -->
                     <div class="p-4 bg-primary-50 border-l-4 border-primary-600 cursor-pointer">
                         <div class="flex items-start">
                             <div class="relative mr-3">
@@ -103,24 +52,22 @@
                             </div>
                         </div>
                     </div>
-                    
-              
                 </div>
             </div>
             
             <!-- Chat area (middle) -->
             <div class="w-full md:w-2/4 lg:w-2/5 bg-white rounded-lg shadow-md overflow-hidden flex flex-col mb-4 md:mb-0">
-                <!-- Chat header -->
-                <div class="flex items-center">
-                    <img src="{{ url('storage/' . $receiver->image) }}" alt="{{ $receiver->name }}" class="w-10 h-10 rounded-full">
-                    <div class="ml-3">
-                        <h3 class="font-bold">{{ $receiver->name }}</h3>
-                        <div class="flex items-center">
-                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                            <span class="text-xs text-gray-500">En ligne</span>
+                <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <img src="{{ url('storage/' . $receiver->user->image) }}" alt="{{ $receiver->user->firstname }}" class="w-10 h-10 rounded-full">
+                        <div class="ml-3">
+                            <h3 class="font-bold">{{ $receiver->user->lastname }}</h3>
+                            <div class="flex items-center">
+                                <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                                <span class="text-xs text-gray-500">En ligne</span>
+                            </div>
                         </div>
                     </div>
-                </div>
                     <div class="flex items-center">
                         <button class="text-gray-500 hover:text-gray-700 p-2">
                             <i class="fas fa-phone"></i>
@@ -134,37 +81,41 @@
                     </div>
                 </div>
                 
+                <!-- Chat messages -->
                 <div class="flex-1 overflow-y-auto p-4 bg-gray-50" id="chat-messages">
-
-              <div class="flex justify-center mb-4">
+                    <div class="flex justify-center mb-4">
                         <span class="bg-gray-200 text-gray-600 text-xs font-medium px-3 py-1 rounded-full">Aujourd'hui</span>
                     </div>
                     
                     <div class="flex justify-center mb-4">
-                        <div class="bg-gray-200 text-gray-600 text-xs font-medium px-3 py-1 rounded-full">
+                        <span class="bg-gray-200 text-gray-600 text-xs font-medium px-3 py-1 rounded-full">
                             Vous avez postulé à cette offre
-                        @foreach ($messages as $message)
-                            <div class="mb-2 flex {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
-                                <div class="px-4 py-2 rounded-lg {{ $message->sender_id == auth()->id() ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-800' }}">
-                                    {{ $message->message }}
-                                </div>
+                        </span>
+                    </div>
+                    
+                    @foreach ($messages as $message)
+                        <div class="mb-2 flex {{ $message->sender_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
+                            <div class="px-4 py-2 rounded-lg {{ $message->sender_id == auth()->id() ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-800' }}">
+                                {{ $message->message }}
                             </div>
-                        @endforeach
+                        </div>
+                    @endforeach
                 </div>
-                <div id="typing-indicator" class="mt-2 text-gray-500 text-sm" style="display: none;">{{ $receiver->name }} est en train d'écrire...</div>
-                <form id="message-form" class="mt-3" method="POST" action="">
-                    @csrf
-                    <div class="flex items-center space-x-2">
-                        <input type="text" id="message-input" name="message" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Écrivez votre message...">
-                        <button type="submit" class="bg-primary-600 text-white p-2 rounded-full hover:bg-primary-700">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </form>
-                        <button class="text-gray-500 hover:text-gray-700 p-2">
-                            <i class="fas fa-smile"></i>
-                        </button>
-                    </div>
+
+   <div class="p-3 border-t border-gray-200 bg-white">
+                    <div id="typing-indicator" class="mb-2 text-gray-500 text-sm" style="display: none;">{{ $receiver->firstname }} est en train d'écrire...</div>
+                    <form id="message-form" method="POST" action="/chat/send">
+                        @csrf
+                        <div class="flex items-center space-x-2">
+                            <button type="button" class="text-gray-500 hover:text-gray-700 p-2">
+                                <i class="fas fa-smile"></i>
+                            </button>
+                            <input type="text" id="message-input" name="message" class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Écrivez votre message...">
+                            <button type="submit" value="Sent" class="bg-primary-600 text-white p-2 rounded-full hover:bg-primary-700">
+                               
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
             
@@ -317,22 +268,22 @@
         </div>
     </main>
 
-   
-
     <script>
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
         
         // Mobile details toggle
         const detailsToggle = document.getElementById('details-toggle');
         const jobDetailsPanel = document.getElementById('job-details-panel');
         
-        if (detailsToggle) {
+        if (detailsToggle && jobDetailsPanel) {
             detailsToggle.addEventListener('click', () => {
                 jobDetailsPanel.classList.toggle('hidden');
                 jobDetailsPanel.classList.toggle('md:block');
@@ -342,6 +293,5 @@
             });
         }
     </script>
-</body>
-</html>
+</div>
 @endsection

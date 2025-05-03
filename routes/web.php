@@ -106,7 +106,7 @@ Route::prefix("client")->group(function ()  {
 
 });
 
-Route::post('/chat', [MessageController::class, 'chat'])->name('chat');
+Route::post('/conversation', [MessageController::class, 'chat'])->name('chat');
 Route::post('/chat/send', [MessageController::class, 'sendMessage']);
 
 Route::post('/Mechanic', [MechanicController::class, 'show']);
