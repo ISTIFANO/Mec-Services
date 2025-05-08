@@ -17,6 +17,10 @@ interface ServiceInterface{
     public function showMechanicien($id);
 
     public function ApprouveService($id);
+    public function showForMechanicien( $id);
+    public function showAll();
+    public function ChangeStatus($data);
+
 
     public function getMechanicienSFromService($id);
     public function remove_Mechanicien_From_Service($data,$offre);

@@ -1,5 +1,63 @@
 @extends('layout.app')
+<script src="https://js.stripe.com/v2/"></script>
+<script>
+    $(function () {
+        var $form = $(".require-validation");
 
+        $form.on('submit', function (e) {
+            var $inputs = $form.find('input[type=text]');
+            var $error = $('.error');
+            var valid = true;
+            $error.addClass('hidden');
+            $inputs.removeClass('border-red-500');
+
+            $inputs.each(function () {
+                if (!$(this).val()) {
+                    $(this).addClass('border-red-500');
+                    valid = false;
+                }
+            });
+
+            if (!valid) {
+                e.preventDefault();
+                $error.removeClass('hidden').text('Veuillez remplir tous les champs obligatoires.');
+                return false;
+            }
+
+            if (!$form.data('cc-on-file')) {
+                e.preventDefault();
+                var publishableKey = $form.data('stripe-publishable-key');
+                
+                if (!publishableKey) {
+                    $error.removeClass('hidden').text('Erreur de configuration: Clé Stripe manquante');
+                    return false;
+                }
+
+                Stripe.setPublishableKey(publishableKey);
+                Stripe.createToken({
+                    number: $('.card-number').val(),
+                    cvc: $('.card-cvc').val(),
+                    exp_month: $('.card-expiry-month').val(),
+                    exp_year: $('.card-expiry-year').val()
+                }, stripeResponseHandler);
+                return false;
+            }
+        });
+        
+        function stripeResponseHandler(status, response) {
+            var $form = $(".require-validation");
+            var $error = $('.error');
+            
+            if (response.error) {
+                $error.removeClass('hidden').text(response.error.message);
+            } else {
+                var token = response.id;
+                $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                $form.get(0).submit();
+            }
+        }
+    });
+</script>
 @section('content')
 <div class="container mx-auto py-10 px-4 md:px-6">
     <div class="flex items-center mb-8">
@@ -83,67 +141,6 @@
         </div>
     </div>
 </div>
+
 @endsection
 
-@push('scripts')
-<script src="https://js.stripe.com/v2/"></script>
-<script>
-    $(function () {
-        var $form = $(".require-validation");
-
-        $form.on('submit', function (e) {
-            var $inputs = $form.find('input[type=text]');
-            var $error = $('.error');
-            var valid = true;
-            $error.addClass('hidden');
-            $inputs.removeClass('border-red-500');
-
-            $inputs.each(function () {
-                if (!$(this).val()) {
-                    $(this).addClass('border-red-500');
-                    valid = false;
-                }
-            });
-
-            if (!valid) {
-                e.preventDefault();
-                $error.removeClass('hidden').text('Veuillez remplir tous les champs obligatoires.');
-                return false;
-            }
-
-            if (!$form.data('cc-on-file')) {
-                e.preventDefault();
-                var publishableKey = $form.data('stripe-publishable-key');
-                
-                if (!publishableKey) {
-                    $error.removeClass('hidden').text('Erreur de configuration: Clé Stripe manquante');
-                    return false;
-                }
-
-                Stripe.setPublishableKey(publishableKey);
-                Stripe.createToken({
-                    number: $('.card-number').val(),
-                    cvc: $('.card-cvc').val(),
-                    exp_month: $('.card-expiry-month').val(),
-                    exp_year: $('.card-expiry-year').val()
-                }, stripeResponseHandler);
-                
-                return false;
-            }
-        });
-        
-        function stripeResponseHandler(status, response) {
-            var $form = $(".require-validation");
-            var $error = $('.error');
-            
-            if (response.error) {
-                $error.removeClass('hidden').text(response.error.message);
-            } else {
-                var token = response.id;
-                $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-                $form.get(0).submit();
-            }
-        }
-    });
-</script>
-@endpush

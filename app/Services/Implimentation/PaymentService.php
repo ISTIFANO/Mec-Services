@@ -22,6 +22,7 @@ class PaymentService implements Ipayment
 
     public function processPayment($data)
     {
+        dd($data);
         try{
         $service = $this->getService($data["service_id"]);
             Stripe::setApiKey(env('STRIPE_SECRET'));

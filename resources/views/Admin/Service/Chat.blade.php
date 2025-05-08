@@ -54,9 +54,7 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Chat area (middle) -->
-            <div class="w-full md:w-2/4 lg:w-2/5 bg-white rounded-lg shadow-md overflow-hidden flex flex-col mb-4 md:mb-0">
+          <div class="w-full md:w-2/4 lg:w-2/5 bg-white rounded-lg shadow-md overflow-hidden flex flex-col mb-4 md:mb-0">
                 <div class="p-4 border-b border-gray-200 flex justify-between items-center">
                     <div class="flex items-center">
                         <img src="{{ url('storage/' . $receiver->user->image) }}" alt="{{ $receiver->user->firstname }}" class="w-10 h-10 rounded-full">
@@ -118,8 +116,6 @@
                     </form>
                 </div>
             </div>
-            
-            <!-- Job details (right sidebar) -->
             <div class="w-full md:w-1/4 lg:w-2/5 bg-white rounded-lg shadow-md overflow-hidden md:ml-4 hidden md:block" id="job-details-panel">
                 <div class="p-4 border-b border-gray-200 flex justify-between items-center">
                     <h3 class="font-bold">Détails de l'offre</h3>
@@ -127,10 +123,8 @@
                         <span class="bg-blue-100 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded-full">En discussion</span>
                     </div>
                 </div>
-                
-                <div class="p-4 overflow-y-auto h-[calc(100%-60px)]">
-                    <!-- Job summary -->
-                    <div class="mb-6">
+              <div class="p-4 overflow-y-auto h-[calc(100%-60px)]">
+                                        <div class="mb-6">
                         <div class="flex items-center mb-2">
                             <span class="bg-red-100 text-red-600 text-xs font-medium px-2.5 py-0.5 rounded-full">Urgent</span>
                             <span class="bg-primary-100 text-primary-600 text-xs font-medium px-2.5 py-0.5 rounded-full ml-2">Autocar</span>

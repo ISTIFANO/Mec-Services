@@ -78,6 +78,12 @@ Route::prefix("admin")->group(function ()  {
     Route::put('/role', [RoleController::class, 'Update']);
     Route::post('/mechanicienInfo', [MechanicController::class, 'mechanicienInfo']);
     Route::post('/validate', [MechanicController::class, 'validateMechanicien']);
+    Route::get('/Service', [ServiceController::class, 'showAll']);
+    Route::delete('/Service', [ServiceController::class, 'delete']);
+    Route::post('/ServiceDetails', [ServiceController::class, 'ViewDetails']);
+    Route::put('/Service', [ServiceController::class, 'ChangeStatus']);
+
+
 
 
 });
@@ -120,6 +126,9 @@ Route::prefix("mechanicien")->group(function ()  {
 Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
 
 Route::post('/pdf', [ContractController::class, 'generatePDF']);
+Route::get('/Service/mechanic', [ServiceController::class, 'showForMechanicien']);
+
+Route::post('/Service/details', [ServiceController::class, 'ServiceDetailsForMechanicien']);
 
 Route::post('/Service/postulee', [ServiceController::class, 'showMechanicien']);
 Route::post('/service/Approuver', [ServiceController::class, 'ApprouveService']);

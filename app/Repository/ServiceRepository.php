@@ -25,7 +25,6 @@ class ServiceRepository implements ServiceInterface
     }
     public function delete($id)
     {
-
         Service::find($id)->delete();
 
         return true;
@@ -35,14 +34,22 @@ class ServiceRepository implements ServiceInterface
     public function  show()
     {
 
-        $service= Service::where('client_id', 5)
+        $service= Service::where('client_id', Auth::user()->id)
         ->orderBy('offer_id')
         ->orderByDesc('id')
         ->get()
         ->unique('offer_id');
         return $service;
     }
-
+    public function ChangeStatus($data)
+    {
+        $service = Service::where("id", "=", $data["service_id"])->first();
+        if ($service) {
+            $service->status = $data["status"];
+            $service->save();
+        }
+        return $service;
+    }
     public function findbyOne($name)
     {
 
@@ -58,6 +65,29 @@ class ServiceRepository implements ServiceInterface
             'offre.vehicule', 
             'offre.tags','user'
         ])->where("id", "=", $id)->first();
+        return $service;
+    }
+    public function showForMechanicien($id)
+    {
+
+        $service = Service::with([
+            'mechanicien.user', 
+            'offre.categorie', 
+            'offre.vehicule', 
+            'offre.tags','user'
+        ])->where("mechanicien_id", "=", $id)->get();
+        return $service;
+    }
+
+    public function showAll()
+    {
+
+        $service = Service::with([
+            'mechanicien.user', 
+            'offre.categorie', 
+            'offre.vehicule', 
+            'offre.tags','user'
+        ])->get();
         return $service;
     }
 

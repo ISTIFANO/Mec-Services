@@ -147,11 +147,14 @@
                 </div>
                 <div>
                     <p class="text-sm font-medium text-white">Admin</p>
-                    <p class="text-xs text-gray-400">admin@mecaconnect.fr</p>
+                    <p class="text-xs text-gray-400">{{ Auth::user()->email }}</p>
                 </div>
-                <button class="ml-auto text-gray-400 hover:text-white">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
+                <form method="POST" action="{{ route('logout') }}" class="ml-auto">
+                    @csrf
+                    <button type="submit" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>

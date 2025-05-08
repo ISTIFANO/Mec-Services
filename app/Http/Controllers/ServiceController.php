@@ -11,18 +11,17 @@ use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Services\IMechanic;
 use App\Services\IOffre;
+use FontLib\Table\Type\fpgm;
 
 class ServiceController extends Controller
 {
     protected IService $service;
- 
 
 
-    public function __construct(IService $service )
+
+    public function __construct(IService $service)
     {
         $this->service = $service;
-     
-
     }
     /**
      * Display a listing of the resource.
@@ -30,7 +29,7 @@ class ServiceController extends Controller
     public function index()
     {
         //
-    }       
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -38,10 +37,10 @@ class ServiceController extends Controller
     public function RejecterService(Request $request)
     {
 
-        $data=["serviceId" => $request->serviceId, "mechanic_id"=>$request->mechanic_id];
-         $this->service->remove_Mechanicien_From_Service($data);
+        $data = ["serviceId" => $request->serviceId, "mechanic_id" => $request->mechanic_id];
+        $this->service->remove_Mechanicien_From_Service($data);
 
-         return redirect("/client/ServiceDetails");
+        return redirect("/client/ServiceDetails");
     }
 
     /**
@@ -75,35 +74,72 @@ class ServiceController extends Controller
 
         return view("Admin.Service.ServiceClient", compact("services"));
     }
+    public function showForMechanicien()
+    {
+        $services = $this->service->showForMechanicien();
 
-public function find(Request $request)
-{
-    $service = $this->service->showOne($request->service_id);
-
-
-return view("Admin.Service.ServiceDetails",compact("service"));    }
-
-public function showMechanicien(Request $request)
-{
-    $service = $this->service->showMechanicien($request->offer_id);
-    $serviceId = $request->service_id;
-
-return view("Admin.Service.Condudatures",compact("service","serviceId")); 
-}
+        return view("Admin.Mechanicien.MechanicienService", compact("services"));
+    }
+    public function find(Request $request)
+    {
+        $service = $this->service->showOne($request->service_id);
 
 
-public function ApprouveService(Request $request)
-{
-$service =  $this->service->ApprouveService($request->serviceId);
+        return view("Admin.Service.ServiceDetails", compact("service"));
+    }
 
-return view("Admin.Service.ServiceDetails",compact("service")); ; 
-}
+    public function showMechanicien(Request $request)
+    {
+        $service = $this->service->showMechanicien($request->offer_id);
+        $serviceId = $request->service_id;
+
+        return view("Admin.Service.Condudatures", compact("service", "serviceId"));
+    }
+
+    public function ViewDetails(Request $request)
+    {
+        $service = $this->service->findService($request->service_id);
+        return view("Admin.Service.A_ServiceDetails", compact("service"));
+    }
+
+    public function ApprouveService(Request $request)
+    {
+        $service =  $this->service->ApprouveService($request->serviceId);
+
+        return view("Admin.Service.ServiceDetails", compact("service"));
+    }
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Service $service)
     {
         //
+    }
+
+    public function delete(Request $request)
+    {
+        $this->service->delete($request->service_id);
+        return back();
+    }
+    public function ChangeStatus(Request $request)
+    {
+        $this->service->ChangeStatus($request->all());
+
+        return back();
+    }
+
+    public function ServiceDetailsForMechanicien(Request $request)
+    {
+        $service = $this->service->findService($request->service_id);
+
+        return view("Admin.Mechanicien.ServiceDetails", compact("service"));;
+    }
+
+    public function showAll()
+    {
+        $services =  $this->service->showAll();
+
+        return view("Admin.Service.GestionSeervice", compact("services"));
     }
 
     /**

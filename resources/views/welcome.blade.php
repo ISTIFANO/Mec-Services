@@ -113,7 +113,6 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Étape 1 -->
                 <div class="text-center">
                     <div class="bg-primary-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                         <span class="text-3xl font-bold text-primary-600">1</span>
@@ -121,9 +120,7 @@
                     <h3 class="text-xl font-bold mb-3">Inscription</h3>
                     <p class="text-gray-600">Créez votre compte en tant que mécanicien ou entreprise de transport et complétez votre profil.</p>
                 </div>
-                
-                <!-- Étape 2 -->
-                <div class="text-center">
+                                <div class="text-center">
                     <div class="bg-primary-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                         <span class="text-3xl font-bold text-primary-600">2</span>
                     </div>
@@ -142,8 +139,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Avantages -->
     <section id="avantages" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
