@@ -70,9 +70,7 @@ return $user;
     }
 
     public function SaveMechanicien(Mechanic $mechanic){
-
-       
-return $mechanic->save();
+   return $mechanic->save();
         
     }
     public function FindClient(){

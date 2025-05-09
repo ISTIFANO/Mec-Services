@@ -10,7 +10,7 @@ class ContractRepositery implements ContracInterface{
     public function show(){
 
 
-        return Contract::all();
+        return Contract::with(['service.user', 'service.mechanicien','service'])->select('service_id')->distinct()->get();
 
 
     }

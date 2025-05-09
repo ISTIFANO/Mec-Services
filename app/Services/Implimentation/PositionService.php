@@ -1,6 +1,4 @@
 <?php 
-
-
 namespace App\Services\Implimentation;
 
 use App\Repository\Interfaces\PositionInterface;

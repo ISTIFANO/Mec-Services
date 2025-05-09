@@ -77,9 +77,16 @@ class MechanicService implements IMechanic
       return $this->mechanic_repositery->validate($data);
     }
 
-    public function delete($id) {}
+    public function delete($id) {
 
-    public function show() {}
+        return $this->mechanic_repositery->delete($id);
+
+    }
+
+    public function show() {
+
+        return $this->mechanic_repositery->getAll();
+    }
 
     public function findByName($name) {}
 

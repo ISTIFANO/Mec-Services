@@ -2,16 +2,21 @@
 
 namespace App\Services\Implimentation;
 
+use Exception;
 use App\Enums\Image;
 use App\Models\User;
 use  App\Enums\Roles;
 use App\Helpers\Mapper;
 use App\Services\IRole;
 use App\Services\IUser;
+use App\Models\Mechanic;
+use App\Services\IMechanic;
+use App\Services\ICompetence;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Repository\Interfaces\UserInterface;
-use App\Services\ICompetence;
-use App\Services\IMechanic;
 
 class UserService implements IUser
 {
@@ -55,9 +60,24 @@ class UserService implements IUser
     }
 
 
-    public function update($data,$id){
+    public function update($data){
+        $role = Roles::CLIENT;
 
-
+        $role  = $this->role_service->FindByName($role);
+        if (!$role) {
+   
+               $this->role_service->create($role);
+   
+           } 
+        $user =  $this->user_repositery->getUser($data['id']);
+           $user->firstname = $data['firstname'];
+           $user->lastname = $data['lastname'];
+           $user->email = $data['email'];
+           $user->password = Hash::make($data['password']);
+           $user->phone = $data['phone'];
+           $user->image = isset($data["image"]) ? $data["image"]->store('images/profile_images', 'public') : null;
+           $user->role()->associate($role);
+         return  $this->user_repositery->create($user);
 
 
     }
@@ -77,6 +97,7 @@ class UserService implements IUser
     }
     public function show() {
 
+        return  $this->user_repositery->show();
 
 
 
@@ -150,4 +171,76 @@ class UserService implements IUser
                }
 
 
-}
+    function updateInformation($data){
+        try {
+            DB::beginTransaction();
+
+            $user = Auth::user();
+        
+            if (isset($data['position_id'])) {
+                $user->position_id = $data['position_id'];
+            }
+        
+            if (isset($data['firstname'])) {
+                $user->firstname = $data['firstname'];
+            }
+            if (isset($data['lastname'])) {
+                $user->lastname = $data['lastname'];
+            }
+        
+            if (isset($data['email'])) {
+                $user->email = $data['email'];
+            }
+
+            if (isset($data['phone'])) {
+                $user->phone = $data['phone'];
+            }
+            if (isset($data['image'])) {
+                $user->image = $data["image"]->store('images/profile_images', 'public');
+            }
+            if ($user->role->name == "mechanicien") {
+
+                $user->save();
+                
+                $mechanicien = $user->mechanicien;
+                
+                if (!$mechanicien) {
+                    $mechanicien = new Mechanic();
+                    $mechanicien->user_id = $user->id;
+                }
+        
+                if (isset($data['certificat'])) {
+
+                    $mechanicien->certificat = $data['certificat']->store('certificates', 'public');
+
+                }
+                if (isset($data['experience_years'])) {
+                    $mechanicien->experience_years = $data['experience_years'];
+                }
+                if (isset($data['specialization'])) {
+                    $mechanicien->specialization = $data['specialization'];
+                }
+                if (isset($data['variable_at'])) {
+                    $mechanicien->variable_at = $data['variable_at'];
+                }
+                if (isset($data['variable_to'])) {
+                    $mechanicien->variable_to = $data['variable_to'];
+                }
+        
+                $mechanicien->save();
+            } else if ($user->role->name =="client") {
+                $user->save(); 
+            }
+
+            DB::commit();
+            return $user;
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+            return redirect()->back()->with('error', 'Une erreur est survenue');
+        }
+    }
+            }
+
+
+        
