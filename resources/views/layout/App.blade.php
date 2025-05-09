@@ -163,11 +163,12 @@
                 </button>
             </form>
             <div class="relative">
-                <button class="flex items-center text-gray-300 hover:text-white focus:outline-none">
+               <a href="/Profile"> <button class="flex items-center text-gray-300 hover:text-white focus:outline-none">
                     <img src="{{ url('storage/' . auth()->user()->image) }}" alt="Photo de profil" class="w-8 h-8 rounded-full object-cover">
                     <span class="ml-1">{{ auth()->user()->first_name }}</span>
                     <i class="fas fa-chevron-down ml-1 text-xs"></i>
                 </button>
+                </a>
             </div>
         </div>
         @endauth

@@ -97,16 +97,15 @@ class VehiculeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVehiculeRequest $request)
+    public function update(Request $request)
     {
         try {
 
-            
+           
             $this->vehicule_service->update($request->all());
 
             session()->flash('succMessage', 'vehicule updated successfully!');
 
-            return redirect()->route('vehicules.index');
         
             return back();
 

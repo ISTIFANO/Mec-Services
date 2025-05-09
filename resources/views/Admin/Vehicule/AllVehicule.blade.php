@@ -144,8 +144,9 @@
                             Modifier le véhicule
                         </h3>
                         <div class="mt-2">
-                            <form id="editForm" method="POST" action="/vehicule" enctype="multipart/form-data">
+                            <form id="editForm" method="POST" action="/client/vehicule" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <input type="hidden" name="vehicle_id" id="edit_vehicle_id" value="">
                                 <input type="hidden" name="action" value="edit">
                                 <div class="mb-4">
@@ -162,12 +163,11 @@
                                 </div>
                                 <div class="mb-4">
                                     <label for="image" class="block text-sm font-medium text-gray-700">Image du véhicule (optionnel)</label>
-                                    <input type="file" name="image" id="edit_image" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                                    <input type="file" name="image" id="image" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
                                 </div>
                                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                    <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-                                        Enregistrer
-                                    </button>
+                                    <input value="Enregistrer" type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                        
                                     <button type="button" onclick="closeModal('editModal')" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                                         Annuler
                                     </button>

@@ -81,6 +81,10 @@
                         <i class="fas fa-wrench w-5 h-5 mr-2"></i>
                         Mécaniciens
                     </a>
+                    <a href="willbemechanicien" class="flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-300 hover:bg-gray-700 hover:text-white mb-1">
+                        <i class="fas fa-wrench w-5 h-5 mr-2"></i>
+                        Validate Mécaniciens
+                    </a>
                  
                 </div>
                 

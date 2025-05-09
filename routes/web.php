@@ -151,6 +151,7 @@ Route::get("/inscription",[AuthController::class, "Vregister"]);
 Route::get('/Profile', [UserController::class, 'index']);
 Route::put('/user/information', [UserController::class, 'Updateinformation']);
 
+Route::get('/admin/willbemechanicien', [MechanicController::class, 'willbemechanicien']);
 
 Route::get('/categories', [CategorieController::class, 'index']);
 Route::get('/categories/ajouter', [CategorieController::class, 'store']);
