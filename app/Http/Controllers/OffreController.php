@@ -61,6 +61,7 @@ class OffreController extends Controller
      */
     public function store(StoreOffreRequest $request)
     {
+        
         if (!$request->validated()) {
             return back()->with("error", "Validation failed");
         }

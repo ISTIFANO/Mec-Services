@@ -32,7 +32,7 @@
                         </svg>
                         Modifier
                     </button>
-                    <button 
+                    <button
                         onclick="confirmDelete('{{ $vehicle->id }}', '{{ $vehicle->model }} {{ $vehicle->model }}')" 
                         class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                     >
@@ -43,13 +43,11 @@
                     </button>
                 </div>
             </div>
-
-            <!-- Vehicle Image -->
             @if($vehicle->image)
             <div class="border-t border-gray-200">
-                <div class="px-4 py-5 sm:px-6">
-                    <img src="{{ asset('storage/' . $vehicle->image) }}" alt="{{ $vehicle->model }} {{ $vehicle->model }}" class="h-64 w-full object-cover rounded-md">
-                </div>
+            <div class="px-4 py-5 sm:px-6">
+            <img src="{{ asset('storage/' . $vehicle->image) }}" alt="{{ $vehicle->model }} {{ $vehicle->model }}" class="h-64 w-full object-cover rounded-md">
+         </div>
             </div>
             @endif
 

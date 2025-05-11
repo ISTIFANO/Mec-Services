@@ -5,7 +5,9 @@
     <div class="p-6">
         <div class="flex flex-col items-center text-center mb-4">
             <div class="h-24 w-24 relative mb-3">
-                <img src="" 
+                <img src="{{ url('storage/' . $client->image) }}" 
+
+               
                      alt="{{ $client->firstname }}" 
                      class="w-full h-full object-cover rounded-full">
             </div>
