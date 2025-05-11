@@ -22,8 +22,6 @@ class Contract extends Model
         return $this->belongsTo(User::class,"client_id");
     }
     public function service(){
-
-
         return $this->belongsTo(Service::class,"service_id");
     }
             

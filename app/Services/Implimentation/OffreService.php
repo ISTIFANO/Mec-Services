@@ -29,10 +29,15 @@ class OffreService implements IOffre
     public function __construct(OffreInterface $offre_repositery, ICategorie $categorie_services, ITag $tag_services, IUser $user_services, IVehiculeService $ivehicule_service)
     {
         $this->offre_repositery = $offre_repositery;
+        
         $this->categorie_services = $categorie_services;
+
         $this->tag_services = $tag_services;
+
         $this->user_services = $user_services;
+
         $this->ivehicule_service = $ivehicule_service;
+
     }
 
     public function create($data)

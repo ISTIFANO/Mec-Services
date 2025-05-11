@@ -10,11 +10,13 @@ class Position extends Model
     /** @use HasFactory<\Database\Factories\PositionFactory> */
     use HasFactory;
 
+    protected $table ="positions";
+
+    protected $fillable =["ville","zipcode"];
 
     public function user(){
-
-        return $this->hasMany(User::class);
-
+        
+     return $this->hasMany(User::class);
     }
 
 

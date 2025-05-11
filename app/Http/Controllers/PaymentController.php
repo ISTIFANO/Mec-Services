@@ -24,6 +24,7 @@ class PaymentController extends Controller
     public function show(Request $request)
     {
         $service = $this->payement_service->getService($request->service_id);
+        
         return view('Client.Payement.payment',compact('service'));
 
     }
@@ -34,8 +35,8 @@ class PaymentController extends Controller
      */
     public function makePayement(Request $request)
     {
-        dd(config('stripe.secret'));
 
+$payment = $this->payement_service->processPayment($request->all());
         if($payment){
             session()->forget('panier');
             return view('Pages.success');

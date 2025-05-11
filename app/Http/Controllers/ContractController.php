@@ -44,7 +44,10 @@ class ContractController extends Controller
      */
     public function show(Contract $contract)
     {
-        //
+        $contracts = $this->contract_service->show();
+
+
+        return view("Admin.Contract.Contract", compact("contracts"));
     }
 
     /**
@@ -70,13 +73,23 @@ class ContractController extends Controller
     {
         //
     }
+    public function  generatePdfContract(Request $request){
+
+        $pdf = $this->contract_service->generatePdfContract($request->all());
+
+        return  $pdf->stream();
+
+        
+    }
     public function generatePDF(Request $data)
 {
     $array =["mechanicien_id" => $data->mechanicien_id,
   "service_id" => $data->service_id,
   "client_id" => $data->client_id];
+
 $pdf = $this->contract_service->generatePDF($array);
 
   return  $pdf->stream();
 }
 }
+

@@ -79,16 +79,14 @@
                         </div>
 
                         <div>
-                        
-
+                            <h3 class="text-lg font-medium mb-2">Véhicule</h3>
                             <div class="bg-white rounded-lg border overflow-hidden">
                                 <div class="p-6">
                                     <div class="flex items-center">
-                                        @if($service->offre && $service->offre->vehicule && $service->offre->vehicule->image)
-                                            <img src="{{ url('storage/' . $service->offre->vehicule->image) }}" 
-                                                 alt="{{ $service->offre->vehicule->name }}" 
-                                                 class="h-16 w-16 object-cover rounded-full mr-4">
-                                        @endif
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mr-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 2v4M8 2v4M3 10h18" />
+                                        </svg>
                                         <div>
                                             @if($service->offre && $service->offre->vehicule)
                                                 <p class="font-medium">
@@ -111,11 +109,10 @@
                                     @if($service->offre && $service->offre->categorie)
                                     <div class="flex items-center">
                                         <div class="h-12 w-12 relative mr-4">
-                                            <img src="{{ url('storage/' . $service->offre->categorie->image) }}" 
+                                            <img src="{{ $service->offre->categorie->image ? url('storage/' .$service->offre->categorie->image) : asset('images/placeholder.jpg') }} --}}" 
                                                  alt="{{ $service->offre->categorie->nom }}" 
                                                  class="w-full h-full object-cover rounded-md">
                                         </div>
-                                        
                                         <div>
                                             <p class="font-medium">{{ $service->offre->categorie->nom }}</p>
                                             <p class="text-gray-500">{{ $service->offre->categorie->description }}</p>
@@ -130,20 +127,7 @@
                     </div>
                 </div>
                 <div class="px-6 py-4 bg-gray-50 border-t flex justify-between">
-                    <form action="/pdf" method="POST">
-                        @csrf
-                        @method('POST')
-                        <input type="hidden" value="{{ $service->mechanicien->id }}" name="mechanicien_id">
-                        <input type="hidden" value="{{ $service->id }}" name="service_id">
-                        <input type="hidden" value="{{ $service->user->id }}" name="client_id">
-
-                        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 0a2 2 0 100-4H7a2 2 0 100 4m12 0v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6m16 0H5" />
-                            </svg>
-                            Voir Contrat
-                        </button>
-                    </form>
+                   
 
                     <form action="" method="POST">
                         @csrf
@@ -171,18 +155,7 @@
               </div>
             @include('Admin.Service.components.client', ['client' => $service->user])
 
-            <div class="bg-white rounded-lg shadow p-6">
-              <form action="/Payement" method="POST">
-                @csrf
-                <input type="hidden" value="{{ $service->id }}" name="service_id">
-                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a4 4 0 00-8 0v2m-2 0a6 6 0 0112 0v2a2 2 0 01-2 2H7a2 2 0 01-2-2v-2m12 0H5" />
-                </svg>
-                Payer le service
-                </button>
-              </form>
-            </div>
+           
         </div>
     </div>
 </div>

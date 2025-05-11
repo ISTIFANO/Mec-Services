@@ -13,6 +13,7 @@ use App\Services\IMechanic;
 use Illuminate\Support\Facades\DB;
 use App\Repository\Interfaces\UserInterface;
 use App\Repository\Interfaces\ServiceInterface;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class S_Service implements IService
@@ -54,19 +55,32 @@ class S_Service implements IService
             $service->offre()->associate($offres);
             $service->mechanicien()->associate($mechanicien);
             return $this->service_repositery->create($service);
+
         } catch (Exception $e) {
             throw new Exception("probleme de creation  service: " . $e->getMessage());
         }
     }
     public function update($data) {}
-    public function delete($id) {}
+    public function delete($id) {
+
+        return $this->service_repositery->delete($id);
+    }
     public function show()
     {
         return $this->service_repositery->show();
     }
+    public function showAll()
+    {
+        return $this->service_repositery->showAll();
+    }
     public function showOne($id)
     {
         return $this->service_repositery->showOne($id);
+    }
+    public function showForMechanicien()
+    {
+        $mechanicien = $this->mechanicien_service->findByID(Auth::user()->id);
+        return $this->service_repositery->showForMechanicien( $mechanicien->id);
     }
     public function ValidateService($data) {}
     public function showMechanicien($data)
@@ -77,6 +91,11 @@ class S_Service implements IService
     {
         return $this->service_repositery->findService($id);
     }
+    public function ChangeStatus($data) {
+
+        return $this->service_repositery->ChangeStatus($data);
+    }
+
     public function ApprouveService($data)
     {
 

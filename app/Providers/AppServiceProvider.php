@@ -49,9 +49,13 @@ use App\Services\Implimentation\VehiculeService;
 use App\Repository\Interfaces\CategorieInterface;
 use App\Services\Implimentation\CategorieService;
 use App\Repository\Interfaces\CompetenceInterface;
+use App\Repository\Interfaces\PositionInterface;
+use App\Repository\PositionRepositery;
 use App\Services\Implementation\PaymentService;
 use App\Services\Implimentation\CompetenceService;
 use App\Services\Implimentation\PaymentService as ImplimentationPaymentService;
+use App\Services\Implimentation\PositionService;
+use App\Services\IPosition;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -63,6 +67,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(Ipayment::class,ImplimentationPaymentService::class);
         $this->app->bind(ContracInterface::class,ContractRepositery::class);
         $this->app->bind(IContract::class,ContractService::class);
+        $this->app->bind(IPosition::class,PositionService::class);
+        $this->app->bind(PositionInterface::class,PositionRepositery::class);
         $this->app->bind(IMechanic::class,MechanicService::class);
         $this->app->bind(ICompetence::class,CompetenceService::class);
         $this->app->bind(CompetenceInterface::class,CompetenceRepository::class);

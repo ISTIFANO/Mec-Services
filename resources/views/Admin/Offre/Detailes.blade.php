@@ -64,7 +64,7 @@
                     <div class="flex items-center mb-2 md:mb-0">
                         <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center mr-3">
                             @if($user->image)
-                                <img src="{{ asset('storage/' . $user->image) }}" alt="{{ $user->firstname }}" class="w-10 h-10 rounded-full object-cover">
+                                <img src="{{ url('storage/' . $user->image) }}" alt="{{ $user->firstname }}" class="w-10 h-10 rounded-full object-cover">
                             @else
                                 <span class="font-bold text-gray-600">{{ substr($user->firstname, 0, 1) }}{{ substr($user->lastname, 0, 1) }}</span>
                             @endif
@@ -173,7 +173,7 @@
                     <div class="mb-6">
                         <h3 class="font-bold mb-2">Image de l'offre</h3>
                         <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden">
-                            <img src="{{ asset('storage/' . $offre->image) }}" alt="{{ $offre->titre }}" class="w-full h-full object-cover">
+                            <img src="{{ url('storage/' . $offre->image) }}" alt="{{ $offre->titre }}" class="w-full h-full object-cover">
                         </div>
                     </div>
                 @endif
@@ -187,9 +187,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
                     <div>
                         <div class="aspect-video bg-gray-200 rounded-lg overflow-hidden mb-4">
-                            <div class="w-full h-full flex items-center justify-center bg-gray-300 text-gray-600">
-                                <i class="fas fa-car text-5xl"></i>
-                            </div>
+                            @if($offre->vehicule->image)
+                                <img src="{{ url('storage/' . $offre->vehicule->image) }}" alt="{{ $offre->vehicule->name }}" class="w-full h-full object-cover">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center bg-gray-300 text-gray-600">
+                                    <span>Aucune image disponible</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     

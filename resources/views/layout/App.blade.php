@@ -12,6 +12,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
+    
 
     <style>
         body {
@@ -162,17 +163,19 @@
                 </button>
             </form>
             <div class="relative">
-                <button class="flex items-center text-gray-300 hover:text-white focus:outline-none">
+               <a href="/Profile"> <button class="flex items-center text-gray-300 hover:text-white focus:outline-none">
                     <img src="{{ url('storage/' . auth()->user()->image) }}" alt="Photo de profil" class="w-8 h-8 rounded-full object-cover">
                     <span class="ml-1">{{ auth()->user()->first_name }}</span>
                     <i class="fas fa-chevron-down ml-1 text-xs"></i>
                 </button>
+                </a>
             </div>
         </div>
         @endauth
     </nav>
+    <div>
     @yield('content')
-
+</div>
 
     <footer class="bg-gray-900 text-white mt-10">
         <div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">

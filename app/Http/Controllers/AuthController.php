@@ -43,8 +43,15 @@ class AuthController extends Controller
         Auth::login($user);
 
         $request->session()->regenerate();
+        if ($user->role->name === 'admin') {
+            return redirect('/admin/offre')->with('success', 'Connexion réussie en tant qu\'admin');
 
-        return redirect()->route("client.offre.show");
+        } elseif ($user->role->name === 'mechanicien' && $user->mechanicien->is_active == true) {
+            return redirect('/Service/mechanic')->with('success', 'Connexion réussie en tant qu\'utilisateur');
+        }elseif($user->role->name === 'client'){
+            return redirect('/client/ClientOffre');
+        }
+
     }
     public function Vregister()
     {
@@ -78,4 +85,6 @@ class AuthController extends Controller
 
         return redirect("/seConnect");
     }
+
+    
 }

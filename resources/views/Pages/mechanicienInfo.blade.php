@@ -14,10 +14,9 @@
 
                 <div class="p-6">
                     <div class="flex flex-col md:flex-row gap-6">
-                        {{-- Left Column --}}
                         <div class="md:w-1/3">
                             <div class="text-center mb-6">
-                                <img src="{{ $profile->user->image ? asset('storage/images/profile_images/' . $profile->user->image) : asset('images/default-avatar.png') }}" 
+                                <img src="{{ $profile->user->image ? url('storage/' . $profile->user->image) : asset('images/default-avatar.png') }}" 
                                      alt="Profile Image"
                                      class="w-36 h-36 mx-auto rounded-full object-cover shadow">
                                 <h4 class="mt-4 text-lg font-semibold">{{ $profile->user->name }}</h4>
@@ -33,7 +32,7 @@
                                     <h4 class="text-lg font-semibold mb-2">Certificate Preview</h4>
                                     @if($profile->certificat)
                                         <iframe 
-                                            src="{{ asset('storage/certificates/' . $profile->certificat) }}" 
+                                            src="{{ url('storage/' . $profile->certificat) }}" 
                                             class="w-full h-96 border rounded shadow"
                                             frameborder="0">
                                         </iframe>

@@ -13,7 +13,7 @@ use Illuminate\Contracts\View\View;
 
 class MechanicController extends Controller
 {
-private IRole $role_services;
+    private IRole $role_services;
     private IMechanic $mechanicien_services;
 
     public function __construct(IMechanic $mechanicien_services, IRole $role_services)
@@ -36,14 +36,12 @@ private IRole $role_services;
      */
     public function create(Request $request)
     {
-        if($this->to_mechanicien()){
-
+        if ($this->to_mechanicien()) {
         }
-         $this->mechanicien_services->store($request->all());
+        $this->mechanicien_services->store($request->all());
 
-         return redirect('/ThankYou');
-
-}
+        return redirect('/ThankYou');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -59,10 +57,9 @@ private IRole $role_services;
     public function show(Request $mechanic)
     {
 
-$mechanicien =$this->mechanicien_services->getMechanicien($mechanic->mechanicien_id);
-return View("Admin.Utilisateur.MechanicienDetails", compact("mechanicien"));
-
-}
+        $mechanicien = $this->mechanicien_services->getMechanicien($mechanic->mechanicien_id);
+        return View("Admin.Utilisateur.MechanicienDetails", compact("mechanicien"));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -83,9 +80,11 @@ return View("Admin.Utilisateur.MechanicienDetails", compact("mechanicien"));
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Mechanic $mechanic)
+    public function destroy(Request $request)
     {
-        //
+
+        // dd($request->all());
+
     }
 
     public function to_mechanicien()
@@ -94,7 +93,7 @@ return View("Admin.Utilisateur.MechanicienDetails", compact("mechanicien"));
         $id = auth()->user()->id;
 
         $data = ["id" => $id];
-         $this->mechanicien_services->to_mechanicien($data);
+        $this->mechanicien_services->to_mechanicien($data);
 
         return back();
     }
@@ -110,20 +109,26 @@ return View("Admin.Utilisateur.MechanicienDetails", compact("mechanicien"));
     }
     public function willbemechanicien(Request $request)
     {
-     
+
         $users = $this->mechanicien_services->willbemechanicien();
 
 
         $roles = $this->role_services->show();
-        return view("Admin.Utilisateur.ValidateMechanicien", compact("users","roles"));
+        return view("Admin.Utilisateur.ValidateMechanicien", compact("users", "roles"));
     }
 
-    public function mechanicienInfo(Request  $request){
+    public function showMechanicien(Request $request)
+    {
+        $mechanics = $this->mechanicien_services->show();
 
-$profile = $this->mechanicien_services->mechanicienInfo($request->id);
+        return view("Admin.Mechanicien.Mechanicien", compact("mechanics"));
+    }
+    public function mechanicienInfo(Request  $request)
+    {
+
+        $profile = $this->mechanicien_services->mechanicienInfo($request->id);
 
 
-return View("Pages.mechanicienInfo", compact("profile"));
-
+        return View("Pages.mechanicienInfo", compact("profile"));
     }
 }

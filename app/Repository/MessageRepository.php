@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Models\Mechanic;
 use App\Models\User;
 use App\Models\Message;
+use App\Models\Service;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Repository\Interfaces\MessageInterface;
@@ -40,9 +42,10 @@ class MessageRepository implements MessageInterface{
             'message_text'       => $data['message']
         ]);
     }
-    public function Find($user_id){
-        return  User::find($user_id);
+    public function find($user_id){
+        return Mechanic::with('user')->find($user_id);
     }
+    
         public function getclient($mechanicienId){
 
             $clients = DB::table('services')
@@ -52,7 +55,6 @@ class MessageRepository implements MessageInterface{
             ->distinct() 
             ->get();
 
-            dd($clients);
 
             return $clients;
 
@@ -69,27 +71,35 @@ class MessageRepository implements MessageInterface{
         return $mechaniciens;
         
     }
- 
+    // public function  showUsers()
+    // {
+    //     $service= Service::with("mechanicien.user")->where('client_id', Auth::user()->id)})->orWhere(function ($query) use ($receiverId) {
+    //         Service::with("mechanicien.user")->where('mechanicien_id', Auth::user()->id)
+
+    //     };
+    //     return $service;
+    // }
     
+  
+
+
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

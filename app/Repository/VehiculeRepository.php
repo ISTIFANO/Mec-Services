@@ -27,9 +27,12 @@ class VehiculeRepository implements VehiculeInterface{
     
     
     public function update($data){
-        $vehicule = Vehicule::where("id","=",$data["id"])->first();
-
-        $vehicule->update($data);
+        $vehicule = Vehicule::where("id","=",$data["vehicle_id"])->first();
+        $vehicule->year = $data["year"];
+        $vehicule->annee_fabrication = $data["annee_fabrication"];
+        $vehicule->name = $data["name"];
+        $vehicule->model = $data["model"];
+        $vehicule->image = isset($data["image"]) ? $data["image"]->store('images/vehicules', 'public') : null;        $vehicule->save();
         return $vehicule;
         
     }

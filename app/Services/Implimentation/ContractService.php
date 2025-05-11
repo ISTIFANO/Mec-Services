@@ -52,7 +52,26 @@ class ContractService implements IContract
             'description' => $contract->service->offre->description,
             'rule' => " text",
             'logo' => Image::LOGO,
-            'tampon' => asset("/images/img/tampon.png"),
+            'tampon' => asset("/images/img/tam'pon.png"),
+            'footer' => 'by <a href="AlMechanicien">AlMechanicien.ma</a>'
+        ]);
+
+        return $pdf;
+    }
+    public function generatePdfContract($data)
+    {
+        $contract = $this->contract_repositery->show_pdf_Contract($data);
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('Client.PDF.contract', [
+            'title' => 'AlMechanicien Contract',
+            'mechanicien' => $contract->service->mechanicien->user->firstname,
+            'client' => $contract->service->user->firstname,
+            'service_titre' => $contract->service->titre,
+            'vehucule_image' => $contract->service->offre->vehicule->image,
+            'description' => $contract->service->offre->description,
+            'rule' => " text",
+            'logo' => Image::LOGO,
+            'tampon' => asset("/images/img/tam'pon.png"),
             'footer' => 'by <a href="AlMechanicien">AlMechanicien.ma</a>'
         ]);
 

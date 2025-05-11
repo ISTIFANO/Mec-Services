@@ -15,6 +15,8 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\UserController;
+use App\Models\Contract;
 use App\Models\Role;
 use App\Models\Service;
 
@@ -77,7 +79,19 @@ Route::prefix("admin")->group(function ()  {
     Route::put('/offre', [OffreController::class, 'update'])->name('admin.offre.update');
     Route::put('/role', [RoleController::class, 'Update']);
     Route::post('/mechanicienInfo', [MechanicController::class, 'mechanicienInfo']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::put('/users', [UserController::class, 'update']);
     Route::post('/validate', [MechanicController::class, 'validateMechanicien']);
+    Route::get('/Service', [ServiceController::class, 'showAll']);
+    Route::delete('/Service', [ServiceController::class, 'delete']);
+    Route::post('/ServiceDetails', [ServiceController::class, 'ViewDetails']);
+    Route::put('/Service', [ServiceController::class, 'ChangeStatus']);
+    Route::get('/users', [UserController::class, 'show']);
+    Route::get('/Mechanic', [MechanicController::class, 'showMechanicien']);
+    Route::get('/contract', [ContractController::class, 'show']);
+    Route::post('/contract', [ContractController::class, 'generatePdfContract'])->name('contracts.print');
+
+
 
 
 });
@@ -106,10 +120,11 @@ Route::prefix("client")->group(function ()  {
 
 });
 
-Route::post('/chat', [MessageController::class, 'chat'])->name('chat');
+Route::post('/conversation', [MessageController::class, 'chat'])->name('chat');
 Route::post('/chat/send', [MessageController::class, 'sendMessage']);
 
 Route::post('/Mechanic', [MechanicController::class, 'show']);
+
 
 Route::prefix("mechanicien")->group(function ()  {
     Route::post('/OffreDetails', [OffreController::class, 'getOffreDetails']);
@@ -120,6 +135,9 @@ Route::prefix("mechanicien")->group(function ()  {
 Route::get('/Offres', [OffreController::class, 'showActiveOffres']);
 
 Route::post('/pdf', [ContractController::class, 'generatePDF']);
+Route::get('/Service/mechanic', [ServiceController::class, 'showForMechanicien']);
+
+Route::post('/Service/details', [ServiceController::class, 'ServiceDetailsForMechanicien']);
 
 Route::post('/Service/postulee', [ServiceController::class, 'showMechanicien']);
 Route::post('/service/Approuver', [ServiceController::class, 'ApprouveService']);
@@ -130,6 +148,10 @@ Route::get('/willbemechanicien', [MechanicController::class, 'willbemechanicien'
 Route::get("/seConnect",[AuthController::class, "index"]);
 Route::get("/inscription",[AuthController::class, "Vregister"]);
 
+Route::get('/Profile', [UserController::class, 'index']);
+Route::put('/user/information', [UserController::class, 'Updateinformation']);
+
+Route::get('/admin/willbemechanicien', [MechanicController::class, 'willbemechanicien']);
 
 Route::get('/categories', [CategorieController::class, 'index']);
 Route::get('/categories/ajouter', [CategorieController::class, 'store']);

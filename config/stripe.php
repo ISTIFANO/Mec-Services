@@ -9,7 +9,7 @@
     'publishable_exists' => !empty($publishable),
     'publishable_preview' => $publishable ? substr($publishable, 0, 8) . '...' : 'Not found',
     'publishable_key_full' => $publishable,
- ];
+      ];
 
 
 ?>
