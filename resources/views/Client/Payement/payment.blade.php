@@ -92,7 +92,7 @@
             <div class="bg-white rounded-xl shadow-md p-6">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Détails du paiement</h3>
 
-                <form action="/Service/payment" method="POST" class="space-y-5 require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ config('stripe.secret') }}">
+                <form action="/Service/payment" method="POST" class="space-y-5 require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ config('stripe.key') }}">
                     @csrf
                     <input type="hidden" name="service_id" value="{{ $service->id }}">
 
@@ -143,4 +143,3 @@
 </div>
 
 @endsection
-

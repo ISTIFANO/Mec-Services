@@ -24,6 +24,7 @@ class PaymentController extends Controller
     public function show(Request $request)
     {
         $service = $this->payement_service->getService($request->service_id);
+        
         return view('Client.Payement.payment',compact('service'));
 
     }

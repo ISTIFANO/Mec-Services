@@ -99,10 +99,7 @@ class ServiceRepository implements ServiceInterface
             'offre.vehicule', 
             'offre.tags','user'
         ])->where('client_id', Auth::id())
-          ->findOrFail($id)->first();
-
-
-
+          ->find($id);
           return $service;
         
         }

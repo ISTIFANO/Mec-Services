@@ -55,6 +55,7 @@ class S_Service implements IService
             $service->offre()->associate($offres);
             $service->mechanicien()->associate($mechanicien);
             return $this->service_repositery->create($service);
+
         } catch (Exception $e) {
             throw new Exception("probleme de creation  service: " . $e->getMessage());
         }

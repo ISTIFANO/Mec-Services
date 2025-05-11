@@ -83,7 +83,7 @@ class MechanicController extends Controller
     public function destroy(Request $request)
     {
 
-        dd($request->all());
+        // dd($request->all());
 
     }
 

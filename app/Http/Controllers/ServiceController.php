@@ -83,8 +83,6 @@ class ServiceController extends Controller
     public function find(Request $request)
     {
         $service = $this->service->showOne($request->service_id);
-
-
         return view("Admin.Service.ServiceDetails", compact("service"));
     }
 

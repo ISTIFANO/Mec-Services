@@ -43,7 +43,6 @@ class MechanicService implements IMechanic
             $mechanicien->avis()->associate($avis);
 
             $mechanicien->save();
-
             DB::commit();
             return $mechanicien;
         } catch (\Exception $e) {

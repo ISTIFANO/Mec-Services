@@ -79,7 +79,8 @@
                         </div>
 
                         <div>
-                            <h3 class="text-lg font-medium mb-2">Véhicule</h3>
+                        
+
                             <div class="bg-white rounded-lg border overflow-hidden">
                                 <div class="p-6">
                                     <div class="flex items-center">
